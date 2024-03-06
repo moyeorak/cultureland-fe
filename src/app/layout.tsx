@@ -12,7 +12,7 @@ export default function HTMLLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ko'>
+    <html lang="ko">
       <body>{children}</body>
     </html>
   );

@@ -4,3 +4,29 @@
 
 @layer utilities {
 }
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/path-to-fonts/SpoqaHanSansNeo-ExtraLight.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-style: semibold;
+  font-weight: 500;
+  src: url("/path-to-fonts/SpoqaHanSansNeo-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Spoqa Han Sans Neo";
+  font-style: bold;
+  font-weight: 700;
+  src: url("/path-to-fonts/SpoqaHanSansNeo-Black.woff2") format("woff2");
+}
+
+html,
+body {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+}
