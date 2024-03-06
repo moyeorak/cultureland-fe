@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   description: "udemy OYEORAK 팀 CultureLand client",
 };
 
-export default function RootLayout({
+export default function HTMLLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang='ko'>
       <body>{children}</body>
     </html>
   );
