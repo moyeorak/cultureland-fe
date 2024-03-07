@@ -13,6 +13,7 @@ function Header() {
 
       {/* HeaderNav */}
       <nav className='flex gap-10'>
+        <Link href='/events'>이벤트</Link>
         <Link href='/map'>지도</Link>
         <Link href='/accounts/users/:userId'>유저페이지</Link>
       </nav>
