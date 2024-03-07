@@ -1,4 +1,5 @@
 import Heading from "@/components/Heading/Heading";
+import LikeDislikeButtons from "@/components/LikeDislikeButtons";
 import Page from "@/components/Page";
 
 export default function HomePage() {
@@ -14,6 +15,8 @@ export default function HomePage() {
         비회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트
         리스트, + 인기 리뷰 목록 (10개)
       </div>
+      <h2>좋아요</h2>
+      <LikeDislikeButtons />
     </Page>
   );
 }
