@@ -1,5 +1,13 @@
+import Heading from "@/components/Heading/Heading";
+import Page from "@/components/Page";
+
 function UserProfileEditPage() {
-  return <div>유저 수정 페이지에요~</div>;
+  return (
+    <Page>
+      <Heading label='UserProfileEditPage' />
+      유저 수정 페이지에요~
+    </Page>
+  );
 }
 
 export default UserProfileEditPage;

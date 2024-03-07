@@ -1,6 +1,10 @@
+import Heading from "@/components/Heading/Heading";
+import Page from "@/components/Page";
+
 function UserPage() {
   return (
-    <div>
+    <Page>
+      <Heading label='UserPage' />
       <div>
         본인인 경우 - 팔로잉 수, 팔로워 수, 팔로윙 리스트, 팔로워 리스트, 프로필
         이미지, 닉네임, 관심 이벤트 목록, 내가 쓴 리뷰, 내가 관람한 목록, 내가
@@ -12,7 +16,7 @@ function UserPage() {
         이미지, 닉네임, 해당 유저의 관심 이벤트 목록, 해당 유저가 쓴 리뷰, 해당
         유저가 관람한 목록,
       </div>
-    </div>
+    </Page>
   );
 }
 

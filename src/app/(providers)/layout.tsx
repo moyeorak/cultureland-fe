@@ -6,7 +6,7 @@ function ProvidersLayout({ children }: { children: React.ReactNode }) {
   return (
     <ReactQueryProvider>
       <AuthProvider>
-        <ModalProvider>{children}</ModalProvider>;
+        <ModalProvider>{children}</ModalProvider>
       </AuthProvider>
     </ReactQueryProvider>
   );
