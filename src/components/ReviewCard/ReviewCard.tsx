@@ -23,7 +23,7 @@ function ReviewCard({ review }: ReviewCardProps) {
         <div className="flex flex-col gap-y-4 text-neutral-70  w-full">
           <div className="flex ">
             {/* review.rating */}
-            <StarRating rate={4} />
+            <StarRating rate={2.2} />
             <span className="ml-auto text-fs-12">수정, 삭제</span>
           </div>
 
