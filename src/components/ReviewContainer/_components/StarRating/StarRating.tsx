@@ -9,7 +9,7 @@ function StarRating({ rate }: StarRatingProps) {
   const stars = Array.from({ length: 5 }, (_, index) => (
     <StarIcon
       key={index}
-      color={index < rate ? "#ffd700" : "#aaa"}
+      color={index < rate ? "#957BF4" : "#aaa"}
       size={20}
       path={defaultFullIconPath}
     />
