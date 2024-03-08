@@ -37,6 +37,7 @@ function ReviewForm() {
 
   return (
     <div>
+      <h4 className="font-bold text-fs-28 mb-4">후기작성</h4>
       <div className="flex gap-x-2">
         <Rating value={rating} onChange={(value) => setRating(value)} />
         <p>{rating} </p>
@@ -48,12 +49,13 @@ function ReviewForm() {
           setContent(e.target.value)
         }
       />
+      <div className="mb-4"></div>
       <FileInput
         label="사진 업로드"
         onChange={(e: any) => setImage(e.target.files?.[0] || null)}
       />
-
-      <Button onClick={handleClickCreateReview}>리뷰 등록</Button>
+      <div className="mb-12"></div>
+      <Button onClick={handleClickCreateReview}>등록</Button>
     </div>
   );
 }

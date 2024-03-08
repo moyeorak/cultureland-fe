@@ -11,7 +11,7 @@ function Button({
 }: PropsWithChildren<ButtonProps>) {
   return (
     <button
-      className="w-full text-center rounded text-fs-14 bg-neutral-60 text-font-white  h-[50px]"
+      className="w-full text-center rounded text-fs-14 bg-neutral-60 text-font-white h-[50px]"
       data-color={color}
       {...props}
     >
