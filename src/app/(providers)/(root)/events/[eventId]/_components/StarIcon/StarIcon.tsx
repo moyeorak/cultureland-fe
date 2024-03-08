@@ -1,15 +1,20 @@
-interface IconProps {
-  size?: number;
-  color?: string;
-  path: string;
-}
+// import Image from "next/image";
 
-function StarIcon({ size = 20, color = "#aaa", path }: IconProps) {
-  return (
-    <svg height={size} viewBox="0 0 25 25">
-      <path d={path} fill={color} />
-    </svg>
-  );
-}
+// interface IconProps {
+//   isHover: boolean;
+//   path: "Star" | "Star2";
 
-export default StarIcon;
+// function StarIcon({ isHover = false,path }: IconProps) {
+//   isHover?path="Star2":path="Star"
+//   return  (
+//     <Image
+//       src=`/utils/icons/${path}.png`
+//       alt="star-hover"
+//       width={32}
+//       height={32}
+//     />
+//   )
+
+// }
+
+// export default StarIcon;

@@ -1,4 +1,3 @@
-import { defaultFullIconPath } from "@/app/(providers)/(root)/events/[eventId]/_components/Rating/Rating";
 import StarIcon from "@/app/(providers)/(root)/events/[eventId]/_components/StarIcon";
 
 interface StarRatingProps {
@@ -6,16 +5,20 @@ interface StarRatingProps {
 }
 
 function StarRating({ rate }: StarRatingProps) {
-  const stars = Array.from({ length: 5 }, (_, index) => (
-    <StarIcon
-      key={index}
-      color={index < rate ? "#957BF4" : "#aaa"}
-      size={20}
-      path={defaultFullIconPath}
-    />
-  ));
+  const totalStars = 5;
+  const fullStars = Math.floor(rate);
+  const halfStar = rate % 1 === 0 ? 0 : 1;
+  const emptyStars = totalStars - fullStars - halfStar;
 
-  return <div className="flex">{stars}</div>;
+  return (
+    <div className="flex">
+      {Array.from({ length: fullStars }, (_, index) => (
+        <div>
+          <StarIcon path="/utils/icons/Star2.png"></StarIcon>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default StarRating;

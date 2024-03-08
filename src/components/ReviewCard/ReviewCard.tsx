@@ -1,9 +1,8 @@
 "use client";
 
-import { formatDate } from "@/utils/formatDate.utils";
 import StarRating from "./_components/StarRating";
 interface ReviewCardProps {
-  review: any; //type 정의
+  review?: any; //type 정의
 }
 function ReviewCard({ review }: ReviewCardProps) {
   // console.log(review.imageUrl);
@@ -23,7 +22,8 @@ function ReviewCard({ review }: ReviewCardProps) {
         </div>
         <div className="flex flex-col gap-y-4 text-neutral-70  w-full">
           <div className="flex ">
-            <StarRating rate={review.rating} />
+            {/* review.rating */}
+            <StarRating rate={4} />
             <span className="ml-auto text-fs-12">수정, 삭제</span>
           </div>
 
@@ -37,8 +37,8 @@ function ReviewCard({ review }: ReviewCardProps) {
             </div>
             <p className="text-fs-16 font-bold">닉네임</p>
           </div>
-          <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p>
-          <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
+          {/* <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p> */}
+          {/* <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p> */}
         </div>
       </div>
     </div>
