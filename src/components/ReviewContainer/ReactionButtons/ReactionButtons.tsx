@@ -4,7 +4,7 @@ import { useState } from "react";
 import DisLikeButton from "./DislikeButton/DislikeButton";
 import LikeButton from "./LikeButton";
 
-function LikeDislikeButtons() {
+function ReactionButtons() {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
 
@@ -54,4 +54,4 @@ function LikeDislikeButtons() {
   );
 }
 
-export default LikeDislikeButtons;
+export default ReactionButtons;
