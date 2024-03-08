@@ -3,7 +3,8 @@
 import StarRating from "./_components/StarRating";
 
 function ReviewContainer() {
-  //review api
+  //api
+
   const rate = 3;
 
   return (
