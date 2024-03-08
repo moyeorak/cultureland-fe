@@ -1,5 +1,4 @@
 import Heading from "@/components/Heading/Heading";
-import LikeDislikeButtons from "@/components/LikeDislikeButtons";
 import Page from "@/components/Page";
 
 export default function HomePage() {
@@ -16,7 +15,6 @@ export default function HomePage() {
         리스트, + 인기 리뷰 목록 (10개)
       </div>
       <h2>좋아요</h2>
-      <LikeDislikeButtons />
     </Page>
   );
 }
