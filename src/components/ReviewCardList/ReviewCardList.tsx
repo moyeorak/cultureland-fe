@@ -1,4 +1,4 @@
-import ReviewContainer from "../ReviewContainer";
+import ReviewContainer from "../ReviewCard";
 
 interface ReviewCardListProps {
   reviews: any; //type정의
