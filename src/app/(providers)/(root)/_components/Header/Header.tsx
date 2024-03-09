@@ -3,8 +3,9 @@
 import { useModal } from "@/contexts/modal/modal.context";
 import Link from "next/link";
 
+import SignInModal from "./_components/Modals/SignInModal";
+import TermsAgreementModal from "./_components/Modals/TermsAgreementModal";
 import SearchBar from "./_components/SearchBar";
-import SignInModal from "./_components/SignInModal";
 
 function Header() {
   const modal = useModal();
@@ -28,7 +29,9 @@ function Header() {
             <SearchBar placeholder="검색해보세요." />
           </div>
           <button onClick={() => modal.open(<SignInModal />)}>로그인</button>
-          <Link href="accounts/sign-up">회원가입</Link>
+          <button onClick={() => modal.open(<TermsAgreementModal />)}>
+            회원 가입
+          </button>
         </div>
       </div>
     </header>
