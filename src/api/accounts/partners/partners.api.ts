@@ -11,7 +11,7 @@ async function emailDuplicationCheck(email: string) {
   );
 
   const data = response.data;
-  if (!data.success) throw new Error(data.message);
+  if (!data.success) throw new Error(data.error.message);
 
   const result = data.result;
 
