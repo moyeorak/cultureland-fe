@@ -13,7 +13,7 @@ function FileInput({ label, ...props }: FileInputProps) {
           htmlFor="input-file"
           className=" text-neutral-80 text-fs-14 cursor-pointer"
         >
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-2">
             <Image
               src={"/utils/icons/Plus.png"}
               alt="사진 업로드"

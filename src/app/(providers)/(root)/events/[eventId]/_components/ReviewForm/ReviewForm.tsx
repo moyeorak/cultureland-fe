@@ -1,35 +1,42 @@
 "use client";
 
+import api from "@/api/index.api";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import { MouseEventHandler, useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
 
-function ReviewForm() {
+interface ReviewFormProps {
+  eventId: number;
+}
+
+function ReviewForm({ eventId }: ReviewFormProps) {
   //useMutation으로 create하기
 
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
-  console.log(content);
-  console.log(image);
-
-  const handleClickCreateReview: MouseEventHandler<HTMLButtonElement> = () => {
+  const handleClickCreateReview: MouseEventHandler<
+    HTMLButtonElement
+  > = async () => {
     if (rating === 0) return alert("평점을 평가해 주세요");
     if (!content.trim()) return alert("리뷰 내용을 작성해 주세요");
 
     const formData = new FormData();
-    formData.append("rating", rating.toString()); //rating type 확인하기
+    formData.append("eventId", eventId.toString());
+    formData.append("rating", rating.toString());
     formData.append("content", content);
+
     if (image) {
       formData.append("image", image);
     }
 
     try {
-      //post api
+      await api.reviews.createReview(formData);
       setContent("");
+      //setRating(0);
     } catch (e) {
       alert("리뷰 작성에 실패하였습니다");
     }
