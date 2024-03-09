@@ -50,7 +50,7 @@ function ReviewForm({ eventId }: ReviewFormProps) {
         <p>{rating} </p>
       </div>
       <Textarea
-        placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요"
+        placeholder='관람 일정, 관람 시간, 관람 후기 등을 작성해주세요'
         value={content}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setContent(e.target.value)
@@ -58,7 +58,7 @@ function ReviewForm({ eventId }: ReviewFormProps) {
       />
       <div className="mb-4"></div>
       <FileInput
-        label="사진 업로드"
+        label='사진 업로드'
         onChange={(e: any) => setImage(e.target.files?.[0] || null)}
       />
       <div className="mb-12"></div>

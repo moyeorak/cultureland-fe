@@ -60,8 +60,16 @@ const config: Config = {
         "fs-14": "14px",
         "fs-12": "12px",
       },
+      boxShadow: {
+        primary: "0 4px 16px 0 rgba(134, 104, 242, 0.14)",
+      },
     },
   },
-  plugins: [],
+  variants: {
+    extend: {
+      display: ["peer-checked"],
+    },
+  },
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;

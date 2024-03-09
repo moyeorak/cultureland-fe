@@ -7,10 +7,5 @@ export type Response<D = null> =
   | {
       success: false;
       result: null;
-      message: string;
-    }
-  | {
-      success: true;
-      result: D;
-      message: null;
+      error: { message: string };
     };

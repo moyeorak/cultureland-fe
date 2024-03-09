@@ -8,7 +8,7 @@ interface RatingProps {
   color?: string;
   hoverColor?: string;
   activeColor?: string;
-  emptyIconPath?: string;
+emptyIconPath?: string;
   fullIconPath?: string;
 }
 
