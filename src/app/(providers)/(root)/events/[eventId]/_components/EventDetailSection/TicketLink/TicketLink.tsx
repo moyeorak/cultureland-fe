@@ -19,7 +19,7 @@ function TicketLink() {
 
       <div className="hover:opacity-0">
         <div className="opacity-0 group-hover:opacity-100 hover:opacity-0 absolute w-full mt-6 transition-opacity duration-300 transform group-hover:translate-y-0">
-          <ul className="flex flex-col shadow-lg rounded-md py-2 px-2 bg-white">
+          <ul className="flex flex-col shadow-primary rounded-md py-2 px-2 bg-white">
             {link.map((li, index) => (
               <li
                 key={index}

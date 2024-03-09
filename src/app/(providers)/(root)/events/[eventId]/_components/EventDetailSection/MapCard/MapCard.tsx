@@ -1,6 +1,6 @@
 function MapCard() {
   return (
-    <div className="shadow-lg w-[400px] h-80 px-5 py-6 flex flex-col gap-y-6 rounded-lg overflow-hidden">
+    <div className="shadow-primary w-[400px] h-80 px-5 py-6 flex flex-col gap-y-6 rounded-lg overflow-hidden">
       <div className="bg-neutral-30 w-[360px h-[195px] rounded-lg overflow-y-hidden">
         kakao Map
       </div>

@@ -8,7 +8,7 @@ function EventDetailSection() {
       <EventInfoCard />
       <div className="flex flex-col gap-y-2">
         <MapCard />
-        <div className="shadow-lg py-5 px-6 rounded-lg overflow-hidden flex flex-col gap-y-3 text-center">
+        <div className="shadow-primary py-5 px-6 rounded-lg overflow-hidden flex flex-col gap-y-3 text-center">
           <p className="text-fs-14 font-medium text-font-primary-90">캐스팅</p>
           <ul className="flex gap-x-3 justify-center text-font-primary-90 text-fs-12">
             <li>강동원</li>

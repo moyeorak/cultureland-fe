@@ -7,7 +7,7 @@ function EventInfoCard() {
   const time = 100;
   const state = "진행중";
   return (
-    <div className=" shadow-lg rounded-lg py-11 px-10 flex-grow relative">
+    <div className=" shadow-primary rounded-lg py-11 px-10 flex-grow relative">
       <div className="flex border-b pb-9 ">
         <div>
           <h2 className="text-font-primary-90 text-fs-20 font-bold mb-8">
