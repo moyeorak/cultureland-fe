@@ -13,9 +13,6 @@ function ReviewForm() {
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
-  console.log(content);
-  console.log(image);
-
   const handleClickCreateReview: MouseEventHandler<HTMLButtonElement> = () => {
     if (rating === 0) return alert("평점을 평가해 주세요");
     if (!content.trim()) return alert("리뷰 내용을 작성해 주세요");
@@ -37,19 +34,19 @@ function ReviewForm() {
 
   return (
     <div>
-      <div className="flex gap-x-2">
+      <div className='flex gap-x-2'>
         <Rating value={rating} onChange={(value) => setRating(value)} />
         <p>{rating} </p>
       </div>
       <Textarea
-        placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요"
+        placeholder='관람 일정, 관람 시간, 관람 후기 등을 작성해주세요'
         value={content}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setContent(e.target.value)
         }
       />
       <FileInput
-        label="사진 업로드"
+        label='사진 업로드'
         onChange={(e: any) => setImage(e.target.files?.[0] || null)}
       />
 
