@@ -9,16 +9,18 @@ function StarRating({ rate }: StarRatingProps) {
   const fullStars = Math.floor(rate);
   const halfStar = rate % 1 === 0 ? 0 : 1;
   const emptyStars = totalStars - fullStars - halfStar;
-  console.log(fullStars, halfStar, emptyStars);
 
   return (
     <div className="flex">
       {Array.from({ length: fullStars }, (_, index) => (
-        <StarIcon key={`full-${index}`} path="Star2" />
+        <StarIcon key={`full-${index}`} path="star-fill" />
       ))}
-      {halfStar > 0 && <StarIcon key="half-0" path="Plus" />}
+      {halfStar > 0 && <StarIcon key="half-0" path="half" />}
       {Array.from({ length: emptyStars }, (_, index) => (
-        <StarIcon key={`empty-${index + fullStars + halfStar}`} path="Star" />
+        <StarIcon
+          key={`empty-${index + fullStars + halfStar}`}
+          path="star-empty"
+        />
       ))}
     </div>
   );

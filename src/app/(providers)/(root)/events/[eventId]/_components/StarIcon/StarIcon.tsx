@@ -2,12 +2,12 @@ import Image from "next/image";
 
 interface IconProps {
   isHover?: boolean;
-  path?: "Star" | "Star2" | "Plus";
+  path?: "star-fill" | "star-empty" | "half";
 }
 
-function StarIcon({ isHover = false, path = "Star" }: IconProps) {
+function StarIcon({ isHover = false, path = "star-empty" }: IconProps) {
   const imagePath = isHover
-    ? "/utils/icons/Star2.png"
+    ? "/utils/icons/star-fill.png"
     : `/utils/icons/${path}.png`;
 
   return <Image src={imagePath} alt="star icon" width={32} height={32} />;
