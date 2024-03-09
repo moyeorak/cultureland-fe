@@ -13,13 +13,13 @@ function StarRating({ rate }: StarRatingProps) {
   return (
     <div className="flex">
       {Array.from({ length: fullStars }, (_, index) => (
-        <StarIcon key={`full-${index}`} path="star-fill" />
+        <StarIcon key={`full-${index}`} path="Star-fill" />
       ))}
-      {halfStar > 0 && <StarIcon key="half-0" path="half" />}
+      {halfStar > 0 && <StarIcon key="half-0" path="Star-half" />}
       {Array.from({ length: emptyStars }, (_, index) => (
         <StarIcon
           key={`empty-${index + fullStars + halfStar}`}
-          path="star-empty"
+          path="Star-empty"
         />
       ))}
     </div>
