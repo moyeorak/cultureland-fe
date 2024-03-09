@@ -1,7 +1,10 @@
-import Heading from "@/components/Heading/Heading";
+"use client";
+
+import EventList from "@/components/EventList";
 import Page from "@/components/Page";
 import { Event } from "@/types/Event.type";
-import EventList from "../../../../components/EventList";
+import { useSearchParams } from "next/navigation";
+import SearchBar from "../_components/Header/_components/SearchBar";
 
 const dummyData: Array<Event> = [
   {
@@ -326,16 +329,21 @@ const dummyData: Array<Event> = [
   },
 ]; // 테스트를 위한 더미 데이터입니다.
 
-async function EventsPage() {
-  // const events = await api.events.getAllEvents();
+function SearchPage() {
+  const searchParams = useSearchParams();
+  const searchKeyword = searchParams.get("keyword") as string;
 
   return (
     <Page>
-      <Heading label='이벤트 목록' />
-      {/* 카테고리 영역입니다. */}
+      <div className='text-center mb-[37px]'>
+        <SearchBar placeholder={searchKeyword} />
+        <h2 className='mt-6 mb-2'>{`'${searchKeyword}'에 대한 검색 결과`}</h2>
+        <span>총 {dummyData.length}개의 결과를 발견하였습니다.</span>
+      </div>
+
       <EventList events={dummyData} />
     </Page>
   );
 }
 
-export default EventsPage;
+export default SearchPage;
