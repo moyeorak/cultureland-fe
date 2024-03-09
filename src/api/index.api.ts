@@ -1,4 +1,6 @@
 import axios from "axios";
+import partnersAPI from "./accounts/partners/partners.api";
+import usersAPI from "./accounts/users/users.api";
 import eventsAPI from "./events/events.api";
 
 export const client = axios.create({
@@ -7,6 +9,8 @@ export const client = axios.create({
 });
 
 const api = {
+  users: usersAPI,
+  partners: partnersAPI,
   events: eventsAPI,
 };
 
