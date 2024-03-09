@@ -43,14 +43,14 @@ function ReviewForm({ eventId }: ReviewFormProps) {
   };
 
   return (
-    <div>
-      <h4 className="font-bold text-fs-28 mb-4">후기작성</h4>
+    <div className=" py-10 px-10 shadow-primary rounded-lg">
+      <h4 className="font-bold text-fs-28 mb-4 text-center">후기작성</h4>
       <div className="flex gap-x-2">
         <Rating value={rating} onChange={(value) => setRating(value)} />
-        <p>{rating} </p>
       </div>
+      <p className="text-fs-12 text-font-70 mt-1 mb-14">별점을 선택해 주세요</p>
       <Textarea
-        placeholder='관람 일정, 관람 시간, 관람 후기 등을 작성해주세요'
+        placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요"
         value={content}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setContent(e.target.value)
@@ -58,11 +58,13 @@ function ReviewForm({ eventId }: ReviewFormProps) {
       />
       <div className="mb-4"></div>
       <FileInput
-        label='사진 업로드'
+        label="사진 업로드"
         onChange={(e: any) => setImage(e.target.files?.[0] || null)}
       />
       <div className="mb-12"></div>
-      <Button onClick={handleClickCreateReview}>등록</Button>
+      <div className="w-[400px] mx-auto">
+        <Button onClick={handleClickCreateReview}>등록</Button>
+      </div>
     </div>
   );
 }
