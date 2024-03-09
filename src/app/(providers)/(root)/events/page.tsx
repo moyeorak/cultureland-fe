@@ -125,7 +125,7 @@ const dummyData: Array<Event> = [
     rating: 1,
   },
   {
-    eventId: 1,
+    eventId: 7,
     partnerId: 1,
     title: "뚱땅뚱땅 종환이의 즐거운 하루!",
     poster:
@@ -145,7 +145,7 @@ const dummyData: Array<Event> = [
     rating: 3,
   },
   {
-    eventId: 2,
+    eventId: 8,
     partnerId: 2,
     title: "촐랑촐랑 유지의 재미난 하루!",
     poster:
@@ -165,7 +165,7 @@ const dummyData: Array<Event> = [
     rating: 5,
   },
   {
-    eventId: 3,
+    eventId: 9,
     partnerId: 3,
     title: "준영이의 상상 가득한 하루!",
     poster:
@@ -185,7 +185,7 @@ const dummyData: Array<Event> = [
     rating: 4,
   },
   {
-    eventId: 4,
+    eventId: 10,
     partnerId: 4,
     title: "생생한 현아의 두근대는 하루!",
     poster:
@@ -205,7 +205,7 @@ const dummyData: Array<Event> = [
     rating: 2,
   },
   {
-    eventId: 5,
+    eventId: 11,
     partnerId: 5,
     title: "햅삐햅삐 휘성이의 하루!",
     poster:
@@ -225,7 +225,7 @@ const dummyData: Array<Event> = [
     rating: 6,
   },
   {
-    eventId: 6,
+    eventId: 12,
     partnerId: 6,
     title: "귀욤귀욤 멍멍이 쫄리의 하루!",
     poster:
@@ -245,7 +245,7 @@ const dummyData: Array<Event> = [
     rating: 1,
   },
   {
-    eventId: 1,
+    eventId: 13,
     partnerId: 1,
     title: "뚱땅뚱땅 종환이의 즐거운 하루!",
     poster:
@@ -265,7 +265,7 @@ const dummyData: Array<Event> = [
     rating: 3,
   },
   {
-    eventId: 2,
+    eventId: 14,
     partnerId: 2,
     title: "촐랑촐랑 유지의 재미난 하루!",
     poster:
@@ -285,7 +285,7 @@ const dummyData: Array<Event> = [
     rating: 5,
   },
   {
-    eventId: 3,
+    eventId: 15,
     partnerId: 3,
     title: "준영이의 상상 가득한 하루!",
     poster:
@@ -305,7 +305,7 @@ const dummyData: Array<Event> = [
     rating: 4,
   },
   {
-    eventId: 4,
+    eventId: 16,
     partnerId: 4,
     title: "생생한 현아의 두근대는 하루!",
     poster:
@@ -326,10 +326,13 @@ const dummyData: Array<Event> = [
   },
 ]; // 테스트를 위한 더미 데이터입니다.
 
-function EventsPage() {
+async function EventsPage() {
+  // const events = await api.events.getAllEvents();
+
   return (
     <Page>
       <Heading label='이벤트 목록' />
+      {/* 카테고리 영역입니다. */}
       <EventList events={dummyData} />
     </Page>
   );

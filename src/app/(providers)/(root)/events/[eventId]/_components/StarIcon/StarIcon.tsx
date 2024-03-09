@@ -1,15 +1,16 @@
+import Image from "next/image";
+
 interface IconProps {
-  size?: number;
-  color?: string;
-  path: string;
+  isHover?: boolean;
+  path?: "Star-fill" | "Star-empty" | "Star-half";
 }
 
-function StarIcon({ size = 20, color = "#aaa", path }: IconProps) {
-  return (
-    <svg height={size} viewBox="0 0 25 25">
-      <path d={path} fill={color} />
-    </svg>
-  );
+function StarIcon({ isHover = false, path = "Star-empty" }: IconProps) {
+  const imagePath = isHover
+    ? "/utils/icons/star-fill.png"
+    : `/utils/icons/${path}.png`;
+
+  return <Image src={imagePath} alt="star-icon" width={32} height={32} />;
 }
 
 export default StarIcon;
