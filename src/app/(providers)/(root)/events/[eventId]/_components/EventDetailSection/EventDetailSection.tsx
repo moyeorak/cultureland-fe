@@ -4,9 +4,8 @@ import TicketLink from "./TicketLink";
 
 function EventDetailSection() {
   return (
-    <section className="flex w-[960px] gap-x-14 mx-auto">
+    <section className="flex w-[960px] gap-x-14 mx-auto pt-[93px] mb-[100px]">
       <EventInfoCard />
-
       <div className="flex flex-col gap-y-2">
         <MapCard />
         <div className="shadow-lg py-5 px-6 rounded-lg overflow-hidden flex flex-col gap-y-3 text-center">
