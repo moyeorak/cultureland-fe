@@ -1,6 +1,8 @@
+import CategoryList from "@/components/CategoryList";
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
 import Pagination from "@/components/Pagination";
+import { Category } from "@/types/Category.type";
 import { Event } from "@/types/Event.type";
 
 const dummyData: Array<Event> = [
@@ -326,13 +328,57 @@ const dummyData: Array<Event> = [
   },
 ]; // 테스트를 위한 더미 데이터입니다.
 
+const dummyCategory: Array<Category> = [
+  {
+    id: 1,
+    name: "전체",
+  },
+  {
+    id: 2,
+    name: "연극",
+  },
+  {
+    id: 3,
+    name: "무용",
+  },
+  {
+    id: 4,
+    name: "대중무용",
+  },
+  {
+    id: 5,
+    name: "클래식",
+  },
+  {
+    id: 6,
+    name: "국악",
+  },
+  {
+    id: 7,
+    name: "치킨",
+  },
+  {
+    id: 8,
+    name: "피자",
+  },
+  {
+    id: 9,
+    name: "햄버거",
+  },
+  {
+    id: 10,
+    name: "이종환",
+  },
+];
+
 async function EventsPage() {
   // const events = await api.events.getAllEvents();
 
   return (
     <Page>
-      <Heading label='이벤트 목록' />
+      <Heading label="이벤트 목록" />
       {/* 카테고리 영역입니다. */}
+      <CategoryList categories={dummyCategory} />
       {/* <EventList events={dummyData} /> */}
       <Pagination events={dummyData} eventsPerPage={12} />
     </Page>

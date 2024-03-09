@@ -333,9 +333,9 @@ function SearchPage({
 }) {
   return (
     <Page>
-      <div className='text-center mb-[37px]'>
+      <div className="text-center mb-[37px]">
         <SearchBar placeholder={keyword} />
-        <h2 className='mt-6 mb-2'>{`'${keyword}'에 대한 검색 결과`}</h2>
+        <h2 className="mt-6 mb-2">{`'${keyword}'에 대한 검색 결과`}</h2>
         <span>총 {dummyData.length}개의 결과를 발견하였습니다.</span>
       </div>
 
