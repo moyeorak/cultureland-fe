@@ -18,6 +18,8 @@ function ReviewForm({ eventId }: ReviewFormProps) {
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
+  console.log(rating);
+
   const handleClickCreateReview: MouseEventHandler<
     HTMLButtonElement
   > = async () => {
@@ -48,9 +50,12 @@ function ReviewForm({ eventId }: ReviewFormProps) {
       <div className="flex gap-x-2">
         <Rating value={rating} onChange={(value) => setRating(value)} />
       </div>
-      <p className="text-fs-12 text-font-70 mt-1 mb-14">별점을 선택해 주세요</p>
+      <p className="text-fs-12 text-font-70 mt-1 mb-4 px-2">
+        별점을 선택해 주세요
+      </p>
       <Textarea
-        placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요"
+        placeholder={`관람 일정, 관람 시간, 관람 후기 등을 작성해주세요   
+(사진 1장 첨부 가능)`}
         value={content}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setContent(e.target.value)
