@@ -2,10 +2,10 @@ export type Response<D = null> =
   | {
       success: true;
       result: D;
-      message: null;
+      error: null;
     }
   | {
       success: false;
       result: null;
-      message: string;
+      error: { message: string };
     };
