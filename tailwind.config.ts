@@ -62,6 +62,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  variants: {
+    extend: {
+      display: ["peer-checked"],
+    },
+  },
+  plugins: [require("tailwind-scrollbar-hide")],
 };
 export default config;
