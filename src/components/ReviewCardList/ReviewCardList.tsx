@@ -1,18 +1,16 @@
-import ReviewContainer from "../ReviewCard";
+import React from "react";
 
-interface ReviewCardListProps {
-  reviews: any; //type정의
-}
-
-function ReviewCardList({ reviews }: ReviewCardListProps) {
+function ReviewCardList() {
   return (
-    <ul>
-      {reviews.map((review) => (
-        <li key={review.id}>
-          <ReviewContainer review={review} />
-        </li>
-      ))}
-    </ul>
+    <div>
+      {/* <ul>
+        {reviews.map((review) => (
+          <li key={review.id}>
+            <ReviewContainer review={review} />
+          </li>
+        ))}
+      </ul> */}
+    </div>
   );
 }
 
