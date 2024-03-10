@@ -1,15 +1,20 @@
-import React from "react";
+import { Review } from "@/types/Review.type";
+import ReviewCard from "../ReviewCard";
 
-function ReviewCardList() {
+interface ReviewCardListProps {
+  reviews: Review[];
+}
+
+function ReviewCardList({ reviews }: ReviewCardListProps) {
   return (
     <div>
-      {/* <ul>
-        {reviews.map((review) => (
+      <ul>
+        {reviews?.map((review) => (
           <li key={review.id}>
-            <ReviewContainer review={review} />
+            <ReviewCard review={review} />
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 }
