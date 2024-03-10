@@ -17,15 +17,33 @@ function UsersSignUpModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [emailChecked, setEmailChecked] = useState(false);
 
-  const handleClickUserSignUp = async () => {
-    if (!email.trim() || !password.trim() || !passwordConfirm.trim())
-      return alert("모든 값을 입력해주세요.");
-    if (password.trim() !== passwordConfirm.trim())
-      return alert("비밀번호가 일치하지 않습니다.");
-    await api.users.signUp({ email, password });
-    auth.signIn();
-    modal.close();
+  // 비밀번호 유효성 검사 함수
+  const isValidPassword = (password: string) => {
+    const minLength = 10;
+    const maxLength = 16;
+
+    // 각 유형별 포함 여부 확인
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /[0-9]/.test(password);
+    const hasSpecialChars = /[\W_]/.test(password); // 특수문자 및 언더스코어 포함
+
+    // 포함된 유형의 수 계산
+    const typesIncluded = [
+      hasUpperCase,
+      hasLowerCase,
+      hasNumbers,
+      hasSpecialChars,
+    ].filter(Boolean).length;
+
+    // 비밀번호 길이 확인 및 최소 2가지 유형 포함 여부
+    return (
+      password.length >= minLength &&
+      password.length <= maxLength &&
+      typesIncluded >= 2
+    );
   };
 
   const handleKeyDownUserSignUp: KeyboardEventHandler<HTMLInputElement> = (
@@ -38,10 +56,32 @@ function UsersSignUpModal() {
 
   const handleClickEmailDuplicationCheck = async () => {
     const result = await api.users.emailDuplicationCheck(email);
-    if (result) {
-      return alert("중복된 이메일입니다.");
-    } else {
-      return alert("사용가능한 이메일입니다.");
+    setEmailChecked(!result);
+    alert(result ? "중복된 이메일입니다." : "사용가능한 이메일입니다.");
+  };
+
+  const handleClickUserSignUp = async () => {
+    if (!email.trim() || !password.trim() || !passwordConfirm.trim()) {
+      return alert("모든 값을 입력해주세요.");
+    }
+    if (!isValidPassword(password)) {
+      return alert(
+        "비밀번호는 영문 대소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 10자에서 16자 사이로 설정해주세요."
+      );
+    }
+    if (password.trim() !== passwordConfirm.trim()) {
+      return alert("비밀번호가 일치하지 않습니다.");
+    }
+    if (!emailChecked) {
+      return alert("이메일 중복 확인을 해주세요.");
+    }
+
+    try {
+      await api.users.signUp({ email, password });
+      auth.signIn();
+      modal.close();
+    } catch (e) {
+      alert("회원가입에 실패하였습니다.");
     }
   };
 
