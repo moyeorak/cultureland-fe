@@ -42,7 +42,6 @@ function ReviewCard({ review }: ReviewCardProps) {
 
   const handleClickDeleteReview = () => {
     console.log("삭제");
-    
   };
   const handleClickModifyReview = () => {
     console.log("수정");

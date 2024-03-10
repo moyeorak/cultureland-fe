@@ -82,6 +82,8 @@ function ReviewSection({ eventId }: ReviewSectionProps) {
   // console.log("eventId", eventId);
   // console.log("reviews", reviews);
 
+  // const { data: reviews, isLoading } = useQueryReviewsOfEvent(eventId);
+
   return (
     <div>
       <ReviewCardList reviews={reviews} />
