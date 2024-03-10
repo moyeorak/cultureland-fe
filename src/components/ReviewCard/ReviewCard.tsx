@@ -1,6 +1,7 @@
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
+import ReactionButtons from "../ReviewContainer/ReactionButtons";
 import StarRating from "./_components/StarRating";
 
 interface ReviewCardProps {
@@ -37,7 +38,10 @@ function ReviewCard({ review }: ReviewCardProps) {
             <p className="text-fs-16 font-bold">{review.reviewerId}</p>
           </div>
           <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p>
-          <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
+          <div className="flex items-center gap-x-[10px] justify-center">
+            <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
+            <ReactionButtons likes={review.likes} hates={review.hates} />
+          </div>
         </div>
       </div>
     </div>

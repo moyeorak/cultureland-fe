@@ -4,7 +4,12 @@ import { useState } from "react";
 import DisLikeButton from "./DislikeButton/DislikeButton";
 import LikeButton from "./LikeButton";
 
-function ReactionButtons() {
+interface ReactionButtonsProps {
+  likes: number;
+  hates: number;
+}
+
+function ReactionButtons({ likes, hates }: ReactionButtonsProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
 
@@ -45,14 +50,16 @@ function ReactionButtons() {
   };
 
   return (
-    <div className="flex gap-x-[10px]">
+    <div className="flex gap-x-[10px] items-center">
       <LikeButton
         onClickLikeButton={onClickLikeButton}
         isActive={isLiked}
+        likes={likes}
       ></LikeButton>
       <DisLikeButton
         onClickDislikeButton={onClickDislikeButton}
         isActive={isDisliked}
+        hates={hates}
       ></DisLikeButton>
     </div>
   );

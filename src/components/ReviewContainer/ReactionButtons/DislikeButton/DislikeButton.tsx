@@ -5,12 +5,20 @@ import Image from "next/image";
 interface DislikeButtonProps {
   onClickDislikeButton: () => void;
   isActive: boolean;
+  hates: number;
 }
 
-function DisLikeButton({ onClickDislikeButton, isActive }: DislikeButtonProps) {
+function DisLikeButton({
+  onClickDislikeButton,
+  isActive,
+  hates,
+}: DislikeButtonProps) {
   const count = 5000;
   return (
-    <button onClick={onClickDislikeButton} className="flex gap-x-2 ">
+    <button
+      onClick={onClickDislikeButton}
+      className="flex gap-x-2 items-center"
+    >
       {isActive ? (
         <Image
           src={"/utils/icons/heart-break-red.png"}
@@ -27,7 +35,7 @@ function DisLikeButton({ onClickDislikeButton, isActive }: DislikeButtonProps) {
         />
       )}
 
-      <span className="text-fs-14 text-neutral-70">{count}</span>
+      <span className="text-fs-14 text-neutral-70">{hates}</span>
     </button>
   );
 }
