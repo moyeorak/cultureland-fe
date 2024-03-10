@@ -1,9 +1,14 @@
+import api from "@/api/index.api";
 import { useQuery } from "@tanstack/react-query";
 
-export default function useQueryReviewsOfEvent(eventId: number) {
+// `eventId` 인자 추가
+export default function useQueryReviewsOfEvent(
+  eventId: number,
+  enabled: boolean = true
+) {
   return useQuery({
-    queryKey: ["reviews", eventId],
-    //queryFn: api.reviews.get,
-    enabled: !!eventId, //test
+    queryKey: ["reviews"],
+    queryFn: () => api.reviews.getReviewsOfEvent(eventId),
+    enabled,
   });
 }
