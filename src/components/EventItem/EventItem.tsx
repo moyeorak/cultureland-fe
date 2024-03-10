@@ -22,9 +22,9 @@ function EventItem({ event }: EventItemProps) {
           <h4 className="text-base text-nowrap overflow-hidden">
             {event.title}
           </h4>
-          <span className="text-xs">장소: {event.venue.venueName}</span>
+          <span className="text-xs">{event.venue.venueName}</span>
           <span className="text-xs">
-            기간: {event.startDate} ~ {event.endDate}
+            {event.startDate} ~ {event.endDate}
           </span>
         </div>
         {/* <div className='mt-3 flex justify-end'>

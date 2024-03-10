@@ -1,13 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 function SearchBar({ placeholder }: { placeholder: string }) {
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
 
     if (keyword.trim()) {
