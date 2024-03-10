@@ -36,8 +36,6 @@ async function getFamousReviews() {
   const famousReviews = data.result;
   return famousReviews;
 }
-async function updateReview() {}
-async function deleteReview() {}
 
 async function createReactionInReview(reviewId: number, reactionValue: number) {
   const response = await client.post<Response<CreateReactionData>>(
@@ -68,8 +66,6 @@ const reviewsAPI = {
   createReview,
   getReviewsOfEvent,
   getFamousReviews,
-  updateReview,
-  deleteReview,
   createReactionInReview,
   deleteReactionInReview,
 };
