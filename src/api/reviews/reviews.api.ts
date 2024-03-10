@@ -1,6 +1,11 @@
 import { Response } from "@/types/Response.type";
 import { client } from "../index.api";
-import { GetFamousReviewData, GetReviewData } from "./reviews.data";
+import {
+  CreateReactionData,
+  DeleteReactionData,
+  GetFamousReviewData,
+  GetReviewData,
+} from "./reviews.data";
 
 async function createReview(dto: any) {
   const response = await client.post<Response>("/reviews", dto);
@@ -33,7 +38,9 @@ async function getFamousReviews() {
 }
 
 async function createReactionInReview(reviewId: number) {
-  const response = await client.delete(`/reviews/${reviewId}/reactions`);
+  const response = await client.delete<Response<CreateReactionData>>(
+    `/reviews/${reviewId}/reactions`
+  );
 
   const data = response.data;
 
@@ -43,7 +50,9 @@ async function createReactionInReview(reviewId: number) {
   return reaction;
 }
 async function deleteReactionInReview(reviewId: number) {
-  const response = await client.delete(`/reviews/${reviewId}/reactions`);
+  const response = await client.delete<Response<DeleteReactionData>>(
+    `/reviews/${reviewId}/reactions`
+  );
 
   const data = response.data;
 

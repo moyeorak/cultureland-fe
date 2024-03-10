@@ -8,11 +8,11 @@ interface ReviewSectionProps {
 //dummy
 const reviews = [
   {
-    evnetId: 4,
+    id: 4,
     reviewerId: 3,
     eventId: 1,
     image: "cultureland/review/1709992190992-3TIzPREo4h6qrp2Bn0oIm.png",
-    rating: 3,
+    rating: 1.5,
     content: "리뷰 1! 작성자:example",
     createdAt: "2024-03-09T13:49:51.259Z",
     isVerified: true,
@@ -20,12 +20,12 @@ const reviews = [
       {
         userId: 12,
         reviewId: 4,
-        reactionValue: 1,
+        reactionValue: -1,
       },
       {
         userId: 6,
         reviewId: 4,
-        reactionValue: 1,
+        reactionValue: -1,
       },
       {
         userId: 7,
@@ -35,7 +35,7 @@ const reviews = [
       {
         userId: 10,
         reviewId: 4,
-        reactionValue: 1,
+        reactionValue: -1,
       },
     ],
     likes: 4,
@@ -46,11 +46,22 @@ const reviews = [
     reviewerId: 12,
     eventId: 1,
     image: "cultureland/review/1709992296560-CXhreLIaa5lSCaPFScMNe.png",
-    rating: 3,
+    rating: 2.5,
     content: "리뷰 1! 작성자:example456",
     createdAt: "2024-03-09T13:51:36.691Z",
     isVerified: false,
-    reviewReactions: [],
+    reviewReactions: [
+      {
+        userId: 5,
+        reviewId: 4,
+        reactionValue: 1,
+      },
+      {
+        userId: 12,
+        reviewId: 4,
+        reactionValue: 1,
+      },
+    ],
     likes: 0,
     hates: 0,
   },

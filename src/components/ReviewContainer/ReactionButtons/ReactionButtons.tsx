@@ -1,5 +1,6 @@
 "use client";
 
+import useMutationDeleteReaction from "@/react-query/reviews/useMutationDeleteReaction";
 import { useState } from "react";
 import DisLikeButton from "./DislikeButton/DislikeButton";
 import LikeButton from "./LikeButton";
@@ -7,14 +8,25 @@ import LikeButton from "./LikeButton";
 interface ReactionButtonsProps {
   likes: number;
   hates: number;
+  reviewId: number;
+  isAlreadyLiked: boolean;
+  isAlreadyDisliked: boolean;
 }
 
-function ReactionButtons({ likes, hates }: ReactionButtonsProps) {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
+function ReactionButtons({
+  likes,
+  hates,
+  reviewId,
+  isAlreadyLiked,
+  isAlreadyDisliked,
+}: ReactionButtonsProps) {
+  const [isLiked, setIsLiked] = useState(isAlreadyLiked);
+  const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked);
+  //내가 좋아요를 누른 상태면, 불이 켜진다.
+  //userId로
 
-  // const { mutateAsync: deleteReaction } = useMutationDeleteReaction(reviewId);
-  // const {}=useMutationCreateReaction(reviewId)
+  const { mutateAsync: deleteReaction } = useMutationDeleteReaction(reviewId);
+  // const {}=useMutationCreateReaction(reviewId);
 
   const onClickLikeButton = () => {
     if (!isDisliked) {
