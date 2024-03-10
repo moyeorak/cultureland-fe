@@ -13,7 +13,7 @@ async function emailDuplicationCheck(email: string) {
   );
 
   const data = response.data;
-  if (!data.success) throw new Error(data.message);
+  if (!data.success) throw new Error(data.error.message);
 
   const result = data.result;
 
@@ -32,13 +32,26 @@ async function signOut() {
   return await client.post<Response>("/accounts/users/sign-out");
 }
 
+async function refreshToken() {
+  const response = await client.get<Response<boolean>>(
+    `/accounts/users/refresh-token`
+  );
+
+  const data = response.data;
+  if (!data.success) throw new Error(data.error.message);
+
+  const isAccessTokenRefreshed = data.result;
+
+  return isAccessTokenRefreshed;
+}
+
 async function getUser(userId: number) {
   const response = await client.get<Response<GetUserData>>(
     `/accounts/users/${userId}`
   );
 
   const data = response.data;
-  if (!data.success) throw new Error(data.message);
+  if (!data.success) throw new Error(data.error.message);
 
   const user = data.result;
 
@@ -51,7 +64,7 @@ async function getUserInfoToEdit() {
   );
 
   const data = response.data;
-  if (!data.success) throw new Error(data.message);
+  if (!data.success) throw new Error(data.error.message);
 
   const userInfo = data.result;
 
@@ -64,7 +77,7 @@ async function updateProfile() {
   );
 
   const data = response.data;
-  if (!data.success) throw new Error(data.message);
+  if (!data.success) throw new Error(data.error.message);
 
   const updatedUserInfo = data.result;
 
@@ -76,6 +89,7 @@ const usersAPI = {
   signUp,
   signIn,
   signOut,
+  refreshToken,
   getUser,
   getUserInfoToEdit,
   updateProfile,

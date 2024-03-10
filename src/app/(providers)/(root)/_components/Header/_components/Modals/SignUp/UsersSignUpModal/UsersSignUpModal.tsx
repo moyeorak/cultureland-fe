@@ -24,7 +24,7 @@ function UsersSignUpModal() {
     if (password.trim() !== passwordConfirm.trim())
       return alert("비밀번호가 일치하지 않습니다.");
     await api.users.signUp({ email, password });
-    auth.logIn();
+    auth.signIn();
     modal.close();
   };
 
