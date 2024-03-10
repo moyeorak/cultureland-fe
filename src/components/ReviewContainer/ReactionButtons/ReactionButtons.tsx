@@ -1,5 +1,6 @@
 "use client";
 
+import useMutationCreateReaction from "@/react-query/reviews/useMutationCreateReactoin";
 import useMutationDeleteReaction from "@/react-query/reviews/useMutationDeleteReaction";
 import { useState } from "react";
 import DisLikeButton from "./DislikeButton/DislikeButton";
@@ -20,16 +21,15 @@ function ReactionButtons({
   isAlreadyLiked,
   isAlreadyDisliked,
 }: ReactionButtonsProps) {
+  const { mutateAsync: createReaction } = useMutationCreateReaction();
   const { mutateAsync: deleteReaction } = useMutationDeleteReaction();
 
   const [isLiked, setIsLiked] = useState(isAlreadyLiked);
   const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked);
 
-  //테스트해보기
-  const [likeCount, setLikeCount] = useState(likes);
-  const [dislikeCount, setDislikeCount] = useState(hates);
-
-  // const {}=useMutationCreateReaction(reviewId);
+  //좋아요 수가 바로 바뀌는지 테스트해보기
+  // const [likeCount, setLikeCount] = useState(likes);
+  // const [dislikeCount, setDislikeCount] = useState(hates);
 
   const onClickLikeButton = async () => {
     if (!isDisliked) {
@@ -44,7 +44,8 @@ function ReactionButtons({
       await deleteReaction(reviewId);
     } else {
       //좋아요가 활성화되지않음-> 클릭시싫어요 post(-1)
-      console.log("좋아요 post: body에 +1");
+      console.log("좋아요 포스트: body에 +1");
+      await createReaction({ reviewId, reactionValue: 1 });
     }
   };
 
@@ -62,6 +63,7 @@ function ReactionButtons({
     } else {
       //싫어요가 활성화되지않음-> 클릭시싫어요 post(-1)
       console.log("싫어요 post: body에 -1");
+      await createReaction({ reviewId, reactionValue: -1 });
     }
   };
 

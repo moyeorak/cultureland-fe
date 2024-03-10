@@ -39,8 +39,8 @@ async function getFamousReviews() {
 async function updateReview() {}
 async function deleteReview() {}
 
-async function createReactionInReview(reviewId: number) {
-  const response = await client.delete<Response<CreateReactionData>>(
+async function createReactionInReview(reviewId: number, reactionValue: number) {
+  const response = await client.post<Response<CreateReactionData>>(
     `/reviews/${reviewId}/reactions`
   );
 
