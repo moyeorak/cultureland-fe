@@ -7,7 +7,7 @@ interface EventItemProps {
 
 function EventItem({ event }: EventItemProps) {
   return (
-    <div className="shadow-lg rounded-lg overflow-hidden w-[220px] h-80 px-9 py-5">
+    <div className="shadow-primary rounded-lg overflow-hidden w-[220px] h-80 px-9 py-5">
       <div>
         <div className="relative w-full border h-[200px] rounded-lg overflow-hidden">
           <Image

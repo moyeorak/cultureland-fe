@@ -1,5 +1,6 @@
 import { Response } from "@/types/Response.type";
 import { client } from "../index.api";
+import { GetFamousReviewData, GetReviewData } from "./reviews.data";
 
 async function createReview(dto: any) {
   const response = await client.post<Response>("/reviews", dto);
@@ -8,7 +9,9 @@ async function createReview(dto: any) {
 }
 
 async function getReviewsOfEvent(eventId: number) {
-  const response = await client.get<Response>(`/reviews?eventId=${eventId}`);
+  const response = await client.get<Response<GetReviewData>>(
+    `/reviews?eventId=${eventId}`
+  );
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);
@@ -18,7 +21,9 @@ async function getReviewsOfEvent(eventId: number) {
 }
 
 async function getFamousReviews() {
-  const response = await client.get<Response>("/reviews/famous");
+  const response = await client.get<Response<GetFamousReviewData>>(
+    "/reviews/famous"
+  );
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);

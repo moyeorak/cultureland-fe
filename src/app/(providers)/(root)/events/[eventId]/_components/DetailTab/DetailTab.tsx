@@ -4,8 +4,11 @@ import { useState } from "react";
 import ActiveTab from "../ActiveTab";
 import InfoSection from "../InfoSection";
 import ReviewSection from "../ReveiewSection/ReviewSection";
+interface DetailTabSectionProps {
+  eventId: number;
+}
 
-function DetailTabSection() {
+function DetailTabSection({ eventId }: DetailTabSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -33,7 +36,7 @@ function DetailTabSection() {
       </div>
       <section>
         {activeTab === 0 && <InfoSection />}
-        {activeTab === 1 && <ReviewSection />}
+        {activeTab === 1 && <ReviewSection eventId={eventId} />}
       </section>
     </>
   );
