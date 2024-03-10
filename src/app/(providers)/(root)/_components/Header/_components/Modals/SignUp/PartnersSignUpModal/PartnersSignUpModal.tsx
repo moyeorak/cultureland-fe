@@ -31,14 +31,35 @@ function PartnersSignUpModal() {
     bankAccount: "",
   });
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [emailChecked, setEmailChecked] = useState(false);
+
+  const isValidPassword = (password: string) => {
+    const minLength = 10;
+    const maxLength = 16;
+
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /[0-9]/.test(password);
+    const hasSpecialChars = /[\W_]/.test(password);
+
+    const typesIncluded = [
+      hasUpperCase,
+      hasLowerCase,
+      hasNumbers,
+      hasSpecialChars,
+    ].filter(Boolean).length;
+
+    return (
+      password.length >= minLength &&
+      password.length <= maxLength &&
+      typesIncluded >= 2
+    );
+  };
 
   const handleClickEmailDuplicationCheck = async () => {
     const result = await api.partners.emailDuplicationCheck(formData.email);
-    if (result) {
-      return alert("중복된 이메일입니다.");
-    } else {
-      return alert("사용가능한 이메일입니다.");
-    }
+    setEmailChecked(!result);
+    alert(result ? "중복된 이메일입니다." : "사용가능한 이메일입니다.");
   };
 
   const handleChangeFormData: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -63,10 +84,18 @@ function PartnersSignUpModal() {
     ) {
       return alert("모든 값을 입력해주세요.");
     }
-
+    if (!isValidPassword(formData.password)) {
+      return alert(
+        "비밀번호는 영문 대소문자, 숫자, 특수문자 중 2가지 이상을 조합하여 10자에서 16자 사이로 설정해주세요."
+      );
+    }
     if (formData.password.trim() !== passwordConfirm.trim()) {
       return alert("비밀번호가 일치하지 않습니다.");
     }
+    if (!emailChecked) {
+      return alert("이메일 중복 확인을 해주세요.");
+    }
+
     try {
       await api.partners.signUp(formData);
       auth.signIn();
