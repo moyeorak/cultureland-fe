@@ -32,8 +32,29 @@ async function getFamousReviews() {
   return famousReviews;
 }
 
+async function updateReview(reviewId: number, dto: any) {
+  const response = await client.put(`/reviews/${reviewId}`, dto);
+  const data = response.data;
+
+  if (!data.success) throw new Error(data.error.message);
+
+  const review = data.result;
+  return review;
+}
+async function deleteReview(reviewId: number) {
+  const response = await client.delete(`/reviews/${reviewId}`);
+  const data = response.data;
+
+  if (!data.success) throw new Error(data.error.message);
+
+  const deletedReviewId = data.result;
+  return deletedReviewId;
+}
+
 const reviewsAPI = {
   createReview,
+  updateReview,
+  deleteReview,
   getReviewsOfEvent,
   getFamousReviews,
 };

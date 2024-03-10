@@ -3,6 +3,7 @@
 import api from "@/api/index.api";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
+import useMutationCreateReview from "@/react-query/reviews/useMutationCreateReview";
 import { MouseEventHandler, useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
@@ -12,7 +13,7 @@ interface ReviewFormProps {
 }
 
 function ReviewForm({ eventId }: ReviewFormProps) {
-  //useMutation으로 create하기
+  const { mutateAsync: createReview, isPending } = useMutationCreateReview();
 
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
@@ -38,7 +39,7 @@ function ReviewForm({ eventId }: ReviewFormProps) {
     try {
       await api.reviews.createReview(formData);
       setContent("");
-      //setRating(0);
+      // setRating(0);
     } catch (e) {
       alert("리뷰 작성에 실패하였습니다");
     }

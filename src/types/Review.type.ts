@@ -9,8 +9,8 @@ export type Review = {
   createdAt: string;
   updatedAt?: string;
   deletedAt?: string | null;
-  likes: number;
-  hates: number;
+  likes?: number;
+  hates?: number;
   reviewReactions?: ReviewReaction[];
 };
 
