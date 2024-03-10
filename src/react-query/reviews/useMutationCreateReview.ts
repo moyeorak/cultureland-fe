@@ -8,7 +8,7 @@ export default function useMutationCreateReview() {
   return useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ exact: true, queryKey: ["review"] });
+      queryClient.invalidateQueries({ exact: true, queryKey: ["reviews"] });
     },
   });
 }
