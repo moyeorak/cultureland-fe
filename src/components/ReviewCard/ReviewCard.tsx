@@ -50,17 +50,8 @@ function ReviewCard({ review }: ReviewCardProps) {
   return (
     <div className="h-[265px]flex items-center px-8 py-9 rounded-lg shadow-primary mb-10">
       <div className="flex gap-x-12 w-full">
-        <div className="relative w-[208px] h-[200px] overflow-hidden rounded-lg">
-          <Image
-            src={"/images/poster.jpeg"}
-            alt="event-poster"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
         <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
           <div className="flex">
-            <StarRating rate={review.rating} />
             {isMyReview && (
               <div className="ml-auto flex gap-x-2">
                 <button
@@ -90,6 +81,7 @@ function ReviewCard({ review }: ReviewCardProps) {
             </div>
             <p className="text-fs-16 font-bold">{review.reviewerId}</p>
           </div>
+          <StarRating rate={review.rating} />
           <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p>
           <div className="flex items-center gap-x-[10px] justify-center">
             <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
@@ -101,6 +93,14 @@ function ReviewCard({ review }: ReviewCardProps) {
               isAlreadyDisliked={isAlreadyDisliked}
             />
           </div>
+        </div>
+        <div className="relative w-[208px] h-[200px] overflow-hidden rounded-lg">
+          <Image
+            src={"/images/poster.jpeg"}
+            alt="event-poster"
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
       </div>
     </div>
