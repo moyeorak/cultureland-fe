@@ -1,9 +1,6 @@
-"use client";
-
-import EventList from "@/components/EventList";
 import Page from "@/components/Page";
+import Pagination from "@/components/Pagination";
 import { Event } from "@/types/Event.type";
-import { useSearchParams } from "next/navigation";
 import SearchBar from "../_components/Header/_components/SearchBar";
 
 const dummyData: Array<Event> = [
@@ -329,19 +326,20 @@ const dummyData: Array<Event> = [
   },
 ]; // 테스트를 위한 더미 데이터입니다.
 
-function SearchPage() {
-  const searchParams = useSearchParams();
-  const searchKeyword = searchParams.get("keyword") as string;
-
+function SearchPage({
+  searchParams: { keyword },
+}: {
+  searchParams: { keyword: string };
+}) {
   return (
     <Page>
       <div className='text-center mb-[37px]'>
-        <SearchBar placeholder={searchKeyword} />
-        <h2 className='mt-6 mb-2'>{`'${searchKeyword}'에 대한 검색 결과`}</h2>
+        <SearchBar placeholder={keyword} />
+        <h2 className='mt-6 mb-2'>{`'${keyword}'에 대한 검색 결과`}</h2>
         <span>총 {dummyData.length}개의 결과를 발견하였습니다.</span>
       </div>
 
-      <EventList events={dummyData} />
+      <Pagination events={dummyData} eventsPerPage={12} />
     </Page>
   );
 }

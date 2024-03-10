@@ -1,7 +1,7 @@
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
+import Pagination from "@/components/Pagination";
 import { Event } from "@/types/Event.type";
-import EventList from "../../../../components/EventList";
 
 const dummyData: Array<Event> = [
   {
@@ -333,7 +333,8 @@ async function EventsPage() {
     <Page>
       <Heading label='이벤트 목록' />
       {/* 카테고리 영역입니다. */}
-      <EventList events={dummyData} />
+      {/* <EventList events={dummyData} /> */}
+      <Pagination events={dummyData} eventsPerPage={12} />
     </Page>
   );
 }

@@ -1,32 +1,42 @@
 "use client";
 
+import api from "@/api/index.api";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import { MouseEventHandler, useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
 
-function ReviewForm() {
+interface ReviewFormProps {
+  eventId: number;
+}
+
+function ReviewForm({ eventId }: ReviewFormProps) {
   //useMutation으로 create하기
 
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
-  const handleClickCreateReview: MouseEventHandler<HTMLButtonElement> = () => {
+  const handleClickCreateReview: MouseEventHandler<
+    HTMLButtonElement
+  > = async () => {
     if (rating === 0) return alert("평점을 평가해 주세요");
     if (!content.trim()) return alert("리뷰 내용을 작성해 주세요");
 
     const formData = new FormData();
-    formData.append("rating", rating.toString()); //rating type 확인하기
+    formData.append("eventId", eventId.toString());
+    formData.append("rating", rating.toString());
     formData.append("content", content);
+
     if (image) {
       formData.append("image", image);
     }
 
     try {
-      //post api
+      await api.reviews.createReview(formData);
       setContent("");
+      //setRating(0);
     } catch (e) {
       alert("리뷰 작성에 실패하였습니다");
     }
@@ -34,7 +44,8 @@ function ReviewForm() {
 
   return (
     <div>
-      <div className='flex gap-x-2'>
+      <h4 className="font-bold text-fs-28 mb-4">후기작성</h4>
+      <div className="flex gap-x-2">
         <Rating value={rating} onChange={(value) => setRating(value)} />
         <p>{rating} </p>
       </div>
@@ -45,12 +56,13 @@ function ReviewForm() {
           setContent(e.target.value)
         }
       />
+      <div className="mb-4"></div>
       <FileInput
         label='사진 업로드'
         onChange={(e: any) => setImage(e.target.files?.[0] || null)}
       />
-
-      <Button onClick={handleClickCreateReview}>리뷰 등록</Button>
+      <div className="mb-12"></div>
+      <Button onClick={handleClickCreateReview}>등록</Button>
     </div>
   );
 }
