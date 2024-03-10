@@ -8,6 +8,9 @@ function ReactionButtons() {
   const [isLiked, setIsLiked] = useState(false);
   const [isDisliked, setIsDisliked] = useState(false);
 
+  // const { mutateAsync: deleteReaction } = useMutationDeleteReaction(reviewId);
+  // const {}=useMutationCreateReaction(reviewId)
+
   const onClickLikeButton = () => {
     if (!isDisliked) {
       setIsLiked((prev) => !prev);
@@ -17,6 +20,7 @@ function ReactionButtons() {
 
     if (isLiked) {
       //좋아요가 눌린상태 -> 클릭시 취소해야함 (delete)
+
       console.log("delete 보내기");
     } else {
       //좋아요가 활성화되지않음-> 클릭시싫어요 post(-1)

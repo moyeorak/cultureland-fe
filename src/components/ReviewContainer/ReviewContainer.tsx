@@ -1,5 +1,6 @@
 "use client";
 
+import ReactionButtons from "./ReactionButtons";
 import StarRating from "./_components/StarRating";
 
 function ReviewContainer() {
@@ -29,7 +30,7 @@ function ReviewContainer() {
           <StarRating rate={3} />
           <p>content</p>
           <p>관람 날짜</p>
-          <div>좋아요, 싫어요 버튼 container</div>
+          <ReactionButtons />
         </div>
       </div>
     </div>
