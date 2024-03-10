@@ -3,7 +3,7 @@
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
-import ReactionButtons from "../ReviewContainer/ReactionButtons";
+import ReactionButtons from "./_components/ReactionButtons";
 import StarRating from "./_components/StarRating";
 
 interface ReviewCardProps {
