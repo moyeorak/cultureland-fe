@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ComponentProps } from "react";
 import EventItem from "../EventItem";
 
@@ -7,10 +8,12 @@ interface EventListProps {
 
 function EventList({ events }: EventListProps) {
   return (
-    <ul className='flex flex-wrap justify-center gap-6'>
+    <ul className="flex flex-wrap justify-center gap-6">
       {events.map((event) => (
         <li key={event.eventId}>
-          <EventItem event={event} />
+          <Link href={`/events/${event.eventId}`}>
+            <EventItem event={event} />
+          </Link>
         </li>
       ))}
     </ul>
