@@ -2,7 +2,9 @@
 
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
+import { useReviewsStore } from "@/zustand";
 import Image from "next/image";
+import { useEffect, useMemo } from "react";
 import ReactionButtons from "./_components/ReactionButtons";
 import StarRating from "./_components/StarRating";
 
@@ -11,6 +13,7 @@ interface ReviewCardProps {
 }
 
 function ReviewCard({ review }: ReviewCardProps) {
+  const { likedReviews, addLikeReview } = useReviewsStore((state) => state);
   const myId = 12; //전역상태로 가지고 있기
 
   const isMyReview = review.reviewerId === myId;
@@ -20,22 +23,35 @@ function ReviewCard({ review }: ReviewCardProps) {
     console.log("저장");
   }
 
-  console.log(review, "review");
-  console.log(isMyReview, "isMyReview");
+  // console.log(review, "review");
+  // console.log(isMyReview, "isMyReview");
 
   //내가 좋아요한 상태인지
   //내가 싫어요한 상태인지 판단을 여기서 해서 내려주자
-  const isAlreadyLiked =
-    review.reviewReactions?.some(
-      (reviewReaction) =>
-        reviewReaction.userId === myId && reviewReaction.reactionValue === 1
-    ) ?? false;
 
-  const isAlreadyDisliked =
-    review.reviewReactions?.some(
-      (reviewReaction) =>
-        reviewReaction.userId === myId && reviewReaction.reactionValue === -1
-    ) ?? false;
+  const isAlreadyLiked = useMemo(
+    () =>
+      review.reviewReactions?.some(
+        (reviewReaction) =>
+          reviewReaction.userId === myId && reviewReaction.reactionValue === 1
+      ) ?? false,
+    [review.reviewReactions, myId]
+  );
+
+  const isAlreadyDisliked = useMemo(
+    () =>
+      review.reviewReactions?.some(
+        (reviewReaction) =>
+          reviewReaction.userId === myId && reviewReaction.reactionValue === -1
+      ) ?? false,
+    [review.reviewReactions, myId]
+  );
+
+  useEffect(() => {
+    if (isAlreadyLiked) {
+      addLikeReview(review);
+    }
+  }, [review, isAlreadyLiked]);
 
   // console.log("isAlreadyLiked", isAlreadyLiked);
   // console.log("isAlreadyDisliked", isAlreadyDisliked);
@@ -86,9 +102,7 @@ function ReviewCard({ review }: ReviewCardProps) {
           <div className="flex items-center gap-x-[10px] justify-center">
             <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
             <ReactionButtons
-              likes={review.likes}
-              hates={review.hates}
-              reviewId={review.id}
+              review={review}
               isAlreadyLiked={isAlreadyLiked}
               isAlreadyDisliked={isAlreadyDisliked}
             />

@@ -8,7 +8,7 @@ interface ReviewSectionProps {
 //dummy
 const reviews = [
   {
-    id: 4,
+    id: 1,
     reviewerId: 3,
     eventId: 1,
     image: "cultureland/review/1709992190992-3TIzPREo4h6qrp2Bn0oIm.png",
@@ -42,7 +42,7 @@ const reviews = [
     hates: 0,
   },
   {
-    id: 11,
+    id: 2,
     reviewerId: 12,
     eventId: 1,
     image: "cultureland/review/1709992296560-CXhreLIaa5lSCaPFScMNe.png",
@@ -62,8 +62,56 @@ const reviews = [
         reactionValue: 1,
       },
     ],
-    likes: 0,
+    likes: 2,
     hates: 0,
+  },
+  {
+    id: 3,
+    reviewerId: 12,
+    eventId: 1,
+    image: "cultureland/review/1709992296560-CXhreLIaa5lSCaPFScMNe.png",
+    rating: 2.5,
+    content: "리뷰 1! 작성자:example456",
+    createdAt: "2024-03-09T13:51:36.691Z",
+    isVerified: false,
+    reviewReactions: [
+      {
+        userId: 5,
+        reviewId: 3,
+        reactionValue: 1,
+      },
+      {
+        userId: 3,
+        reviewId: 3,
+        reactionValue: -1,
+      },
+    ],
+    likes: 1,
+    hates: 1,
+  },
+  {
+    id: 4,
+    reviewerId: 19,
+    eventId: 1,
+    image: "cultureland/review/1709992296560-CXhreLIaa5lSCaPFScMNe.png",
+    rating: 2.5,
+    content: "리뷰 1! 작성자:example456",
+    createdAt: "2024-03-09T13:51:36.691Z",
+    isVerified: false,
+    reviewReactions: [
+      {
+        userId: 12,
+        reviewId: 3,
+        reactionValue: 1,
+      },
+      {
+        userId: 3,
+        reviewId: 3,
+        reactionValue: -1,
+      },
+    ],
+    likes: 1,
+    hates: 1,
   },
 ];
 

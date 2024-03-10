@@ -1,10 +1,15 @@
+"use client";
+
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
+import { useReviewsStore } from "@/zustand";
 
 function UserPage() {
+  const { likedReviews } = useReviewsStore((state) => state);
+  console.log("likedReviews", likedReviews);
   return (
     <Page>
-      <Heading label='UserPage' />
+      <Heading label="UserPage" />
       <div>
         본인인 경우 - 팔로잉 수, 팔로워 수, 팔로윙 리스트, 팔로워 리스트, 프로필
         이미지, 닉네임, 관심 이벤트 목록, 내가 쓴 리뷰, 내가 관람한 목록, 내가

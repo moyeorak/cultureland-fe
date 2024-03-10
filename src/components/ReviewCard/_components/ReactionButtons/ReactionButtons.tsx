@@ -2,27 +2,31 @@
 
 import useMutationCreateReaction from "@/react-query/reviews/useMutationCreateReactoin";
 import useMutationDeleteReaction from "@/react-query/reviews/useMutationDeleteReaction";
+import { Review } from "@/types/Review.type";
+import { useReviewsStore } from "@/zustand";
 import { useState } from "react";
 import DisLikeButton from "./DislikeButton/DislikeButton";
 import LikeButton from "./LikeButton";
 
 interface ReactionButtonsProps {
-  likes: number;
-  hates: number;
-  reviewId: number;
+  review: Review;
   isAlreadyLiked: boolean;
   isAlreadyDisliked: boolean;
 }
 
 function ReactionButtons({
-  likes,
-  hates,
-  reviewId,
+  review,
   isAlreadyLiked,
   isAlreadyDisliked,
 }: ReactionButtonsProps) {
+  const reviewId = review.id;
+
   const { mutateAsync: createReaction } = useMutationCreateReaction();
   const { mutateAsync: deleteReaction } = useMutationDeleteReaction();
+
+  const { likedReviews, addLikeReview, removeLikeReview } = useReviewsStore(
+    (state) => state
+  );
 
   const [isLiked, setIsLiked] = useState(isAlreadyLiked);
   const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked);
@@ -36,16 +40,19 @@ function ReactionButtons({
       setIsLiked((prev) => !prev);
     } else {
       alert("싫어요가 이미 선택되었습니다");
+      return;
     }
 
     if (isLiked) {
       //좋아요가 눌린상태 -> 클릭시 취소해야함 (delete)
       console.log("좋아요 delete");
-      await deleteReaction(reviewId);
+      removeLikeReview(review);
+      // await deleteReaction(reviewId);
     } else {
       //좋아요가 활성화되지않음-> 클릭시싫어요 post(-1)
       console.log("좋아요 포스트: body에 +1");
-      await createReaction({ reviewId, reactionValue: 1 });
+      addLikeReview(review);
+      // await createReaction({ reviewId, reactionValue: 1 });
     }
   };
 
@@ -66,18 +73,19 @@ function ReactionButtons({
       await createReaction({ reviewId, reactionValue: -1 });
     }
   };
+  console.log("likedReviews", likedReviews);
 
   return (
     <div className="flex gap-x-[10px] items-center">
       <LikeButton
         onClickLikeButton={onClickLikeButton}
         isActive={isLiked}
-        likes={likes}
+        likes={review.likes}
       ></LikeButton>
       <DisLikeButton
         onClickDislikeButton={onClickDislikeButton}
         isActive={isDisliked}
-        hates={hates}
+        hates={review.hates}
       ></DisLikeButton>
     </div>
   );
