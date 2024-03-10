@@ -6,7 +6,7 @@ const getAllEvents = async () => {
   const response = await client.get<Response<getEventsData>>("/events");
   const data = response.data;
 
-  if (!data.success) throw new Error(data.message);
+  if (!data.success) throw new Error(data.error.message);
 
   const events = data.result;
 

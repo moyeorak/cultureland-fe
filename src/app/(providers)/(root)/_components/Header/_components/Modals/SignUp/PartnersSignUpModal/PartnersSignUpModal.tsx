@@ -69,7 +69,7 @@ function PartnersSignUpModal() {
     }
     try {
       await api.partners.signUp(formData);
-      auth.logIn();
+      auth.signIn();
       modal.close();
     } catch (e) {
       alert("회원가입에 실패하였습니다.");
