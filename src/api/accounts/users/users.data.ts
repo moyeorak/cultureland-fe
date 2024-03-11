@@ -4,7 +4,7 @@ export type GetUserData = {
   followerCnt: number;
   profileImage: string;
   nickname: string;
-  attendedEvents: {
+  attendedEvents?: {
     eventId: number;
     partnerId: number;
     title: string;
