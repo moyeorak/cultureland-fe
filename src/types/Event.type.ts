@@ -2,6 +2,7 @@ import { Category } from "./Category.type";
 import { Venue } from "./Venue.type";
 
 export type Event = {
+  id: number;
   eventId: number;
   partnerId: number;
   title: string;
