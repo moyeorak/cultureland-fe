@@ -20,11 +20,11 @@ const ReSettingMapBounds = ({ locations }: useReSettingMapBoundsProps) => {
 
   useEffect(() => {
     map.setBounds(bounds);
-  }, []); // 마운트시 실행되도록 하고 이동 버튼도 일단은 생성
+  }, [locations]); // 마운트시 실행되도록 하고 이동 버튼도 일단은 생성
 
   return (
     <p>
-      <button onClick={() => map.setBounds(bounds)}>눌러봐유~</button>
+      <button onClick={() => map.setBounds(bounds)}>마커들의 중심~</button>
     </p>
   );
 };
