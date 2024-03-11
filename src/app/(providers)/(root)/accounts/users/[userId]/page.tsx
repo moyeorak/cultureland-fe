@@ -1,15 +1,16 @@
-"use client";
-
+import api from "@/api/index.api";
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
-import { useReviewsStore } from "@/zustand";
+import ProfileSection from "./_components/ProfileSection";
 
-function UserPage() {
-  const { likedReviews } = useReviewsStore((state) => state);
-  console.log("likedReviews", likedReviews);
+async function UserPage(props: { params: { userId: number } }) {
+  const userId = props.params.userId;
+  const user = await api.users.getUser(userId);
+
   return (
     <Page>
       <Heading label="UserPage" />
+      <ProfileSection isLoggedUser={user.isLoggendUser} />
       <div>
         본인인 경우 - 팔로잉 수, 팔로워 수, 팔로윙 리스트, 팔로워 리스트, 프로필
         이미지, 닉네임, 관심 이벤트 목록, 내가 쓴 리뷰, 내가 관람한 목록, 내가
