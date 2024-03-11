@@ -1,26 +1,26 @@
-import api from "@/api/index.api";
-import Heading from "@/components/Heading/Heading";
+"use client";
+
 import Page from "@/components/Page";
+import { useAuth } from "@/contexts/auth.context/auth.context";
+import { useTabStore } from "@/zustand";
+import ActiveSection from "./_components/ActiveSection";
+import FollowSection from "./_components/FollowSection";
+import FollowTab from "./_components/FollowTab";
+import InfoTabs from "./_components/InfoTabs";
 import ProfileSection from "./_components/ProfileSection";
 
-async function UserPage(props: { params: { userId: number } }) {
+function UserPage(props: { params: { userId: number } }) {
   const userId = props.params.userId;
-  const user = await api.users.getUser(userId);
+  const { isLoggedIn } = useAuth();
+
+  const { showFollows } = useTabStore();
 
   return (
     <Page>
-      <Heading label="UserPage" />
-      <ProfileSection isLoggedUser={user.isLoggendUser} />
-      <div>
-        본인인 경우 - 팔로잉 수, 팔로워 수, 팔로윙 리스트, 팔로워 리스트, 프로필
-        이미지, 닉네임, 관심 이벤트 목록, 내가 쓴 리뷰, 내가 관람한 목록, 내가
-        좋아요 누른 리뷰 목록, + 이메일 (프로필 수정을 위해)
-      </div>
-
-      <div>
-        타인인 경우 - 팔로잉 수, 팔로워 수, 팔로윙 리스트, 팔로워 리스트, 프로필
-        이미지, 닉네임, 해당 유저의 관심 이벤트 목록, 해당 유저가 쓴 리뷰, 해당
-        유저가 관람한 목록,
+      {showFollows ? <FollowTab /> : <InfoTabs />}
+      <div className="flex space-x-4 m-4">
+        <ProfileSection isLoggedUser={true} />
+        {showFollows ? <FollowSection /> : <ActiveSection />}
       </div>
     </Page>
   );
