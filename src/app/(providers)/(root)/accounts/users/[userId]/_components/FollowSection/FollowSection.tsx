@@ -1,14 +1,19 @@
 import { useTabStore } from "@/zustand";
+import FollowList from "./FollowList";
 
 const FollowSection = () => {
   const { showFollowing } = useTabStore();
 
   return (
-    <div>
+    <div className="w-full">
       {showFollowing ? (
-        <div>팔로잉 목록 컴포넌트</div>
+        <div className="w-full">
+          <FollowList />
+        </div>
       ) : (
-        <div>팔로워 목록 컴포넌트</div>
+        <div>
+          <FollowList />
+        </div>
       )}
     </div>
   );

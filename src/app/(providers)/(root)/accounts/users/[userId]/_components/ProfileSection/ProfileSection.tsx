@@ -2,7 +2,7 @@
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useTabStore } from "@/zustand";
 import Image from "next/image";
-import FollowButtons from "./FollowButtons";
+import FollowSelector from "./FollowSelector/FollowSelector";
 
 interface ProfileSectionProps {
   isLoggedUser: boolean;
@@ -37,7 +37,7 @@ function ProfileSection({ isLoggedUser }: ProfileSectionProps) {
             </div>
 
             <div className="mt-6">
-              <FollowButtons />
+              <FollowSelector />
             </div>
           </div>
 
