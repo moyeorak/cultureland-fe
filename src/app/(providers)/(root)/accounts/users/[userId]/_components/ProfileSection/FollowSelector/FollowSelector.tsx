@@ -1,6 +1,6 @@
 import { useTabStore } from "@/zustand";
 
-function FollowButtons() {
+function FollowSelector() {
   const { setShowFollows, setShowFollowing } = useTabStore();
 
   return (
@@ -34,4 +34,4 @@ function FollowButtons() {
   );
 }
 
-export default FollowButtons;
+export default FollowSelector;
