@@ -4,8 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
-function SelectOption() {
-  const [selectedOption, setSelectedOption] = useState("최신순");
+interface SelectOptionProps {
+  type: "event" | "review";
+}
+
+function SelectOption({ type }: SelectOptionProps) {
+  const options = {
+    event: ["최신순", "인기순"],
+    review: ["좋아요순", "싫어요순", "최신순"],
+  };
+
+  const [selectedOption, setSelectedOption] = useState(options[type][0]);
   const [isSelected, setIsSelected] = useState(false);
 
   const toggleDropdown = () => {
@@ -15,11 +24,10 @@ function SelectOption() {
   const handleClickOption = (option: string) => {
     setSelectedOption(option);
     setIsSelected(false);
-    console.log(option);
   };
 
   return (
-    <div className="relative text-fs-12 font-bold text-neutral-70 ">
+    <div className="relative text-fs-12 font-bold text-neutral-70">
       <button
         onClick={toggleDropdown}
         className="shadow-primary w-[120px] mb-5 pt-2 h-6 rounded-md flex items-center justify-between py-[6px] px-[10px]"
@@ -37,20 +45,20 @@ function SelectOption() {
         />
       </button>
       {isSelected && (
-        <div className="absolute bg-white shadow-primary w-[120px] rounded-md  z-10 pb-2">
-          <ul className="flex flex-col justify-center pt-0 ">
-            <li
-              className="h-6 px-3 py-2"
-              onClick={() => handleClickOption("최신순")}
-            >
-              <Link href={"#"}>최신순</Link>
-            </li>
-            <li
-              className="h-6 px-3 py-2 pt-2"
-              onClick={() => handleClickOption("인기순")}
-            >
-              <Link href={"#"}>인기순</Link>
-            </li>
+        <div className="absolute bg-white shadow-primary w-[120px] rounded-md z-10">
+          <ul className="flex flex-col justify-center">
+            {options[type].map((option) => (
+              <li
+                key={option}
+                className="py-2 px-3 hover:bg-gray-100" // Apply consistent padding
+                onClick={() => handleClickOption(option)}
+              >
+                <Link href="#">
+                  <a className="block w-full ">{option}</a>{" "}
+                  {/* Ensure the anchor fills the li */}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       )}

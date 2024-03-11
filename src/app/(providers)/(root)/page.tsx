@@ -16,7 +16,7 @@ function HomePage() {
         리스트, + 인기 리뷰 목록 (10개)
       </div>
       <div className="px-10">
-        <SelectOption />
+        <SelectOption type="review" />
         <div className="w-20 bg-red-50"></div>
       </div>
     </Page>
