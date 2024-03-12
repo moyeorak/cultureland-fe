@@ -1,16 +1,16 @@
 import api from "@/api/index.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function useMutationDeleteFollow(userId: number) {
+export default function useMutationDeleteFollow() {
   const queryClient = useQueryClient();
-  const mutationFn = () => api.follows.deleteFollow(userId);
+  const mutationFn = (userId: number) => api.follows.deleteFollow(userId);
 
   return useMutation({
     mutationFn,
     onSuccess: () =>
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         exact: true,
-        queryKey: ["followings, follows"],
+        queryKey: ["follows"],
       }),
   });
 }

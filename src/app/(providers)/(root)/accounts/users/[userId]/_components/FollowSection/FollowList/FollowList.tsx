@@ -10,11 +10,12 @@ interface FollowListProps {
 }
 
 function FollowList({ followType, userId }: FollowListProps) {
-  console.log("followType: ", followType);
   const { data: followers, isLoading: followerIsLoading } =
     useQueryGetFollowers(userId);
+  console.log("followers: ", followers);
   const { data: followings, isLoading: followingIsLoading } =
     useQueryGetFollowings(userId);
+  console.log("followings: ", followings);
 
   if (followingIsLoading || followerIsLoading) return <div>...is Loading</div>;
 
@@ -23,7 +24,7 @@ function FollowList({ followType, userId }: FollowListProps) {
   return (
     <>
       {followType === "followings"
-        ? followings?.map((followings, index) => (
+        ? followings?.map((list, index) => (
             <div
               key={index}
               className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
@@ -31,28 +32,28 @@ function FollowList({ followType, userId }: FollowListProps) {
               <div className="flex items-center my-5">
                 <Image
                   src={
-                    followings.following.userProfile.profileImage === undefined
-                      ? `${profileImgPrifix}/${followings.following.userProfile.profileImage}`
+                    list.following.userProfile.profileImage === undefined
+                      ? `${profileImgPrifix}/${list.following.userProfile.profileImage}`
                       : defaultProfileImg
                   }
-                  alt={followings.following.userProfile.nickname}
+                  alt={list.following.userProfile.nickname}
                   height={60}
                   width={60}
                   className="rounded-full"
                 />
                 <div className="ml-3">
                   <div className="text-fs-16 font-medium">
-                    {followings.following.userProfile.nickname}
+                    {list.following.userProfile.nickname}
                   </div>
                   <div className="text-fs-14 font-normal mt-1">
-                    {followings.following.userProfile.description}
+                    {list.following.userProfile.description}
                   </div>
                 </div>
               </div>
-              <FollowButton />
+              <FollowButton userId={userId} />
             </div>
           ))
-        : followers?.map((followers, index) => (
+        : followers?.map((list, index) => (
             <div
               key={index}
               className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
@@ -60,25 +61,25 @@ function FollowList({ followType, userId }: FollowListProps) {
               <div className="flex items-center my-5">
                 <Image
                   src={
-                    followers.follower.userProfile.profileImage === undefined
-                      ? `${profileImgPrifix}/${followers.follower.userProfile.profileImage}`
+                    list.follower.userProfile.profileImage === undefined
+                      ? `${profileImgPrifix}/${list.follower.userProfile.profileImage}`
                       : defaultProfileImg
                   }
-                  alt={followers.follower.userProfile.nickname}
+                  alt={list.follower.userProfile.nickname}
                   height={60}
                   width={60}
                   className="rounded-full"
                 />
                 <div className="ml-3">
                   <div className="text-fs-16 font-medium">
-                    {followers.follower.userProfile.nickname}
+                    {list.follower.userProfile.nickname}
                   </div>
                   <div className="text-fs-14 font-normal mt-1">
-                    {followers.follower.userProfile.description}
+                    {list.follower.userProfile.description}
                   </div>
                 </div>
               </div>
-              <FollowButton />
+              <FollowButton userId={userId} />
             </div>
           ))}
     </>

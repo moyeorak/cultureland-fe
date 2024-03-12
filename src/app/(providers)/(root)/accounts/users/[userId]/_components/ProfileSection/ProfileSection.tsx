@@ -15,14 +15,16 @@ interface ProfileSectionProps {
 function ProfileSection({ user }: ProfileSectionProps) {
   const { isLoggedIn } = useAuth();
   const { setShowFollows, setActiveTab } = useTabStore();
-  const { mutateAsync: addFollow, isPending } = useMutationAddFollow();
+  const { mutateAsync: addFollow } = useMutationAddFollow();
 
   const profileImg = `${profileImgPrifix}/${user.userProfile.profileImage}`;
   const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
 
-  const handleClickAddFollow: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleClickAddFollow: MouseEventHandler<HTMLButtonElement> = async (
+    e
+  ) => {
     e.preventDefault();
-    addFollow(user.id);
+    await addFollow(user.id);
   };
 
   return (
@@ -33,7 +35,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
             <button
               onClick={handleClickAddFollow}
               className="text-[10px] text-user-theme-90 rounded-md border px-[18px] h-6 border-user-theme-30"
-              disabled={isPending}
+              disabled={user.isMe}
             >
               팔로우
             </button>

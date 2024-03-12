@@ -1,10 +1,33 @@
+import { useAuth } from "@/contexts/auth.context/auth.context";
+import useMutationAddFollow from "@/react-query/follows/useMutationAddFollow";
+import useMutationDeleteFollow from "@/react-query/follows/useMutationDeleteFollow";
+import useQueryGetFollowings from "@/react-query/follows/useQueryGetFollowings";
+import { useAuthStore } from "@/zustand";
 import Image from "next/image";
 import { useState } from "react";
 
 type ButtonState = "follow" | "following" | "unFollow";
+interface FollowButtonProps {
+  userId: number;
+}
 
-function FollowButton() {
+function FollowButton({ userId }: FollowButtonProps) {
   const [buttonState, setButtonState] = useState<ButtonState>("follow");
+  const { mutateAsync: addFollow } = useMutationAddFollow();
+  const { mutateAsync: deleteFollow } = useMutationDeleteFollow();
+  const { userInfo } = useAuthStore();
+  const { isLoggedIn } = useAuth();
+  const { data: followings, isLoading: followingIsLoading } =
+    useQueryGetFollowings(userInfo!.userId, isLoggedIn);
+
+  // useEffect(() => {
+  //   if (!followingIsLoading && followings) {
+  //     const isFollowing = followings.some(
+  //       (list) => list.following.id === userId
+  //     );
+  //     setButtonState(isFollowing ? "following" : "follow");
+  //   }
+  // }, [followings, followingIsLoading, userId]);
 
   const buttonDetails = {
     follow: {
@@ -24,8 +47,14 @@ function FollowButton() {
     },
   };
 
-  const handleFollowClick = () => {
-    setButtonState(buttonState === "follow" ? "following" : "follow");
+  const handleFollowClick = async () => {
+    if (buttonState === "follow") {
+      await addFollow(userId);
+      setButtonState("following");
+    } else if (buttonState === "following" || buttonState === "unFollow") {
+      await deleteFollow(userId);
+      setButtonState("follow");
+    }
   };
 
   const handleMouseEnter = () => {

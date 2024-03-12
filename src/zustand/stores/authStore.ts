@@ -3,7 +3,7 @@ import { create } from "zustand";
 type UserCommonInfo = {
   nickname: string;
   profileImage: string | null;
-  userId: string;
+  userId: number;
 };
 
 interface AuthState {
