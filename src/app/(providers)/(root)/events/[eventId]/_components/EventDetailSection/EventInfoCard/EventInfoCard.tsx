@@ -2,7 +2,8 @@ import StarRating from "@/components/ReviewCard/_components/StarRating";
 import { Event } from "@/types/Event.type";
 import Image from "next/image";
 
-const event: Event = { //dummy
+const event: Event = {
+  id: 1,
   eventId: 1,
   partnerId: 1,
   title: "테스트 콘서트",
@@ -39,6 +40,7 @@ const event: Event = { //dummy
 };
 
 function EventInfoCard() {
+  return null;
   return (
     <div className=" shadow-primary rounded-lg py-11 px-10 flex-grow relative">
       <div className="flex border-b pb-9 ">

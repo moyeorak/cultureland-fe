@@ -3,6 +3,7 @@ import { Event } from "@/types/Event.type";
 function MapCard() {
   const event: Event = {
     //dummy
+    id: 1,
     eventId: 1,
     partnerId: 1,
     title: "테스트 콘서트",
