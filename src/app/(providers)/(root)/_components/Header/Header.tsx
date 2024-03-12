@@ -1,7 +1,8 @@
 "use client";
 
 import api from "@/api/index.api";
-import { Authenticated, useAuth } from "@/contexts/auth.context/auth.context";
+import Authenticated from "@/contexts/auth.context/Authenticated";
+import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
