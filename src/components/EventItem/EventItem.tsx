@@ -1,8 +1,9 @@
-import { EventData } from "@/types/Event.type";
+import { Events } from "@/types/Event.type";
+import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
 
 interface EventItemProps {
-  event: EventData;
+  event: Events;
 }
 
 function EventItem({ event }: EventItemProps) {
@@ -24,12 +25,9 @@ function EventItem({ event }: EventItemProps) {
           </h4>
           <span className="text-xs">{event.venue.name}</span>
           <span className="text-xs">
-            {event.startDate} ~ {event.endDate}
+            {formatDate(event.startDate)} ~ {formatDate(event.endDate)}
           </span>
         </div>
-        {/* <div className='mt-3 flex justify-end'>
-          <span className='text-xs'>좋아요 / 싫어요</span>
-        </div> */}
       </div>
     </div>
   );

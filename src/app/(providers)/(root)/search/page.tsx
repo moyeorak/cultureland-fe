@@ -228,7 +228,11 @@ function SearchPage({
         <span>총 {0}개의 결과를 발견하였습니다.</span>
       </div>
 
-      <Pagination events={[]} eventsPerPage={12} />
+      <Pagination
+        events={[]}
+        eventsPerPage={12}
+        totalEvents={dummyData.length}
+      />
     </Page>
   );
 }
