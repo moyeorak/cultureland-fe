@@ -1,7 +1,7 @@
 "use client";
 
 import StarRating from "@/components/ReviewCard/_components/StarRating";
-import { EventData } from "@/types/Event.type";
+import { Events } from "@/types/Event.type";
 import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,20 +9,8 @@ import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-type bestEvents = Pick<
-  EventData,
-  | "id"
-  | "title"
-  | "poster"
-  | "category"
-  | "startDate"
-  | "endDate"
-  | "venue"
-  | "avgRating"
->;
-
 interface bestEventsProps {
-  events: bestEvents[];
+  events: Events[];
 }
 
 function BestEvents({ events }: bestEventsProps) {
@@ -37,7 +25,7 @@ function BestEvents({ events }: bestEventsProps) {
           onSwiper={(swiper) => console.log(swiper)}
           autoplay={{ delay: 3000 }}
         >
-          {events.map((event) => (
+          {events?.map((event) => (
             <Link href={`/event/${event.id}`} key={event.id}>
               <SwiperSlide>
                 <div className="flex">
@@ -45,8 +33,8 @@ function BestEvents({ events }: bestEventsProps) {
                     <Image
                       src={event.poster}
                       alt={event.title}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <div className="flex-1 pt-[36px] pl-12">

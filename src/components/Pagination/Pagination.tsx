@@ -1,19 +1,23 @@
 "use client";
 
-import { EventData } from "@/types/Event.type";
+import { Events } from "@/types/Event.type";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import EventList from "../EventList";
 
 interface PaginationProps {
-  events: Array<EventData>;
+  events: Array<Events>;
   eventsPerPage: number;
+  totalEvents: number;
+  keywords?: string;
 }
 
 function Pagination({
   events: eventsData,
   eventsPerPage: eventNumber,
+  totalEvents,
+  keywords,
 }: PaginationProps) {
-  const [events, setEvents] = useState<Array<EventData>>([]);
+  const [events, setEvents] = useState<Array<Events>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [eventsPerPage] = useState(eventNumber);
 
@@ -31,16 +35,16 @@ function Pagination({
 
   // 전체 페이지 수를 계산합니다.
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalEvents / eventsPerPage); i++) {
     pageNumbers.push(i);
   }
   // 페이징 버튼을 10개씩 끊어서 보여주는 기능 추가
-  const [pageNumberLimit, setPageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
+  const [pageNumberLimit, setPageNumberLimit] = useState(10);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(10);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
   const handleNextButton = () => {
-    if (currentPage !== pageNumbers.length) {
+    if (currentPage < pageNumbers.length) {
       setCurrentPage(currentPage + 1);
       if (currentPage + 1 > maxPageNumberLimit) {
         setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
@@ -50,7 +54,7 @@ function Pagination({
   };
 
   const handlePrevButton = () => {
-    if (currentPage !== 1) {
+    if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       if ((currentPage - 1) % pageNumberLimit === 0) {
         setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
@@ -63,9 +67,9 @@ function Pagination({
   if (pageNumbers.length > maxPageNumberLimit) {
     pageIncrementButton = (
       <li className="page-item">
-        <a onClick={handleNextButton} href="#!" className="page-link">
+        <Link onClick={handleNextButton} href="#!" className="page-link">
           &hellip;
-        </a>
+        </Link>
       </li>
     );
   }
@@ -74,28 +78,27 @@ function Pagination({
   if (minPageNumberLimit >= 1) {
     pageDecrementButton = (
       <li className="page-item">
-        <a onClick={handlePrevButton} href="#!" className="page-link">
+        <Link onClick={handlePrevButton} href="#!" className="page-link">
           &hellip;
-        </a>
+        </Link>
       </li>
     );
   }
 
   return (
     <>
-      <EventList events={currentEvents} />
       <nav className="mt-8">
         <ul className="pagination flex gap-[17px] justify-center text-center">
           <li className="page-item w-[21px] h-[21px]  rounded-md">
-            <a
+            <Link
               onClick={handlePrevButton}
-              href="#!"
+              href={`?page=${currentPage - 1}`}
               className={`page-link ${
                 currentPage === 1 && "disabled"
               } text-neutral-30 w-full h-full inline-block border-red-500 active:border-user-theme-100 visited:border-user-theme-100`}
             >
               {`<`}
-            </a>
+            </Link>
           </li>
           {pageDecrementButton}
           {pageNumbers.map((number) => {
@@ -104,16 +107,26 @@ function Pagination({
                 <li
                   key={number}
                   className={`page-item ${
-                    currentPage === number ? "active" : null
-                  } page-item w-[21px] h-[21px] hover:bg-user-theme-100 rounded-md`}
+                    currentPage === number ? "active border" : null
+                  } page-item w-[21px] h-[21px] active:border border-user-theme-100 rounded-md`}
                 >
-                  <a
-                    onClick={() => paginate(number)}
-                    href="#!"
-                    className="page-link"
-                  >
-                    {number}
-                  </a>
+                  {!keywords ? (
+                    <Link
+                      onClick={() => paginate(number)}
+                      href={`?page=${number}`}
+                      className="page-link"
+                    >
+                      {number}
+                    </Link>
+                  ) : (
+                    <Link
+                      onClick={() => paginate(number)}
+                      href={`?keywords=${keywords}&page=${number}`}
+                      className="page-link"
+                    >
+                      {number}
+                    </Link>
+                  )}
                 </li>
               );
             } else {
@@ -122,15 +135,15 @@ function Pagination({
           })}
           {pageIncrementButton}
           <li className="page-item page-item w-[21px] h-[21px] hover:bg-user-theme-100 rounded-md">
-            <a
+            <Link
               onClick={handleNextButton}
-              href="#!"
+              href={`?page=${currentPage + 1}`}
               className={`page-link ${
                 currentPage === pageNumbers.length && "disabled"
               } text-neutral-30`}
             >
               {`>`}
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

@@ -1,96 +1,13 @@
+"use client";
+
 import api from "@/api/index.api";
 import CategoryList from "@/components/CategoryList";
-import Heading from "@/components/Heading/Heading";
+import EventList from "@/components/EventList";
 import Page from "@/components/Page";
 import Pagination from "@/components/Pagination";
 import { Category } from "@/types/Category.type";
-
-const dummyData: Array<any> = [
-  {
-    id: 1,
-    eventId: 1,
-    partnerId: 1,
-    title: "뚱땅뚱땅 종환이의 즐거운 하루!",
-    poster:
-      "https://dnvefa72aowie.cloudfront.net/origin/article/202301/a6d1b4be4f3df32bac3c14e39a4e0e59e92866bb5e5b044e24061a4943c6fa4d.webp?q=95&s=1440x1440&t=inside",
-    startDate: "2024-03-05",
-    endDate: "2024-03-05",
-    venue: {
-      venueName: "공연장",
-      address: "공연장 주소",
-      latitude: 127,
-      longitude: 34,
-    },
-    category: {
-      id: 1,
-      name: "콘서트",
-    },
-    rating: 3,
-  },
-  {
-    id: 2,
-    eventId: 2,
-    partnerId: 2,
-    title: "촐랑촐랑 유지의 재미난 하루!",
-    poster:
-      "https://dnvefa72aowie.cloudfront.net/origin/article/202301/a6d1b4be4f3df32bac3c14e39a4e0e59e92866bb5e5b044e24061a4943c6fa4d.webp?q=95&s=1440x1440&t=inside",
-    startDate: "2024-03-05",
-    endDate: "2024-03-17",
-    venue: {
-      venueName: "공연장",
-      address: "공연장 주소",
-      latitude: 127,
-      longitude: 34,
-    },
-    category: {
-      id: 2,
-      name: "뮤지컬",
-    },
-    rating: 5,
-  },
-  {
-    id: 3,
-    eventId: 3,
-    partnerId: 3,
-    title: "준영이의 상상 가득한 하루!",
-    poster:
-      "https://dnvefa72aowie.cloudfront.net/origin/article/202301/a6d1b4be4f3df32bac3c14e39a4e0e59e92866bb5e5b044e24061a4943c6fa4d.webp?q=95&s=1440x1440&t=inside",
-    startDate: "2024-03-05",
-    endDate: "2024-03-07",
-    venue: {
-      venueName: "공연장",
-      address: "공연장 주소",
-      latitude: 127,
-      longitude: 34,
-    },
-    category: {
-      id: 3,
-      name: "페스티벌",
-    },
-    rating: 4,
-  },
-  {
-    id: 4,
-    eventId: 4,
-    partnerId: 4,
-    title: "생생한 현아의 두근대는 하루!",
-    poster:
-      "https://dnvefa72aowie.cloudfront.net/origin/article/202301/a6d1b4be4f3df32bac3c14e39a4e0e59e92866bb5e5b044e24061a4943c6fa4d.webp?q=95&s=1440x1440&t=inside",
-    startDate: "2024-03-05",
-    endDate: "2024-03-05",
-    venue: {
-      venueName: "공연장",
-      address: "공연장 주소",
-      latitude: 127,
-      longitude: 34,
-    },
-    category: {
-      id: 1,
-      name: "콘서트",
-    },
-    rating: 2,
-  },
-]; // 테스트를 위한 더미 데이터입니다.
+import { Events } from "@/types/Event.type";
+import { useEffect, useState } from "react";
 
 const dummyCategory: Array<Category> = [
   {
@@ -135,16 +52,43 @@ const dummyCategory: Array<Category> = [
   },
 ];
 
-async function EventsPage() {
-  const events = await api.events.getAllEvents(1);
+function EventsPage({
+  searchParams: { page },
+}: {
+  searchParams: { page: number };
+}) {
+  let totalCount: number;
+  const [pageNum, setPageNum] = useState(1);
+  const [events, setEvents] = useState<Events[]>([]);
+  const [totalCnt, setTotalCnt] = useState(0);
+
+  useEffect(() => {
+    async function fetchEvents(pageNum: number) {
+      setPageNum(pageNum);
+      const { eventsData, totalEventsCnt } = await api.events.getAllEvents(
+        pageNum
+      );
+      setTotalCnt(totalEventsCnt);
+      setEvents(eventsData);
+    }
+
+    fetchEvents(page);
+  }, [page]);
+
+  useEffect(() => {
+    async function fetchInitialEvents() {
+      const response = await api.events.getAllEvents();
+      setEvents(response.eventsData);
+    }
+
+    fetchInitialEvents();
+  }, []);
 
   return (
     <Page>
-      <Heading label="이벤트 목록" />
-      {/* 카테고리 영역입니다. */}
       <CategoryList categories={dummyCategory} />
-      {/* <EventList events={dummyData} /> */}
-      <Pagination events={events} eventsPerPage={12} />
+      <EventList events={events} />
+      <Pagination events={events} eventsPerPage={12} totalEvents={totalCnt} />
     </Page>
   );
 }

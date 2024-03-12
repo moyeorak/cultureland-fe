@@ -1,7 +1,8 @@
 "use client";
 
 import api from "@/api/index.api";
-import { Authenticated, useAuth } from "@/contexts/auth.context/auth.context";
+import Authenticated from "@/contexts/auth.context/Authenticated";
+import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,11 +26,11 @@ function Header() {
 
   return (
     <header className="flex items-center gap-10 min-h-16 border-b bg-white text-nowrap transition-all">
-      <div className="max-w-[960px] w-full flex mx-auto gap-10">
+      <div className="max-w-[960px] w-full flex items-center mx-auto gap-10">
         <Link href="/">로고</Link>
 
         {/* HeaderNav */}
-        <nav className="flex gap-10">
+        <nav className="flex gap-10 items-center">
           <Link href="/events">이벤트</Link>
           <Link href="/map">지도</Link>
           <Link href="/accounts/users/:userId">유저페이지</Link>
@@ -39,7 +40,7 @@ function Header() {
         <div className="ml-auto flex gap-10 items-center">
           {/* SearchBar */}
           <div>
-            <SearchBar placeholder="검색해보세요." />
+            <SearchBar placeholder="검색어를 입력하세요" border={true} />
           </div>
           <Authenticated>
             {auth.isLoggedIn ? (

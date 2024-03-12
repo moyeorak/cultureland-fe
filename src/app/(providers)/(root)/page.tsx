@@ -2,8 +2,6 @@ import api from "@/api/index.api";
 import EventList from "@/components/EventList";
 import Page from "@/components/Page";
 
-import SelectOption from "@/components/SelectOption";
-
 import InterestingEvents from "./_components/InterestingEvents";
 
 import { Category } from "@/types/Category.type";
@@ -53,19 +51,13 @@ const dummyCategory: Array<Category> = [
 ]; // 테스트를 위한 더미 데이터입니다.
 
 async function HomePage() {
-  const events = await api.events.getAllEvents(1);
-
-  if (!events) return <div>데이터를 받아오는 중입니다.</div>;
-
-  // const interestEvents = events.slice(0, 6);
-  // const mainEvents = events.slice(0, 8);
-  // const bestEvents = events.slice(0, 5);
+  const { eventsData, totalEventsCnt } = await api.events.getAllEvents(1);
 
   return (
     <Page>
-      <BestEvents events={[]} />
+      <BestEvents events={eventsData} />
 
-      <InterestingEvents events={[]} />
+      <InterestingEvents events={eventsData} />
 
       <div>
         회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트 리스트,
@@ -76,12 +68,15 @@ async function HomePage() {
         비회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트
         리스트, + 인기 리뷰 목록 (10개)
       </div>
+
       <div className="px-10">
-        <SelectOption type="review" />
+        {/* FIXME: 아래 컴포넌트 아직 미완의 컴포넌트인 것 같아요.. 타입 에러나서
+        빌드 실패시킴.. (young) */}
+        {/* <SelectOption type="review" /> */}
         <div className="w-20 bg-red-50"></div>
       </div>
 
-      <EventList events={[]} />
+      <EventList events={eventsData} />
     </Page>
   );
 }

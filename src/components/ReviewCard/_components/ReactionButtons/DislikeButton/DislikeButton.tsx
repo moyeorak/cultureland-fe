@@ -5,15 +5,14 @@ import Image from "next/image";
 interface DislikeButtonProps {
   onClickDislikeButton: () => void;
   isActive: boolean;
-  hates: number;
+  count: number;
 }
 
 function DisLikeButton({
   onClickDislikeButton,
   isActive,
-  hates,
+  count,
 }: DislikeButtonProps) {
-  const count = 5000;
   return (
     <button
       onClick={onClickDislikeButton}
@@ -35,7 +34,7 @@ function DisLikeButton({
         />
       )}
 
-      <span className="text-fs-14 text-neutral-70">{hates}</span>
+      <span className="text-fs-14 text-neutral-70">{count}</span>
     </button>
   );
 }

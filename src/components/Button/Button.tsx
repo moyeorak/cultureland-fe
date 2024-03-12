@@ -1,17 +1,17 @@
 import { ComponentProps, PropsWithChildren } from "react";
 
 interface ButtonProps extends ComponentProps<"button"> {
-  color?: "black";
+  color?: "primary" | "neutral";
 }
 
 function Button({
-  color = "black",
+  color = "primary",
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) {
   return (
     <button
-      className="w-full text-center rounded text-fs-14 bg-neutral-60 text-font-white h-[50px]"
+      className="w-full text-center rounded text-fs-14 data-[color=neutral]:bg-neutral-60 data-[color=primary]:bg-user-theme-100 text-font-white h-[50px]"
       data-color={color}
       {...props}
     >

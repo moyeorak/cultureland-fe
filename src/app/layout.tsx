@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "MOYEORAK - CultureLand",
-  description: "udemy OYEORAK 팀 CultureLand client",
+  description: "udemy MOYEORAK 팀 CultureLand client",
 };
 
 export default function HTMLLayout({

@@ -1,7 +1,7 @@
 "use client";
 
 import Heading from "@/components/Heading/Heading";
-import { EventData } from "@/types/Event.type";
+import { Events } from "@/types/Event.type";
 import Image from "next/image";
 import { useRef } from "react";
 import "swiper/css";
@@ -9,10 +9,8 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { NextArrow, PrevArrow } from "./_components/Icon";
 
-type InterestingEvent = Pick<EventData, "id" | "poster" | "title">;
-
 interface InterestingEventsProps {
-  events: InterestingEvent[];
+  events: Events[];
 }
 
 function InterestingEvents({ events }: InterestingEventsProps) {
@@ -74,60 +72,3 @@ function InterestingEvents({ events }: InterestingEventsProps) {
 }
 
 export default InterestingEvents;
-
-const mockEvents: InterestingEvent[] = [
-  {
-    id: 1,
-    title: "A",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236577_240304_151238.png",
-  },
-  {
-    id: 2,
-    title: "B",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236574_240304_151046.png",
-  },
-  {
-    id: 3,
-    title: "C",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236560_240304_144219.gif",
-  },
-  {
-    id: 4,
-    title: "D",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236577_240304_151238.png",
-  },
-  {
-    id: 5,
-    title: "E",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236574_240304_151046.png",
-  },
-  {
-    id: 6,
-    title: "F",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236560_240304_144219.gif",
-  },
-  {
-    id: 7,
-    title: "G",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236577_240304_151238.png",
-  },
-  {
-    id: 8,
-    title: "H",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236574_240304_151046.png",
-  },
-  {
-    id: 9,
-    title: "I",
-    poster:
-      "http://www.kopis.or.kr/upload/pfmPoster/PF_PF236560_240304_144219.gif",
-  },
-];
