@@ -59,6 +59,12 @@ const config: Config = {
         "fs-16": "16px",
         "fs-14": "14px",
         "fs-12": "12px",
+        "H1-B-28": [
+          "28px",
+          {
+            fontWeight: "700",
+          },
+        ],
       },
       boxShadow: {
         primary: "0 4px 16px 0 rgba(134, 104, 242, 0.14)",

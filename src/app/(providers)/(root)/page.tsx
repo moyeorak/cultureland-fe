@@ -1,11 +1,16 @@
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
+
 import SelectOption from "@/components/SelectOption";
+
+import InterestingEvents from "./_components/InterestingEvents";
+
 
 function HomePage() {
   return (
     <Page>
       <Heading label="HomePage" />
+      <InterestingEvents events={[]} />
       <div>
         회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트 리스트,
         + 팔로우한 유저의 관심 이벤트 목록 (최대 10개 / 정렬 방식은
