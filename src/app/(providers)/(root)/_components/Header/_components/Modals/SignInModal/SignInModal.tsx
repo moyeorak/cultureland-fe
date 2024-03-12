@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationPartnersSignIn from "@/react-query/auth/partners/useMutationPartnersSignIn";
 import useMutationUserSignIn from "@/react-query/auth/users/useMutationUsersSignIn";
+import { useAuthStore } from "@/zustand";
 import { useRouter } from "next/navigation";
 import { ChangeEventHandler, useState } from "react";
 import TermsAgreementModal from "../TermsAgreementModal";
@@ -21,6 +22,7 @@ function SignInModal() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedAccountType, setSelectedAccountType] = useState("");
+  const { userInfo } = useAuthStore();
 
   const handleChangeAccountType: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSelectedAccountType(e.target.id);
@@ -33,6 +35,7 @@ function SignInModal() {
     try {
       if (selectedAccountType === "user") {
         await usersSignIn({ email, password });
+        console.log(userInfo);
         auth.signIn();
         router.push("/");
         modal.close();

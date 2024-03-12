@@ -1,7 +1,10 @@
 "use client";
 
 import api from "@/api/index.api";
+import { UserInfo } from "@/types/User.type";
+import { useAuthStore } from "@/zustand";
 import { useQuery } from "@tanstack/react-query";
+import { jwtDecode } from "jwt-decode";
 import {
   Dispatch,
   SetStateAction,
@@ -56,11 +59,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
-
 export function Authenticated({ children }: { children: React.ReactNode }) {
   const { isAuthInitialized, setIsAuthInitialized, setIsLoggedIn } = useAuth();
+  const { setUserInfo } = useAuthStore();
 
-  const { data: isAccessTokenRefreshed, isFetched } = useQuery({
+  const {
+    data: refreshedAccessToken,
+    isFetched,
+    isSuccess,
+  } = useQuery({
     queryFn: api.users.refreshToken,
     queryKey: ["authentication"],
     refetchInterval: 1000 * 60 * 29,
@@ -77,12 +84,23 @@ export function Authenticated({ children }: { children: React.ReactNode }) {
   }, [isFetched, setIsAuthInitialized]);
 
   useEffect(() => {
-    if (isAccessTokenRefreshed) {
+    if (isSuccess && refreshedAccessToken) {
+      const userInfo: UserInfo = jwtDecode(String(refreshedAccessToken));
+      return setUserInfo({
+        userId: userInfo.sub,
+        nickname: userInfo.nickname,
+        profileImage: userInfo.profileImage,
+      });
+    }
+  }, [isSuccess, refreshedAccessToken, setUserInfo]);
+
+  useEffect(() => {
+    if (refreshedAccessToken !== undefined) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
-  }, [isAccessTokenRefreshed, setIsLoggedIn]);
+  }, [refreshedAccessToken, setIsLoggedIn]);
 
   if (!isAuthInitialized) return null;
 
