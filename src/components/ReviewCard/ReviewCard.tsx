@@ -15,7 +15,7 @@ import StarRating from "./_components/StarRating";
 interface ReviewCardProps {
   review: Review;
   eventId: number;
-  type: "detail" | "user" | "main";
+  type?: "detail" | "user" | "main";
 }
 
 function ReviewCard({ review, eventId }: ReviewCardProps) {

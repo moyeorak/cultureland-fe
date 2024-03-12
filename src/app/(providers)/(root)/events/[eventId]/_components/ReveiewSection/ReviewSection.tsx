@@ -25,7 +25,7 @@ function ReviewSection({ eventId }: ReviewSectionProps) {
 
   return (
     <div>
-      <div className="ml-auto">
+      <div className="flex justify-end">
         <SelectOption type="review" orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
 

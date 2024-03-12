@@ -2,8 +2,6 @@ import api from "@/api/index.api";
 import EventList from "@/components/EventList";
 import Page from "@/components/Page";
 
-import SelectOption from "@/components/SelectOption";
-
 import InterestingEvents from "./_components/InterestingEvents";
 
 import { Category } from "@/types/Category.type";
@@ -55,6 +53,8 @@ const dummyCategory: Array<Category> = [
 async function HomePage() {
   const { eventsData, totalEventsCnt } = await api.events.getAllEvents(1);
 
+  
+
   return (
     <Page>
       <BestEvents events={eventsData} />
@@ -72,11 +72,11 @@ async function HomePage() {
       </div>
 
       <div className="px-10">
-        <SelectOption type="review" />
         <div className="w-20 bg-red-50"></div>
       </div>
 
       <EventList events={eventsData} />
+
     </Page>
   );
 }

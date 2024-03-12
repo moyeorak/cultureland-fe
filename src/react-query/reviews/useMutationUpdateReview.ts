@@ -16,5 +16,4 @@ export default function useMutationUpdateReview() {
       queryClient.invalidateQueries({ exact: true, queryKey: ["reviews"] });
     },
   });
-  s;
 }
