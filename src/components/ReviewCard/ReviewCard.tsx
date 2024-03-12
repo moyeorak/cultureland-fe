@@ -15,6 +15,7 @@ import StarRating from "./_components/StarRating";
 interface ReviewCardProps {
   review: Review;
   eventId: number;
+  type: "detail" | "user" | "main";
 }
 
 function ReviewCard({ review, eventId }: ReviewCardProps) {
@@ -26,9 +27,6 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   const userProfileImg = "";
 
   const isMyReview = review.reviewerId === Number(userId);
-
-  //내가 좋아요한 상태인지
-  //내가 싫어요한 상태인지 판단을 여기서 해서 내려주자
 
   const isAlreadyLiked = useMemo(
     () =>
@@ -55,7 +53,6 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   }, [review, isAlreadyLiked]);
 
   const handleClickDeleteReview = () => {
-    console.log("삭제");
     deleteReview(review.id);
   };
   const handleClickModifyReview = () => {
@@ -63,10 +60,44 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div className="h-[265px]flex items-center px-8 py-9 rounded-lg shadow-primary mb-10">
-      <div className="flex gap-x-12 w-full">
-        <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
-          <div className="flex">
+    <div className="h-[265px] flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 rou  gap-x-12 overflow-hidden">
+      {review.image && (
+        <div className="w-[208px] h-[208px] min-w-[208px]">
+          <Image
+            src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
+            alt="poster-img"
+            width={208}
+            height={208}
+            className="object-cover overflow-hidden rounded-lg"
+            unoptimized
+          />
+        </div>
+      )}
+      <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
+        <div className="flex gap-x-6 items-center ">
+          <Link
+            href={`/accounts/users/${userId}`}
+            className="w-[180px] overflow-hidden"
+          >
+            <div className="flex gap-x-3 items-center">
+              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
+                <Image
+                  src={"/images/poster.jpeg"}
+                  alt="user-picture"
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+              <p className="text-fs-16 font-bold">
+                {review.reviewerId.toString().slice(0, 10)}
+              </p>
+            </div>
+          </Link>
+          <div>
+            <StarRating rate={review.rating} />
+          </div>
+          <div className="flex ml-auto">
             {isMyReview && (
               <div className="ml-auto flex gap-x-2">
                 <button
@@ -84,38 +115,18 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
               </div>
             )}
           </div>
-          <Link href={`/accounts/users/${userId}`}>
-            <div className="flex gap-x-3 items-center">
-              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
-                <Image
-                  src={"/images/poster.jpeg"}
-                  alt="user-picture"
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-              </div>
-              <p className="text-fs-16 font-bold">{review.reviewerId}</p>
-            </div>
-          </Link>
-          <StarRating rate={review.rating} />
-          <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p>
-          <div className="flex items-center gap-x-[10px] justify-center">
-            <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
-            <ReactionButtons
-              review={review}
-              isAlreadyLiked={isAlreadyLiked}
-              isAlreadyDisliked={isAlreadyDisliked}
-            />
-          </div>
         </div>
-        <div className="relative w-[208px] h-[200px] overflow-hidden rounded-lg">
-          <Image
-            src={"/images/poster.jpeg"}
-            alt="poster-img"
-            fill
-            className="object-cover"
-            unoptimized
+
+        <p className="pt-4 text-neutral-70 text-fs-14 h-[105px] overflow-hidden">
+          {review.content}
+        </p>
+        <div className="flex items-center gap-x-[10px] justify-center">
+          <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
+
+          <ReactionButtons
+            review={review}
+            isAlreadyLiked={isAlreadyLiked}
+            isAlreadyDisliked={isAlreadyDisliked}
           />
         </div>
       </div>
