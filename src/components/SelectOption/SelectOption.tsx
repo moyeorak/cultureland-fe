@@ -57,7 +57,7 @@ function SelectOption({ type, orderBy, setOrderBy }: SelectOptionProps) {
           alt="drop-down"
           width={18}
           height={18}
-      />
+        />
       </button>
       {isSelected && (
         <div className="absolute bg-white shadow-primary w-[120px] rounded-md z-10">
