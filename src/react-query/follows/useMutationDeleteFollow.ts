@@ -8,6 +8,9 @@ export default function useMutationDeleteFollow(userId: number) {
   return useMutation({
     mutationFn,
     onSuccess: () =>
-      queryClient.invalidateQueries({ exact: true, queryKey: ["follows"] }),
+      queryClient.invalidateQueries({
+        exact: true,
+        queryKey: ["followings, follows"],
+      }),
   });
 }

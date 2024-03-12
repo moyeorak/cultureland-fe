@@ -8,6 +8,9 @@ export default function useMutationAddFollow() {
   return useMutation({
     mutationFn,
     onSuccess: () =>
-      queryClient.invalidateQueries({ exact: true, queryKey: ["follows"] }),
+      queryClient.invalidateQueries({
+        exact: true,
+        queryKey: ["follows, followings"],
+      }),
   });
 }

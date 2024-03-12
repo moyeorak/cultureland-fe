@@ -1,21 +1,8 @@
-export type GetFollowersData = {
-  followers: Array<{
-    userProfile: {
-      nickname: string;
-      profileImage: string | null;
-    };
-  }>;
-};
+import { Followers, Followings } from "@/types/Follow.type";
 
-export type GetFollowingsData = {
-  following: Array<{
-    id: number;
-    userProfile: {
-      nickname: string;
-      profileImage: string | null;
-    };
-  }>;
-};
+export type GetFollowersData = Followers;
+
+export type GetFollowingsData = Followings;
 
 export type AddFollowData = {
   followerId: number;

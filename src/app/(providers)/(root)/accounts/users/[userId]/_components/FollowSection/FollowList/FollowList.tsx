@@ -1,31 +1,86 @@
-import {
-  GetFollowersData,
-  GetFollowingsData,
-} from "@/api/follows/follows.data";
+import useQueryGetFollowers from "@/react-query/follows/useQueryGetFollowers";
+import useQueryGetFollowings from "@/react-query/follows/useQueryGetFollowings";
+import { profileImgPrifix } from "@/utils/profileImgPrifix";
+import Image from "next/image";
 import FollowButton from "./../FollowButton/FollowButton";
 
 interface FollowListProps {
-  followType: string;
-  followsData: GetFollowersData | GetFollowingsData;
+  followType: "followings" | "followers";
+  userId: number;
 }
 
-function FollowList({ followType, followsData }: FollowListProps) {
+function FollowList({ followType, userId }: FollowListProps) {
+  console.log("followType: ", followType);
+  const { data: followers, isLoading: followerIsLoading } =
+    useQueryGetFollowers(userId);
+  const { data: followings, isLoading: followingIsLoading } =
+    useQueryGetFollowings(userId);
+
+  if (followingIsLoading || followerIsLoading) return <div>...is Loading</div>;
+
+  const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
+
   return (
     <>
-      <div className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full">
-        <div className="flex items-center my-5">
-          <div className="bg-neutral-30 h-[60px] w-[60px] rounded-full">
-            {/* 이미지자리 */}
-          </div>
-          <div className="ml-3">
-            <div className="text-fs-16 font-medium">DODO332</div>
-            <div className="text-fs-14 font-normal mt-1">
-              재미있는 문화 리뷰어로 거듭나고 싶습니다.
+      {followType === "followings"
+        ? followings?.map((followings, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
+            >
+              <div className="flex items-center my-5">
+                <Image
+                  src={
+                    followings.following.userProfile.profileImage === undefined
+                      ? `${profileImgPrifix}/${followings.following.userProfile.profileImage}`
+                      : defaultProfileImg
+                  }
+                  alt={followings.following.userProfile.nickname}
+                  height={60}
+                  width={60}
+                  className="rounded-full"
+                />
+                <div className="ml-3">
+                  <div className="text-fs-16 font-medium">
+                    {followings.following.userProfile.nickname}
+                  </div>
+                  <div className="text-fs-14 font-normal mt-1">
+                    {followings.following.userProfile.description}
+                  </div>
+                </div>
+              </div>
+              <FollowButton />
             </div>
-          </div>
-        </div>
-        <FollowButton />
-      </div>
+          ))
+        : followers?.map((followers, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
+            >
+              <div className="flex items-center my-5">
+                <Image
+                  src={
+                    followers.follower.userProfile.profileImage === undefined
+                      ? `${profileImgPrifix}/${followers.follower.userProfile.profileImage}`
+                      : defaultProfileImg
+                  }
+                  alt={followers.follower.userProfile.nickname}
+                  height={60}
+                  width={60}
+                  className="rounded-full"
+                />
+                <div className="ml-3">
+                  <div className="text-fs-16 font-medium">
+                    {followers.follower.userProfile.nickname}
+                  </div>
+                  <div className="text-fs-14 font-normal mt-1">
+                    {followers.follower.userProfile.description}
+                  </div>
+                </div>
+              </div>
+              <FollowButton />
+            </div>
+          ))}
     </>
   );
 }

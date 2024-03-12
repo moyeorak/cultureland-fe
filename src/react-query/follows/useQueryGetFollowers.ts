@@ -6,7 +6,7 @@ export default function useQueryGetFollowers(
   enabled: boolean = true
 ) {
   return useQuery({
-    queryKey: ["follows", userId],
+    queryKey: ["followers", userId],
     queryFn: () => api.follows.getFollowers(userId),
     enabled,
   });
