@@ -13,9 +13,13 @@ async function createReview(dto: any) {
   if (!data.success) throw new Error(data.error.message);
 }
 
-async function getReviewsOfEvent(eventId: number) {
+async function getReviewsOfEvent(
+  eventId: number,
+  page: number = 1,
+  orderBy: "likes" | "hates" | "recent" = "likes"
+) {
   const response = await client.get<Response<GetReviewData>>(
-    `/reviews?eventId=${eventId}`
+    `/reviews/events/${eventId}?page=${page}&orderBy=${orderBy}`
   );
   const data = response.data;
 
@@ -39,7 +43,8 @@ async function getFamousReviews() {
 
 async function createReactionInReview(reviewId: number, reactionValue: number) {
   const response = await client.post<Response<CreateReactionData>>(
-    `/reviews/${reviewId}/reactions`
+    `/reviews/${reviewId}/reactions`,
+    { reactionValue }
   );
 
   const data = response.data;
@@ -61,11 +66,31 @@ async function deleteReactionInReview(reviewId: number) {
   const reaction = data.result;
   return reaction;
 }
+async function updateReview(reviewId: number, dto: any) {
+  const response = await client.put(`/reviews/${reviewId}`, dto);
+  const data = response.data;
+  if (!data.success) throw new Error(data.error.message);
+
+  const review = data.result;
+
+  return review;
+}
+async function deleteReview(reviewId: number) {
+  const response = await client.delete(`/reviews/${reviewId}`);
+  const data = response.data;
+  if (!data.success) throw new Error(data.error.message);
+
+  const review = data.result;
+
+  return review;
+}
 
 const reviewsAPI = {
   createReview,
   getReviewsOfEvent,
   getFamousReviews,
+  updateReview,
+  deleteReview,
   createReactionInReview,
   deleteReactionInReview,
 };

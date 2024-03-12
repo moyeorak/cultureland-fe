@@ -7,7 +7,7 @@ function InfoSection() {
         src={"/images/poster.jpeg"}
         alt="event-poster"
         fill
-        objectFit="object-cover"
+        className="object-cover"
       />
     </div>
   );
