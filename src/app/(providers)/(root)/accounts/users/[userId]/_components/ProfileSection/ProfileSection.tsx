@@ -15,9 +15,10 @@ interface ProfileSectionProps {
 function ProfileSection({ user }: ProfileSectionProps) {
   const { isLoggedIn } = useAuth();
   const { setShowFollows, setActiveTab } = useTabStore();
+  const { mutateAsync: addFollow, isPending } = useMutationAddFollow();
+
   const profileImg = `${profileImgPrifix}/${user.userProfile.profileImage}`;
   const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
-  const { mutateAsync: addFollow, isPending } = useMutationAddFollow();
 
   const handleClickAddFollow: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -40,7 +41,11 @@ function ProfileSection({ user }: ProfileSectionProps) {
 
           <div className="mt-3 h-[204px]">
             <Image
-              src={profileImg === null ? defaultProfileImg : profileImg}
+              src={
+                user.userProfile.profileImage === null
+                  ? defaultProfileImg
+                  : profileImg
+              }
               alt={user.userProfile.nickname}
               width={200}
               height={200}
@@ -60,6 +65,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
           {isLoggedIn && user.isMe && (
             <button className="mt-6 rounded-md border border-user-theme-30 py-2 w-full">
               <div className="text-user-theme-90 text-fs-14">프로필수정</div>
+              {/**프로필 수정 모달 띄워야함 */}
             </button>
           )}
         </div>
