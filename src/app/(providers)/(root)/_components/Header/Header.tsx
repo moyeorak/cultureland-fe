@@ -1,7 +1,7 @@
 "use client";
 
 import api from "@/api/index.api";
-import { useAuth } from "@/contexts/auth.context/auth.context";
+import { Authenticated, useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,7 +24,6 @@ function Header() {
   };
 
   return (
-    // <Authenticated>
     <header className="flex items-center gap-10 min-h-16 border-b bg-white text-nowrap transition-all">
       <div className="max-w-[960px] w-full flex mx-auto gap-10">
         <Link href="/">로고</Link>
@@ -42,25 +41,26 @@ function Header() {
           <div>
             <SearchBar placeholder="검색해보세요." />
           </div>
-          {auth.isLoggedIn ? (
-            <>
-              <Link href="/accounts/users/:userId">마이페이지</Link>
-              <button onClick={handleClickSignOut}>로그 아웃</button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => modal.open(<SignInModal />)}>
-                로그인
-              </button>
-              <button onClick={() => modal.open(<TermsAgreementModal />)}>
-                회원 가입
-              </button>
-            </>
-          )}
+          <Authenticated>
+            {auth.isLoggedIn ? (
+              <>
+                <Link href="/accounts/users/:userId">마이페이지</Link>
+                <button onClick={handleClickSignOut}>로그 아웃</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => modal.open(<SignInModal />)}>
+                  로그인
+                </button>
+                <button onClick={() => modal.open(<TermsAgreementModal />)}>
+                  회원 가입
+                </button>
+              </>
+            )}
+          </Authenticated>
         </div>
       </div>
     </header>
-    // </Authenticated>
   );
 }
 
