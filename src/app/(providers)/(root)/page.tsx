@@ -1,16 +1,72 @@
-import Heading from "@/components/Heading/Heading";
+import api from "@/api/index.api";
+import EventList from "@/components/EventList";
 import Page from "@/components/Page";
 
 import SelectOption from "@/components/SelectOption";
 
 import InterestingEvents from "./_components/InterestingEvents";
 
+import { Category } from "@/types/Category.type";
+import BestEvents from "./_components/BestEvents";
 
-function HomePage() {
+const dummyCategory: Array<Category> = [
+  {
+    code: 1,
+    value: "전체",
+  },
+  {
+    code: 2,
+    value: "연극",
+  },
+  {
+    code: 3,
+    value: "무용",
+  },
+  {
+    code: 4,
+    value: "대중무용",
+  },
+  {
+    code: 5,
+    value: "클래식",
+  },
+  {
+    code: 6,
+    value: "국악",
+  },
+  {
+    code: 7,
+    value: "치킨",
+  },
+  {
+    code: 8,
+    value: "피자",
+  },
+  {
+    code: 9,
+    value: "햄버거",
+  },
+  {
+    code: 10,
+    value: "이종환",
+  },
+]; // 테스트를 위한 더미 데이터입니다.
+
+async function HomePage() {
+  const events = await api.events.getAllEvents(1);
+
+  if (!events) return <div>데이터를 받아오는 중입니다.</div>;
+
+  const interestEvents = events.slice(0, 6);
+  const mainEvents = events.slice(0, 8);
+  const bestEvents = events.slice(0, 5);
+
   return (
     <Page>
-      <Heading label="HomePage" />
-      <InterestingEvents events={[]} />
+      <BestEvents events={bestEvents} />
+
+      <InterestingEvents events={interestEvents} />
+
       <div>
         회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트 리스트,
         + 팔로우한 유저의 관심 이벤트 목록 (최대 10개 / 정렬 방식은
@@ -24,6 +80,8 @@ function HomePage() {
         <SelectOption type="review" />
         <div className="w-20 bg-red-50"></div>
       </div>
+
+      <EventList events={mainEvents} />
     </Page>
   );
 }

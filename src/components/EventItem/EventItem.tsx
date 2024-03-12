@@ -22,7 +22,7 @@ function EventItem({ event }: EventItemProps) {
           <h4 className="text-base text-nowrap overflow-hidden">
             {event.title}
           </h4>
-          <span className="text-xs">{event.venue.venueName}</span>
+          <span className="text-xs">{event.venue.name}</span>
           <span className="text-xs">
             {event.startDate} ~ {event.endDate}
           </span>
