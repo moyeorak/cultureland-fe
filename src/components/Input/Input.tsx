@@ -28,7 +28,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full">
       {label && id && (
         <label htmlFor={id} className="mb-3 text-sm font-medium">
           {label}
