@@ -48,7 +48,11 @@ function ReviewForm({ eventId }: ReviewFormProps) {
     <div className=" py-10 px-10 shadow-primary rounded-lg">
       <h4 className="font-bold text-fs-28 mb-4 text-center">후기작성</h4>
       <div className="flex gap-x-2">
-        <Rating value={rating} onChange={(value) => setRating(value)} />
+        <Rating
+          value={rating}
+          onChange={(value) => setRating(value)}
+          size={24}
+        />
       </div>
       <p className="text-fs-12 text-font-70 mt-1 mb-4 px-2">
         별점을 선택해 주세요

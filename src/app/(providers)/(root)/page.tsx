@@ -1,6 +1,10 @@
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
+
+import SelectOption from "@/components/SelectOption";
+
 import InterestingEvents from "./_components/InterestingEvents";
+
 
 function HomePage() {
   return (
@@ -15,6 +19,10 @@ function HomePage() {
       <div>
         비회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트
         리스트, + 인기 리뷰 목록 (10개)
+      </div>
+      <div className="px-10">
+        <SelectOption type="review" />
+        <div className="w-20 bg-red-50"></div>
       </div>
     </Page>
   );

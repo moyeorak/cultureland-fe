@@ -8,7 +8,7 @@ interface RatingProps {
   color?: string;
   hoverColor?: string;
   activeColor?: string;
-emptyIconPath?: string;
+  emptyIconPath?: string;
   fullIconPath?: string;
 }
 
@@ -33,6 +33,7 @@ function Rating({ value, onChange }: RatingProps) {
                 ? true
                 : false
             }
+            size="big"
           />
         </div>
       )),
