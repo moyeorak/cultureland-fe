@@ -18,8 +18,6 @@ function ReviewForm({ eventId }: ReviewFormProps) {
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
-  console.log(rating);
-
   const handleClickCreateReview: MouseEventHandler<
     HTMLButtonElement
   > = async () => {

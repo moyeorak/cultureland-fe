@@ -2,27 +2,30 @@ import { Review } from "@/types/Review.type";
 import { create } from "zustand";
 
 interface ReviewsState {
-  reviews: Review[];
-  fetchReviews: (eventId: string) => Promise<void>;
-  addReview: (review: Review) => Promise<void>;
-  editReview: (reviewId: string, content: string) => Promise<void>;
-  deleteReview: (reviewId: string) => Promise<void>;
+  likedReviews: Review[];
+  addLikeReview: (review: Review) => void;
+  removeLikeReview: (reviewId: Review) => void;
 }
 
 const useReviewsStore = create<ReviewsState>((set) => ({
-  reviews: [],
-  fetchReviews: async (eventId) => {
-    // 특정 이벤트에 대한 리뷰 목록 가져오기
-  },
-  addReview: async (review) => {
-    // 리뷰 추가하기
-  },
-  editReview: async (reviewId, content) => {
-    // 리뷰 수정하기
-  },
-  deleteReview: async (reviewId) => {
-    // 리뷰 삭제하기
-  },
+  likedReviews: [],
+  addLikeReview: (newReview) =>
+    set((state) => {
+      const isAlreadyLiked = state.likedReviews.some(
+        (review) => review.id === newReview.id
+      );
+      if (!isAlreadyLiked) {
+        return { likedReviews: [...state.likedReviews, newReview] };
+      } else {
+        return state;
+      }
+    }),
+  removeLikeReview: (review) =>
+    set((state) => ({
+      likedReviews: state.likedReviews.filter(
+        (likedReview) => likedReview.id !== review.id
+      ),
+    })),
 }));
 
 export default useReviewsStore;
