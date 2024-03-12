@@ -57,15 +57,15 @@ async function HomePage() {
 
   if (!events) return <div>데이터를 받아오는 중입니다.</div>;
 
-  const interestEvents = events.slice(0, 6);
-  const mainEvents = events.slice(0, 8);
-  const bestEvents = events.slice(0, 5);
+  // const interestEvents = events.slice(0, 6);
+  // const mainEvents = events.slice(0, 8);
+  // const bestEvents = events.slice(0, 5);
 
   return (
     <Page>
-      <BestEvents events={bestEvents} />
+      <BestEvents events={[]} />
 
-      <InterestingEvents events={interestEvents} />
+      <InterestingEvents events={[]} />
 
       <div>
         회원 - 인기 이벤트 정보, 카테고리별 이벤트 리스트, 지역별 이벤트 리스트,
@@ -81,7 +81,7 @@ async function HomePage() {
         <div className="w-20 bg-red-50"></div>
       </div>
 
-      <EventList events={mainEvents} />
+      <EventList events={[]} />
     </Page>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import StarRating from "@/components/ReviewCard/_components/StarRating";
-import { Event } from "@/types/Event.type";
+import { EventData } from "@/types/Event.type";
 import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 type bestEvents = Pick<
-  Event,
+  EventData,
   | "id"
   | "title"
   | "poster"
