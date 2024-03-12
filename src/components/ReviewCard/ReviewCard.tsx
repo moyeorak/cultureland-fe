@@ -2,7 +2,6 @@
 
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
-import { useReviewsStore } from "@/zustand";
 import Image from "next/image";
 import { useEffect, useMemo } from "react";
 import ReactionButtons from "./_components/ReactionButtons";
@@ -13,7 +12,8 @@ interface ReviewCardProps {
 }
 
 function ReviewCard({ review }: ReviewCardProps) {
-  const { likedReviews, addLikeReview } = useReviewsStore((state) => state);
+  // const { likedReviews, addLikeReview } = useReviewsStore((state) => state);
+  const userProfileImg = "";
   const myId = 12; //전역상태로 가지고 있기
 
   const isMyReview = review.reviewerId === myId;
@@ -49,12 +49,11 @@ function ReviewCard({ review }: ReviewCardProps) {
 
   useEffect(() => {
     if (isAlreadyLiked) {
-      addLikeReview(review);
     }
   }, [review, isAlreadyLiked]);
 
-  // console.log("isAlreadyLiked", isAlreadyLiked);
-  // console.log("isAlreadyDisliked", isAlreadyDisliked);
+  console.log("isAlreadyLiked", isAlreadyLiked);
+  console.log("isAlreadyDisliked", isAlreadyDisliked);
 
   const handleClickDeleteReview = () => {
     console.log("삭제");
@@ -89,10 +88,11 @@ function ReviewCard({ review }: ReviewCardProps) {
           <div className="flex gap-x-3 items-center">
             <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
               <Image
-                src={"/images/poster.jpeg"}
-                alt="event-poster"
+                src={`https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/${review.image}`}
+                alt="review-picture"
                 layout="fill"
                 objectFit="cover"
+                unoptimized
               />
             </div>
             <p className="text-fs-16 font-bold">{review.reviewerId}</p>
@@ -110,10 +110,11 @@ function ReviewCard({ review }: ReviewCardProps) {
         </div>
         <div className="relative w-[208px] h-[200px] overflow-hidden rounded-lg">
           <Image
-            src={"/images/poster.jpeg"}
-            alt="event-poster"
+            src={`https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/${userProfileImg}`}
+            alt="user-profile-img"
             layout="fill"
             objectFit="cover"
+            unoptimized
           />
         </div>
       </div>
