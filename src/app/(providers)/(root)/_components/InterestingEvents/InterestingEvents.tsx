@@ -1,7 +1,7 @@
 "use client";
 
 import Heading from "@/components/Heading/Heading";
-import { Event } from "@/types/Event.type";
+import { EventData } from "@/types/Event.type";
 import Image from "next/image";
 import { useRef } from "react";
 import "swiper/css";
@@ -9,7 +9,7 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { NextArrow, PrevArrow } from "./_components/Icon";
 
-type InterestingEvent = Pick<Event, "id" | "poster" | "title">;
+type InterestingEvent = Pick<EventData, "id" | "poster" | "title">;
 
 interface InterestingEventsProps {
   events: InterestingEvent[];

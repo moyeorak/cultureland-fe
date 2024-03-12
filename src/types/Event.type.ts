@@ -3,7 +3,7 @@ import { Category } from "./Category.type";
 import { Partner } from "./Partner";
 import { Venue } from "./Venue.type";
 
-export type Event = {
+export type EventData = {
   id: number;
   partnerId: number;
   title: string;
@@ -21,6 +21,11 @@ export type Event = {
   category: Category;
   area: Area;
   avgRating: number;
+};
+
+export type Event = {
+  data: Array<EventData>;
+  totalEventsCnt: number;
 };
 
 export type EventDetail = {

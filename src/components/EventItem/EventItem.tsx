@@ -1,8 +1,8 @@
-import { Event } from "@/types/Event.type";
+import { EventData } from "@/types/Event.type";
 import Image from "next/image";
 
 interface EventItemProps {
-  event: Event;
+  event: EventData;
 }
 
 function EventItem({ event }: EventItemProps) {

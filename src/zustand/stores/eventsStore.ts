@@ -1,9 +1,9 @@
 import api from "@/api/index.api";
-import { Event } from "@/types/Event.type";
+import { EventData } from "@/types/Event.type";
 import { create } from "zustand";
 
 interface EventsStore {
-  events: Array<Event>;
+  events: Array<EventData>;
   fetchEvents: () => Promise<void>;
 }
 
