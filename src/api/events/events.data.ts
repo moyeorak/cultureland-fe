@@ -1,5 +1,5 @@
-import { Event } from "@/types/Event.type";
+import { Event, EventData } from "@/types/Event.type";
 
-export type getEventsData = Event[];
+export type getEventsData = EventData[];
 
 export type getEventData = Event;

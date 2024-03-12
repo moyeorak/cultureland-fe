@@ -1,29 +1,54 @@
+import { Area } from "./Area.type";
 import { Category } from "./Category.type";
+import { Partner } from "./Partner";
 import { Venue } from "./Venue.type";
 
-export type Event = {
+export type EventData = {
   id: number;
-  eventId: number;
   partnerId: number;
   title: string;
   poster: string;
   startDate: string;
   endDate: string;
+  venueId: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: null | string;
+  apiId: string;
+  areaCode: number;
+  categoryCode: number;
   venue: Venue;
   category: Category;
-  rating: number;
-  eventDetail?: EventDetail;
+  area: Area;
+  avgRating: number;
 };
 
-interface EventDetail {
-  description: string;
-  bookingLink: string;
-  event_description_image: string[];
-  runtime: string;
-  targetAudience: string;
-  price: string;
-  genre: string;
-  status: string;
-  startTime: string;
-  endTime: string;
-}
+export type Event = {
+  data: Array<EventData>;
+  totalEventsCnt: number;
+};
+
+export type EventDetail = {
+  id: number;
+  partnerId: number;
+  title: string;
+  poster: string;
+  startDate: string;
+  endDate: string;
+  venueId: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: null | string;
+  apiId: string;
+  areaCode: number;
+  categoryCode: number;
+  area: Area;
+  category: Category;
+  eventDetail: EventDetail;
+  venue: Venue;
+  partner: Partner;
+  _count: {
+    reviews: number;
+  };
+  reviews: [];
+};

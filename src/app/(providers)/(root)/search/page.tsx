@@ -1,9 +1,8 @@
 import Page from "@/components/Page";
 import Pagination from "@/components/Pagination";
-import { Event } from "@/types/Event.type";
 import SearchBar from "../_components/Header/_components/SearchBar";
 
-const dummyData: Array<Event> = [
+const dummyData: Array<any> = [
   {
     id: 1,
     eventId: 1,
@@ -226,10 +225,10 @@ function SearchPage({
       <div className="text-center mb-[37px]">
         <SearchBar placeholder={keyword} />
         <h2 className="mt-6 mb-2">{`'${keyword}'에 대한 검색 결과`}</h2>
-        <span>총 {dummyData.length}개의 결과를 발견하였습니다.</span>
+        <span>총 {0}개의 결과를 발견하였습니다.</span>
       </div>
 
-      <Pagination events={dummyData} eventsPerPage={12} />
+      <Pagination events={[]} eventsPerPage={12} />
     </Page>
   );
 }

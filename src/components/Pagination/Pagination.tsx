@@ -1,11 +1,11 @@
 "use client";
 
-import { Event } from "@/types/Event.type";
+import { EventData } from "@/types/Event.type";
 import { useEffect, useState } from "react";
 import EventList from "../EventList";
 
 interface PaginationProps {
-  events: Array<Event>;
+  events: Array<EventData>;
   eventsPerPage: number;
 }
 
@@ -13,7 +13,7 @@ function Pagination({
   events: eventsData,
   eventsPerPage: eventNumber,
 }: PaginationProps) {
-  const [events, setEvents] = useState<Array<Event>>([]);
+  const [events, setEvents] = useState<Array<EventData>>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [eventsPerPage] = useState(eventNumber);
 
@@ -62,8 +62,8 @@ function Pagination({
   let pageIncrementButton = null;
   if (pageNumbers.length > maxPageNumberLimit) {
     pageIncrementButton = (
-      <li className='page-item'>
-        <a onClick={handleNextButton} href='#!' className='page-link'>
+      <li className="page-item">
+        <a onClick={handleNextButton} href="#!" className="page-link">
           &hellip;
         </a>
       </li>
@@ -73,8 +73,8 @@ function Pagination({
   let pageDecrementButton = null;
   if (minPageNumberLimit >= 1) {
     pageDecrementButton = (
-      <li className='page-item'>
-        <a onClick={handlePrevButton} href='#!' className='page-link'>
+      <li className="page-item">
+        <a onClick={handlePrevButton} href="#!" className="page-link">
           &hellip;
         </a>
       </li>
@@ -84,12 +84,12 @@ function Pagination({
   return (
     <>
       <EventList events={currentEvents} />
-      <nav className='mt-8'>
-        <ul className='pagination flex gap-[17px] justify-center text-center'>
-          <li className='page-item w-[21px] h-[21px]  rounded-md'>
+      <nav className="mt-8">
+        <ul className="pagination flex gap-[17px] justify-center text-center">
+          <li className="page-item w-[21px] h-[21px]  rounded-md">
             <a
               onClick={handlePrevButton}
-              href='#!'
+              href="#!"
               className={`page-link ${
                 currentPage === 1 && "disabled"
               } text-neutral-30 w-full h-full inline-block border-red-500 active:border-user-theme-100 visited:border-user-theme-100`}
@@ -109,8 +109,8 @@ function Pagination({
                 >
                   <a
                     onClick={() => paginate(number)}
-                    href='#!'
-                    className='page-link'
+                    href="#!"
+                    className="page-link"
                   >
                     {number}
                   </a>
@@ -121,10 +121,10 @@ function Pagination({
             }
           })}
           {pageIncrementButton}
-          <li className='page-item page-item w-[21px] h-[21px] hover:bg-user-theme-100 rounded-md'>
+          <li className="page-item page-item w-[21px] h-[21px] hover:bg-user-theme-100 rounded-md">
             <a
               onClick={handleNextButton}
-              href='#!'
+              href="#!"
               className={`page-link ${
                 currentPage === pageNumbers.length && "disabled"
               } text-neutral-30`}

@@ -1,8 +1,8 @@
-import { Event } from "@/types/Event.type";
+import { EventData } from "@/types/Event.type";
 import Image from "next/image";
 
 interface EventItemProps {
-  event: Event;
+  event: EventData;
 }
 
 function EventItem({ event }: EventItemProps) {
@@ -22,7 +22,7 @@ function EventItem({ event }: EventItemProps) {
           <h4 className="text-base text-nowrap overflow-hidden">
             {event.title}
           </h4>
-          <span className="text-xs">{event.venue.venueName}</span>
+          <span className="text-xs">{event.venue.name}</span>
           <span className="text-xs">
             {event.startDate} ~ {event.endDate}
           </span>

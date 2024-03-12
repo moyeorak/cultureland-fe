@@ -1,6 +1,7 @@
 "use client";
 
-import { Event } from "@/types/Event.type";
+import Heading from "@/components/Heading/Heading";
+import { EventData } from "@/types/Event.type";
 import Image from "next/image";
 import { useRef } from "react";
 import "swiper/css";
@@ -8,15 +9,13 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { NextArrow, PrevArrow } from "./_components/Icon";
 
-type InterestingEvent = Pick<Event, "id" | "poster" | "title">;
+type InterestingEvent = Pick<EventData, "id" | "poster" | "title">;
 
 interface InterestingEventsProps {
   events: InterestingEvent[];
 }
 
 function InterestingEvents({ events }: InterestingEventsProps) {
-  // TODO: 아래 한 줄을 이후에 지우시면 됩니다.
-  events = mockEvents;
   const swiperRef = useRef<SwiperRef>(null);
 
   const handleClickPrev = () => {
@@ -30,8 +29,8 @@ function InterestingEvents({ events }: InterestingEventsProps) {
   };
 
   return (
-    <section>
-      <h2 className="text-H1-B-28 mb-3">유진영님의 관심목록</h2>
+    <section className="mb-20">
+      <Heading label="관심목록" position="start" />
 
       <div className="px-[44px] py-2">
         <div className="flex items-center gap-x-5">
@@ -59,6 +58,7 @@ function InterestingEvents({ events }: InterestingEventsProps) {
                   src={event.poster}
                   alt={event.title}
                   className="rounded-lg"
+                  unoptimized
                 />
               </SwiperSlide>
             ))}
