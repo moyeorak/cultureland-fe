@@ -18,7 +18,7 @@ const dummyLocations = [
 function MapPage() {
   return (
     <Page>
-      <Heading label="MapPage" />
+      <Heading label="지도로 찾아보기" />
       <KakaoMap locations={dummyLocations} />
       {/* <Map location={{ lat: 33.450705, lng: 126.570677 }} /> */}
     </Page>
