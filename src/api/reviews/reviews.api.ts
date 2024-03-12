@@ -43,7 +43,8 @@ async function getFamousReviews() {
 
 async function createReactionInReview(reviewId: number, reactionValue: number) {
   const response = await client.post<Response<CreateReactionData>>(
-    `/reviews/${reviewId}/reactions`
+    `/reviews/${reviewId}/reactions`,
+    { reactionValue }
   );
 
   const data = response.data;

@@ -5,10 +5,10 @@ import Image from "next/image";
 interface LikeButtonProps {
   onClickLikeButton: () => void;
   isActive: boolean;
-  likes: number;
+  count: number;
 }
 
-function LikeButton({ onClickLikeButton, isActive, likes }: LikeButtonProps) {
+function LikeButton({ onClickLikeButton, isActive, count }: LikeButtonProps) {
   return (
     <button onClick={onClickLikeButton} className="flex gap-x-2 items-center">
       {isActive ? (
@@ -26,7 +26,7 @@ function LikeButton({ onClickLikeButton, isActive, likes }: LikeButtonProps) {
           height={24}
         />
       )}
-      <span className="text-fs-14 text-neutral-70">{likes}</span>
+      <span className="text-fs-14 text-neutral-70">{count}</span>
     </button>
   );
 }
