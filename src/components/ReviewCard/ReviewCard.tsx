@@ -1,30 +1,31 @@
 "use client";
 
+import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
+import { useModal } from "@/contexts/modal/modal.context";
+import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
+import { useAuthStore } from "@/zustand";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import ReactionButtons from "./_components/ReactionButtons";
 import StarRating from "./_components/StarRating";
 
 interface ReviewCardProps {
   review: Review;
+  eventId: number;
 }
 
-function ReviewCard({ review }: ReviewCardProps) {
-  // const { likedReviews, addLikeReview } = useReviewsStore((state) => state);
+function ReviewCard({ review, eventId }: ReviewCardProps) {
+  const modal = useModal();
+  const { userInfo } = useAuthStore();
+  const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
+  const { mutate: deleteReview } = useMutationDeleteReview();
+
   const userProfileImg = "";
-  const myId = 12; //전역상태로 가지고 있기
 
-  const isMyReview = review.reviewerId === myId;
-
-  if (isMyReview) {
-    //내글이면 전역으로 내가 쓴 리뷰에 저장하기
-    console.log("저장");
-  }
-
-  // console.log(review, "review");
-  // console.log(isMyReview, "isMyReview");
+  const isMyReview = review.reviewerId === Number(userId);
 
   //내가 좋아요한 상태인지
   //내가 싫어요한 상태인지 판단을 여기서 해서 내려주자
@@ -33,18 +34,19 @@ function ReviewCard({ review }: ReviewCardProps) {
     () =>
       review.reviewReactions?.some(
         (reviewReaction) =>
-          reviewReaction.userId === myId && reviewReaction.reactionValue === 1
+          reviewReaction.userId === userId && reviewReaction.reactionValue === 1
       ) ?? false,
-    [review.reviewReactions, myId]
+    [review.reviewReactions, userId]
   );
 
   const isAlreadyDisliked = useMemo(
     () =>
       review.reviewReactions?.some(
         (reviewReaction) =>
-          reviewReaction.userId === myId && reviewReaction.reactionValue === -1
+          reviewReaction.userId === userId &&
+          reviewReaction.reactionValue === -1
       ) ?? false,
-    [review.reviewReactions, myId]
+    [review.reviewReactions, userId]
   );
 
   useEffect(() => {
@@ -52,14 +54,12 @@ function ReviewCard({ review }: ReviewCardProps) {
     }
   }, [review, isAlreadyLiked]);
 
-  console.log("isAlreadyLiked", isAlreadyLiked);
-  console.log("isAlreadyDisliked", isAlreadyDisliked);
-
   const handleClickDeleteReview = () => {
     console.log("삭제");
+    deleteReview(review.id);
   };
   const handleClickModifyReview = () => {
-    console.log("수정");
+    modal.open(<ReviewModifyModal eventId={eventId} reviewId={review.id} />);
   };
 
   return (
@@ -84,19 +84,20 @@ function ReviewCard({ review }: ReviewCardProps) {
               </div>
             )}
           </div>
-
-          <div className="flex gap-x-3 items-center">
-            <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
-              <Image
-                src={`https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/${review.image}`}
-                alt="review-picture"
-                layout="fill"
-                objectFit="cover"
-                unoptimized
-              />
+          <Link href={`/accounts/users/${userId}`}>
+            <div className="flex gap-x-3 items-center">
+              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
+                <Image
+                  src={"/images/poster.jpeg"}
+                  alt="user-picture"
+                  layout="fill"
+                  objectFit="cover"
+                  unoptimized
+                />
+              </div>
+              <p className="text-fs-16 font-bold">{review.reviewerId}</p>
             </div>
-            <p className="text-fs-16 font-bold">{review.reviewerId}</p>
-          </div>
+          </Link>
           <StarRating rate={review.rating} />
           <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p>
           <div className="flex items-center gap-x-[10px] justify-center">
@@ -110,8 +111,8 @@ function ReviewCard({ review }: ReviewCardProps) {
         </div>
         <div className="relative w-[208px] h-[200px] overflow-hidden rounded-lg">
           <Image
-            src={`https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/${userProfileImg}`}
-            alt="user-profile-img"
+            src={"/images/poster.jpeg"}
+            alt="poster-img"
             layout="fill"
             objectFit="cover"
             unoptimized

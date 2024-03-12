@@ -16,34 +16,12 @@ function ReviewSection({ eventId }: ReviewSectionProps) {
     "recent"
   );
 
-  const handleSelectOption = (selectedOption: string) => {
-    switch (selectedOption) {
-      case "좋아요순":
-        setOrderBy("likes");
-        break;
-      case "싫어요순":
-        setOrderBy("hates");
-        break;
-      case "최신순":
-        setOrderBy("recent");
-        break;
-      default:
-        setOrderBy("recent");
-    }
-    setPage(1);
-  };
-
-  console.log("eventId", eventId);
-  console.log("orderBy", orderBy);
-  console.log("page", page);
-
-  const { data: reviews, isLoading } = useQueryReviewsOfEvent(
+  const { data: reviews } = useQueryReviewsOfEvent(
     eventId,
     true,
     page,
     orderBy
   );
-  console.log("reviews", reviews);
 
   return (
     <div>
@@ -51,7 +29,7 @@ function ReviewSection({ eventId }: ReviewSectionProps) {
         <SelectOption type="review" orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
 
-      <ReviewCardList reviews={reviews || []} />
+      <ReviewCardList reviews={reviews || []} eventId={eventId} />
       <ReviewForm eventId={eventId} />
     </div>
   );

@@ -3,15 +3,16 @@ import ReviewCard from "../ReviewCard";
 
 interface ReviewCardListProps {
   reviews: Review[];
+  eventId: number;
 }
 
-function ReviewCardList({ reviews }: ReviewCardListProps) {
+function ReviewCardList({ reviews, eventId }: ReviewCardListProps) {
   return (
     <div>
       <ul>
         {reviews?.map((review) => (
           <li key={review.id}>
-            <ReviewCard review={review} />
+            <ReviewCard review={review} eventId={eventId} />
           </li>
         ))}
       </ul>

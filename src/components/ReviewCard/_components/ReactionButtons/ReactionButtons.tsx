@@ -1,9 +1,10 @@
 "use client";
 
+import { useAuth } from "@/contexts/auth.context/auth.context";
+import { useModal } from "@/contexts/modal/modal.context";
 import useMutationCreateReaction from "@/react-query/reviews/useMutationCreateReactoin";
 import useMutationDeleteReaction from "@/react-query/reviews/useMutationDeleteReaction";
 import { Review } from "@/types/Review.type";
-import { useReviewsStore } from "@/zustand";
 import { useState } from "react";
 import DisLikeButton from "./DislikeButton/DislikeButton";
 import LikeButton from "./LikeButton";
@@ -20,20 +21,21 @@ function ReactionButtons({
   isAlreadyDisliked,
 }: ReactionButtonsProps) {
   const reviewId = review.id;
+  const auth = useAuth();
+  const modal = useModal();
 
-  const { mutateAsync: createReaction } = useMutationCreateReaction();
-  const { mutateAsync: deleteReaction } = useMutationDeleteReaction();
-
-  const { likedReviews, addLikeReview, removeLikeReview } = useReviewsStore(
-    (state) => state
-  );
+  const { mutate: createReaction } = useMutationCreateReaction();
+  const { mutate: deleteReaction } = useMutationDeleteReaction();
 
   const [isLiked, setIsLiked] = useState(isAlreadyLiked);
   const [isDisliked, setIsDisliked] = useState(isAlreadyDisliked);
 
-  //좋아요 수가 바로 바뀌는지 테스트해보기
   // const [likeCount, setLikeCount] = useState(likes);
   // const [dislikeCount, setDislikeCount] = useState(hates);
+
+  // if (!auth.isLoggedIn) {
+  //   modal.open(<SignInModal />);
+  // }
 
   const onClickLikeButton = async () => {
     if (!isDisliked) {
@@ -46,13 +48,13 @@ function ReactionButtons({
     if (isLiked) {
       //좋아요가 눌린상태 -> 클릭시 취소해야함 (delete)
       console.log("좋아요 delete");
-      removeLikeReview(review);
-      // await deleteReaction(reviewId);
+      // removeLikeReview(review);
+      deleteReaction(reviewId);
     } else {
       //좋아요가 활성화되지않음-> 클릭시싫어요 post(-1)
       console.log("좋아요 포스트: body에 +1");
-      addLikeReview(review);
-      // await createReaction({ reviewId, reactionValue: 1 });
+      // addLikeReview(review);
+      createReaction({ reviewId, reactionValue: 1 });
     }
   };
 
@@ -66,14 +68,13 @@ function ReactionButtons({
     if (isDisliked) {
       //싫어요가 눌린상태 -> 클릭시 취소해야함 (delete)
       console.log("싫어요 delete");
-      await deleteReaction(reviewId);
+      deleteReaction(reviewId);
     } else {
       //싫어요가 활성화되지않음-> 클릭시싫어요 post(-1)
       console.log("싫어요 post: body에 -1");
-      await createReaction({ reviewId, reactionValue: -1 });
+      createReaction({ reviewId, reactionValue: -1 });
     }
   };
-  console.log("likedReviews", likedReviews);
 
   return (
     <div className="flex gap-x-[10px] items-center">

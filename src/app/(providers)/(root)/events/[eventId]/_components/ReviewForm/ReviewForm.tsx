@@ -3,18 +3,25 @@
 import SignInModal from "@/app/(providers)/(root)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
+import Modal from "@/components/Modal";
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationCreateReview from "@/react-query/reviews/useMutationCreateReview";
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
 
 interface ReviewFormProps {
   eventId: number;
+  IsModify?: boolean;
+  existingReview?: {
+    rating: number;
+    content: string;
+    image: File | null;
+  };
 }
 
-function ReviewForm({ eventId }: ReviewFormProps) {
+function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
   const { mutate: createReview } = useMutationCreateReview();
 
   const [rating, setRating] = useState(0);
@@ -26,6 +33,14 @@ function ReviewForm({ eventId }: ReviewFormProps) {
 
   const auth = useAuth();
   const modal = useModal();
+
+  useEffect(() => {
+    if (existingReview) {
+      setRating(existingReview.rating);
+      setContent(existingReview.content);
+      setImage(existingReview.image);
+    }
+  }, [existingReview]);
 
   const handleClickCreateReview: MouseEventHandler<
     HTMLButtonElement
@@ -58,9 +73,9 @@ function ReviewForm({ eventId }: ReviewFormProps) {
     });
   };
 
-  return (
+  const ReviewFormContent = (
     <div className=" py-10 px-10 shadow-primary rounded-lg">
-      <h4 className="font-bold text-fs-28 mb-4 text-center">후기작성</h4>
+      <h4 className="font-bold text-fs-28 mb-4 text-center">리뷰 작성</h4>
       <div className="flex gap-x-2">
         <Rating
           value={rating}
@@ -78,17 +93,15 @@ function ReviewForm({ eventId }: ReviewFormProps) {
         placeholder={`관람 일정, 관람 시간, 관람 후기 등을 작성해주세요   
 (사진 1장 첨부 가능)`}
         value={content}
-      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setContent(e.target.value)
         }
       />
       <div className="mb-4"></div>
-      {image ? null : (
-        <FileInput
-          label="사진 업로드"
-          onChange={(e: any) => setImage(e.target.files?.[0] || null)}
-        />
-      )}
+      <FileInput
+        label={image ? "업로드 완료" : "사진 업로드"}
+        onChange={(e: any) => setImage(e.target.files?.[0] || null)}
+      />
 
       <div className="mb-12"></div>
       <div className="w-[400px] mx-auto">
@@ -101,6 +114,16 @@ function ReviewForm({ eventId }: ReviewFormProps) {
       </div>
     </div>
   );
+
+  if (IsModify) {
+    return (
+      <Modal>
+        <div className="w-[800px]">{ReviewFormContent}</div>
+      </Modal>
+    );
+  }
+
+  return ReviewFormContent;
 }
 
 export default ReviewForm;

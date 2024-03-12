@@ -65,8 +65,8 @@ async function deleteReactionInReview(reviewId: number) {
   const reaction = data.result;
   return reaction;
 }
-async function updateReview(reviewId: number) {
-  const response = await client.put(`/reviews/${reviewId}`);
+async function updateReview(reviewId: number, dto: any) {
+  const response = await client.put(`/reviews/${reviewId}`, dto);
   const data = response.data;
   if (!data.success) throw new Error(data.error.message);
 
