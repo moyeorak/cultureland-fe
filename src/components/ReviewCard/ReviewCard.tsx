@@ -90,8 +90,8 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
                 <Image
                   src={"/images/poster.jpeg"}
                   alt="user-picture"
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                   unoptimized
                 />
               </div>
@@ -113,8 +113,8 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
           <Image
             src={"/images/poster.jpeg"}
             alt="poster-img"
-            layout="fill"
-            objectFit="cover"
+            fill
+            className="object-cover"
             unoptimized
           />
         </div>

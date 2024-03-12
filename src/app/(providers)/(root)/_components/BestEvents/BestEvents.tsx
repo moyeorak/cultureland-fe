@@ -33,8 +33,8 @@ function BestEvents({ events }: bestEventsProps) {
                     <Image
                       src={event.poster}
                       alt={event.title}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <div className="flex-1 pt-[36px] pl-12">
