@@ -1,5 +1,7 @@
 export type Venue = {
-  venueName: string;
+  id: number;
+  apiId: string;
+  name: string;
   address: string;
   latitude: number;
   longitude: number;

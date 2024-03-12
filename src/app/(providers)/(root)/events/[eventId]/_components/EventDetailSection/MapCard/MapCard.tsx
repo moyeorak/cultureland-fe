@@ -1,9 +1,6 @@
-import { Event } from "@/types/Event.type";
-
 function MapCard() {
-  const event: Event = {
+  const event: any = {
     //dummy
-    id: 1,
     eventId: 1,
     partnerId: 1,
     title: "테스트 콘서트",
@@ -45,8 +42,8 @@ function MapCard() {
         kakao Map
       </div>
       <div className="text-center text-fs-12">
-        <p>{`장소 : ${event.venue.venueName}`}</p>
-        <p>{`주소 : ${event.venue.address}`}</p>
+        <p>{`장소 : ${0}`}</p>
+        <p>{`주소 : ${0}`}</p>
       </div>
     </div>
   );

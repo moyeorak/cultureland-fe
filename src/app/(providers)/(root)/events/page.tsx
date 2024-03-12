@@ -1,11 +1,11 @@
+import api from "@/api/index.api";
 import CategoryList from "@/components/CategoryList";
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
 import Pagination from "@/components/Pagination";
 import { Category } from "@/types/Category.type";
-import { Event } from "@/types/Event.type";
 
-const dummyData: Array<Event> = [
+const dummyData: Array<any> = [
   {
     id: 1,
     eventId: 1,
@@ -94,49 +94,49 @@ const dummyData: Array<Event> = [
 
 const dummyCategory: Array<Category> = [
   {
-    id: 1,
-    name: "전체",
+    code: 1,
+    value: "전체",
   },
   {
-    id: 2,
-    name: "연극",
+    code: 2,
+    value: "연극",
   },
   {
-    id: 3,
-    name: "무용",
+    code: 3,
+    value: "무용",
   },
   {
-    id: 4,
-    name: "대중무용",
+    code: 4,
+    value: "대중무용",
   },
   {
-    id: 5,
-    name: "클래식",
+    code: 5,
+    value: "클래식",
   },
   {
-    id: 6,
-    name: "국악",
+    code: 6,
+    value: "국악",
   },
   {
-    id: 7,
-    name: "치킨",
+    code: 7,
+    value: "치킨",
   },
   {
-    id: 8,
-    name: "피자",
+    code: 8,
+    value: "피자",
   },
   {
-    id: 9,
-    name: "햄버거",
+    code: 9,
+    value: "햄버거",
   },
   {
-    id: 10,
-    name: "이종환",
+    code: 10,
+    value: "이종환",
   },
 ];
 
 async function EventsPage() {
-  // const events = await api.events.getAllEvents();
+  const events = await api.events.getAllEvents(1);
 
   return (
     <Page>
@@ -144,7 +144,7 @@ async function EventsPage() {
       {/* 카테고리 영역입니다. */}
       <CategoryList categories={dummyCategory} />
       {/* <EventList events={dummyData} /> */}
-      <Pagination events={dummyData} eventsPerPage={12} />
+      <Pagination events={events} eventsPerPage={12} />
     </Page>
   );
 }
