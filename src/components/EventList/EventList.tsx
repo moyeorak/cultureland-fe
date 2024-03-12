@@ -15,11 +15,13 @@ function EventList({ events }: EventListProps) {
       <CategoryList categories={[]} />
       <ul className="flex flex-wrap justify-center gap-6">
         {events.map((event) => (
-          <li key={event.id}>
-            <Link href={`/events/${event.id}`}>
-              <EventItem event={event} />
-            </Link>
-          </li>
+          <Link href={`/events/${event.id}`} key={event.id}>
+            <li>
+              <Link href={`/events/${event.id}`}>
+                <EventItem event={event} />
+              </Link>
+            </li>
+          </Link>
         ))}
       </ul>
     </section>

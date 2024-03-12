@@ -8,12 +8,14 @@ interface PaginationProps {
   events: Array<Events>;
   eventsPerPage: number;
   totalEvents: number;
+  keywords?: string;
 }
 
 function Pagination({
   events: eventsData,
   eventsPerPage: eventNumber,
   totalEvents,
+  keywords,
 }: PaginationProps) {
   const [events, setEvents] = useState<Array<Events>>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +44,7 @@ function Pagination({
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
   const handleNextButton = () => {
-    if (currentPage !== pageNumbers.length) {
+    if (currentPage < pageNumbers.length) {
       setCurrentPage(currentPage + 1);
       if (currentPage + 1 > maxPageNumberLimit) {
         setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
@@ -52,7 +54,7 @@ function Pagination({
   };
 
   const handlePrevButton = () => {
-    if (currentPage !== 1) {
+    if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       if ((currentPage - 1) % pageNumberLimit === 0) {
         setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
@@ -105,16 +107,26 @@ function Pagination({
                 <li
                   key={number}
                   className={`page-item ${
-                    currentPage === number ? "active" : null
-                  } page-item w-[21px] h-[21px] hover:bg-user-theme-100 rounded-md`}
+                    currentPage === number ? "active border" : null
+                  } page-item w-[21px] h-[21px] active:border border-user-theme-100 rounded-md`}
                 >
-                  <Link
-                    onClick={() => paginate(number)}
-                    href={`?page=${number}`}
-                    className="page-link"
-                  >
-                    {number}
-                  </Link>
+                  {!keywords ? (
+                    <Link
+                      onClick={() => paginate(number)}
+                      href={`?page=${number}`}
+                      className="page-link"
+                    >
+                      {number}
+                    </Link>
+                  ) : (
+                    <Link
+                      onClick={() => paginate(number)}
+                      href={`?keywords=${keywords}&page=${number}`}
+                      className="page-link"
+                    >
+                      {number}
+                    </Link>
+                  )}
                 </li>
               );
             } else {
