@@ -4,7 +4,7 @@ export type GetUserData = {
   userProfile: {
     userId: number;
     nickname: string;
-    profileImage: null;
+    profileImage: string | null;
     description: string;
   };
   _count: {

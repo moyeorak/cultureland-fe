@@ -25,12 +25,11 @@ function UserPage(props: { params: { userId: number } }) {
   }, [userId]);
 
   if (!user) return;
-
   return (
     <Page>
-      {showFollows ? <FollowTab /> : <InfoTabs />}
+      {showFollows ? <FollowTab follows={user._count} /> : <InfoTabs />}
       <div className="flex space-x-4 m-4">
-        <ProfileSection isLoggedUser={user.isMe} />
+        <ProfileSection user={user} />
         {showFollows ? <FollowSection /> : <ActiveSection />}
       </div>
     </Page>

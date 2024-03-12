@@ -1,6 +1,13 @@
 import { useTabStore } from "@/zustand";
 
-function FollowSelector() {
+interface FollowSelectorProps {
+  follows: {
+    followers: number;
+    followings: number;
+  };
+}
+
+function FollowSelector({ follows }: FollowSelectorProps) {
   const { setShowFollows, setShowFollowing } = useTabStore();
 
   return (
@@ -12,9 +19,9 @@ function FollowSelector() {
           setShowFollowing(true);
         }}
       >
-        <span className="font-bold text-fs-16">999</span>
+        <span className="font-bold text-fs-16">{follows.followings}</span>
         <span className="block text-[10px] font-normal text-user-theme-90">
-          팔로우
+          팔로잉
         </span>
       </button>
       <div className="w-px bg-user-theme-30 h-6"></div>
@@ -25,9 +32,9 @@ function FollowSelector() {
           setShowFollowing(false);
         }}
       >
-        <span className="font-bold text-fs-16">999</span>
+        <span className="font-bold text-fs-16">{follows.followers}</span>
         <span className="block text-[10px] font-normal text-user-theme-90">
-          팔로잉
+          팔로우
         </span>
       </button>
     </div>

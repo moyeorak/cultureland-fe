@@ -1,9 +1,9 @@
 import api from "@/api/index.api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function useMutationAddFollow(userId: number) {
+export default function useMutationAddFollow() {
   const queryClient = useQueryClient();
-  const mutationFn = () => api.follows.addFollow(userId);
+  const mutationFn = (userId: number) => api.follows.addFollow(userId);
 
   return useMutation({
     mutationFn,
