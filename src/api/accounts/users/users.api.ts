@@ -21,11 +21,21 @@ async function emailDuplicationCheck(email: string) {
 }
 
 async function signUp(dto: UsersSignUpDto) {
-  return await client.post<Response>("/accounts/users/sign-up", dto);
+  const response = await client.post<Response>("/accounts/users/sign-up", dto);
+  const data = response.data;
+  if (!data.success) throw new Error(data.error.message);
+
+  const accessToken = data.result;
+  return accessToken;
 }
 
 async function signIn(dto: UsersSignInDto) {
-  return await client.post<Response>("/accounts/users/sign-in", dto);
+  const response = await client.post<Response>("/accounts/users/sign-in", dto);
+  const data = response.data;
+  if (!data.success) throw new Error(data.error.message);
+
+  const accessToken = data.result;
+  return accessToken;
 }
 
 async function signOut() {
@@ -33,16 +43,16 @@ async function signOut() {
 }
 
 async function refreshToken() {
-  const response = await client.post<Response<boolean>>(
+  const response = await client.post<Response<String>>(
     `/accounts/users/refresh-token`
   );
 
   const data = response.data;
   if (!data.success) throw new Error(data.error.message);
 
-  const isAccessTokenRefreshed = data.result;
+  const refreshedAccessToken = data.result;
 
-  return isAccessTokenRefreshed;
+  return refreshedAccessToken;
 }
 
 async function getUser(userId: number) {
