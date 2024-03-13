@@ -23,9 +23,9 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
   const { userInfo } = useAuthStore();
   const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
+  const nickname = userInfo?.nickname;
+  const profileImage = userInfo?.profileImage;
   const { mutate: deleteReview } = useMutationDeleteReview();
-  
-
 
   const userProfileImg = "";
 
@@ -91,9 +91,9 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
             className="w-[160px] overflow-hidden"
           >
             <div className="flex gap-x-3 items-center">
-              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
+              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden bg-slate-200 text-neutral-70">
                 <Image
-                  src={"/images/poster.jpeg"}
+                  src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${userProfileImg}`}
                   alt="user-picture"
                   fill
                   className="object-cover"
@@ -101,7 +101,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
                 />
               </div>
               <p className="text-fs-16 font-bold">
-                {review.reviewerId.toString().slice(0, 10)}
+                {nickname?.toString().slice(0, 10)}
               </p>
             </div>
           </Link>

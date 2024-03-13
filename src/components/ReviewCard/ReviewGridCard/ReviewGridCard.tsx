@@ -25,6 +25,8 @@ function ReviewGridCard({ review, eventId }: ReviewCardProps) {
   const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
   const { mutate: deleteReview } = useMutationDeleteReview();
 
+  
+
   const userProfileImg = "";
 
   const isMyReview = review.reviewerId === Number(userId);
