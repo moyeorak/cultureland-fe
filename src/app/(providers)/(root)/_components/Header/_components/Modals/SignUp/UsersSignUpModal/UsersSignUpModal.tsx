@@ -97,7 +97,7 @@ function UsersSignUpModal() {
     <Modal>
       <Heading label="회원가입" />
       <div className="w-[520px] p-10">
-        <div className="flex items-center gap-2">
+        <div className="flex items-end gap-2">
           <Input
             type="email"
             id="email"
@@ -108,8 +108,13 @@ function UsersSignUpModal() {
             placeholder="이메일을 입력해주세요."
             disabled={isPending}
           />
-          {/* 버튼 컴포넌트 수정 후 크기 조절 */}
-          <Button onClick={handleClickEmailDuplicationCheck}>중복확인</Button>
+          <Button
+            size="small"
+            color="neutral"
+            onClick={handleClickEmailDuplicationCheck}
+          >
+            중복확인
+          </Button>
         </div>
 
         <div className="mt-7">
