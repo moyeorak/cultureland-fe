@@ -10,13 +10,15 @@ interface WrittenReviewsProps {
 
 function WrittenReviews({ userId }: WrittenReviewsProps) {
   const [page, setPage] = useState(1);
-  //api
-  console.log("userId", userId);
 
   const { data: reviews } = useQueryWrittenReviews(userId, page);
 
   if (!reviews) {
-    return <div>유저가 작성한 리뷰가 없습니다</div>;
+    return (
+      <div className="text-center text-font-70">
+        유저가 작성한 리뷰가 없습니다
+      </div>
+    );
   }
 
   return (

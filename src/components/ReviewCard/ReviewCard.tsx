@@ -65,7 +65,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
 
   return (
     <div
-      className="h-[265px] max-w-[960px] data-[small=true]:h-[240px] data-[small=true]:mb-9 flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 data-[small=true]:gap-x-6  gap-x-12 overflow-hidden"
+      className="h-[265px] min-w-[650px] max-w-[960px] data-[small=true]:h-[240px] data-[small=true]:mb-9 flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 data-[small=true]:gap-x-6  gap-x-12 overflow-hidden"
       data-small
     >
       {review.image && (

@@ -20,8 +20,6 @@ function ReviewSection({ eventId }: ReviewSectionProps) {
     orderBy
   );
 
-  console.log("orderBy", orderBy);
-
   return (
     <div>
       <div className="flex justify-end">

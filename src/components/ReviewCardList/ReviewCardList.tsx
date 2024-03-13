@@ -1,6 +1,5 @@
 import { Review } from "@/types/Review.type";
 import ReviewCard from "../ReviewCard";
-import ReviewGridCard from "../ReviewCard/ReviewGridCard";
 
 interface ReviewCardListProps {
   reviews: Review[];
@@ -18,11 +17,12 @@ function ReviewCardList({ reviews, eventId, isGrid }: ReviewCardListProps) {
       >
         {reviews?.map((review) => (
           <li key={review.id}>
-            {isGrid ? (
+            <ReviewCard review={review} eventId={eventId} small />
+            {/* {isGrid ? (
               <ReviewGridCard review={review} small />
             ) : (
-              <ReviewCard review={review} eventId={eventId} small />
-            )}
+             
+            )} */}
           </li>
         ))}
       </ul>

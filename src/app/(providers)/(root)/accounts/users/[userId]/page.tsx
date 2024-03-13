@@ -2,7 +2,6 @@ import api from "@/api/index.api";
 import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
 import LikedReviews from "./_components/ActiveSection/LikedReviews";
-import WrittenReviews from "./_components/ActiveSection/WrittenReviews";
 import ProfileSection from "./_components/ProfileSection";
 
 async function UserPage(props: { params: { userId: number } }) {
@@ -15,9 +14,9 @@ async function UserPage(props: { params: { userId: number } }) {
       <div className="flex gap-x-9">
         <ProfileSection isLoggedUser={user.isLoggendUser} />
         <div>
-          <WrittenReviews userId={userId} />
+          {/* <WrittenReviews userId={userId} /> */}
           <h2>좋아요한 리뷰</h2>
-          <LikedReviews />
+          <LikedReviews userId={userId} />
         </div>
       </div>
 

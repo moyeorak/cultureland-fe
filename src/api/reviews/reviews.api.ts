@@ -43,9 +43,9 @@ async function getFamousReviews() {
   return famousReviews;
 }
 
-async function getLikedReviews(userId: number) {
+async function getLikedReviews(userId: number, page: number = 1) {
   const response = await client.get<Response<Review[]>>(
-    `/accounts/users/${userId}/reactions`
+    `/accounts/users/${userId}/reactions?page=${page}`
   );
 
   const data = response.data;
