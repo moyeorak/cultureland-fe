@@ -10,8 +10,6 @@ async function EventDetailPage(props: { params: { eventId: string } }) {
   const description_images = event.eventDetail.description_images;
   const reviewCount = event._count.reviews;
 
-  console.log(description_images);
-
   return (
     <Page>
       <EventDetailSection event={event} avgRating={avgRating} />

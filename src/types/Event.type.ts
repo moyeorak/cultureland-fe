@@ -91,7 +91,7 @@ interface EventDetail {
   timeInfo: string;
   targetAudience: string;
   eventStatusCode: number;
-  bookingLinks: any[];
+  bookingLinks: bookingLink[];
   description_images: DescriptionImage[];
   eventStatus: EventStatus;
 }
@@ -99,6 +99,12 @@ export interface DescriptionImage {
   id: number;
   eventId: number;
   imageUrl: string;
+}
+export interface bookingLink {
+  id: number;
+  eventId: number;
+  link: string;
+  name: string;
 }
 
 interface EventStatus {
