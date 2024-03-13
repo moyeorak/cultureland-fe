@@ -1,6 +1,7 @@
 "use client";
 
 import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
+import { Authenticated } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
@@ -11,12 +12,11 @@ import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import ReactionButtons from "./_components/ReactionButtons";
 import StarRating from "./_components/StarRating";
-import { Authenticated } from '@/contexts/auth.context/auth.context';
 
 interface ReviewCardProps {
   review: Review;
-  eventId: number;
-  type?: "detail" | "user" | "main";
+  eventId?: number;
+  small?: boolean;
 }
 
 function ReviewCard({ review, eventId }: ReviewCardProps) {
@@ -24,6 +24,8 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   const { userInfo } = useAuthStore();
   const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
   const { mutate: deleteReview } = useMutationDeleteReview();
+  
+
 
   const userProfileImg = "";
 
@@ -61,24 +63,32 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div className="h-[265px] flex items-center px-9 py-7 rounded-lg shadow-primary mb-10   gap-x-12 overflow-hidden">
+    <div
+      className="h-[265px] data-[small=true]:h-[240px] data-[small=true]:mb-9 flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 data-[small=true]:gap-x-6  gap-x-12 overflow-hidden"
+      data-small
+    >
       {review.image && (
-        <div className="w-[208px] h-[208px] min-w-[208px] max-h-[208px] overflow-hidden rounded-lg">
+        <div
+          className="w-[208px] h-[208px] min-w-[208px] max-h-[208px] overflow-hidden rounded-lg relative  data-[small=true]:min-w-[180px] data-[small=true]:max-h-[180px]"
+          data-small
+        >
           <Image
             src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
             alt="poster-img"
-            width={208}
-            height={208}
+            fill
             className="object-cover overflow-hidden rounded-lg"
             unoptimized
           />
         </div>
       )}
       <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
-        <div className="flex gap-x-6 items-center ">
+        <div
+          className="flex gap-x-6 items-center data-[small=true]:gap-x-3"
+          data-small
+        >
           <Link
             href={`/accounts/users/${userId}`}
-            className="w-[180px] overflow-hidden"
+            className="w-[160px] overflow-hidden"
           >
             <div className="flex gap-x-3 items-center">
               <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">

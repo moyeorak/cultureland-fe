@@ -6,17 +6,16 @@ import WrittenReviews from "./_components/ActiveSection/WrittenReviews";
 import ProfileSection from "./_components/ProfileSection";
 
 async function UserPage(props: { params: { userId: number } }) {
-  const userId = props.params.userId;
+  const userId = Number(props.params.userId);
   const user = await api.users.getUser(userId);
 
   return (
     <Page>
       <Heading label="UserPage" />
-      <div className="flex">
+      <div className="flex gap-x-9">
         <ProfileSection isLoggedUser={user.isLoggendUser} />
         <div>
-          <h2>작성한 리뷰</h2>
-          <WrittenReviews />
+          <WrittenReviews userId={userId} />
           <h2>좋아요한 리뷰</h2>
           <LikedReviews />
         </div>

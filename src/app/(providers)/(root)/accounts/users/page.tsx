@@ -7,10 +7,11 @@ import FollowSection from "./[userId]/_components/FollowSection";
 import FollowTab from "./[userId]/_components/FollowTab";
 import InfoTabs from "./[userId]/_components/InfoTabs";
 import ProfileSection from "./[userId]/_components/ProfileSection";
+import api from '@/api/index.api';
 
 function UserPage(props: { params: { userId: number } }) {
-  // const userId = props.params.userId;
-  // const user = await api.users.getUser(userId);
+  const userId = props.params.userId;
+  const user = await api.users.getUser(userId);
   const { showFollows } = useTabStore();
 
   return (
@@ -19,7 +20,6 @@ function UserPage(props: { params: { userId: number } }) {
       <div className="flex space-x-4 m-4">
         <ProfileSection isLoggedUser={true} />
         {showFollows ? <FollowSection /> : <ActiveSection />}
-
       </div>
     </Page>
   );

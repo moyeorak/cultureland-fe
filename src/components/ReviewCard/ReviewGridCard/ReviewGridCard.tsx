@@ -1,6 +1,7 @@
 "use client";
 
 import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
+import { Authenticated } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
@@ -60,7 +61,7 @@ function ReviewGridCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div className=" flex items-start px-5 py-4 rounded-lg shadow-primary mb-10  overflow-hidden min-h-[232px] max-h-[232px]">
+    <div className=" flex items-start px-5 py-4 rounded-lg shadow-primary mb-10  overflow-hidden min-h-[232px] max-h-[232px]  data-[small=true]:w-[252px] data-[small=true]:max-h-[136px] ">
       <div className="flex flex-col gap-y-3 text-neutral-70 w-full top-0 h-full relative">
         <div className="flex gap-x-6 items-center bg-red-400">
           <Link
@@ -114,11 +115,13 @@ function ReviewGridCard({ review, eventId }: ReviewCardProps) {
           </p>
           <div className="flex items-center gap-x-[10px]  justify-center bg-red-500">
             <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
-            <ReactionButtons
-              review={review}
-              isAlreadyLiked={isAlreadyLiked}
-              isAlreadyDisliked={isAlreadyDisliked}
-            />
+            <Authenticated>
+              <ReactionButtons
+                review={review}
+                isLiked={isAlreadyLiked}
+                isDisliked={isAlreadyDisliked}
+              />
+            </Authenticated>
           </div>
         </div>
       </div>
