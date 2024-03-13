@@ -1,7 +1,8 @@
 "use client";
 
 import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
-import { Authenticated } from "@/contexts/auth.context/auth.context";
+
+import Authenticated from "@/contexts/auth.context/Authenticated";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
@@ -24,8 +25,6 @@ function ReviewGridCard({ review, eventId }: ReviewCardProps) {
   const { userInfo } = useAuthStore();
   const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
   const { mutate: deleteReview } = useMutationDeleteReview();
-
-  
 
   const userProfileImg = "";
 
