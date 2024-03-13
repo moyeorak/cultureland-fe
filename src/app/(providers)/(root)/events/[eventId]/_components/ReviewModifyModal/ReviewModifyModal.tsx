@@ -1,3 +1,5 @@
+"use client";
+
 import SignInModal from "@/app/(providers)/(root)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
@@ -6,7 +8,7 @@ import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationUpdateReview from "@/react-query/reviews/useMutationUpdateReview";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
 
@@ -27,6 +29,16 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   const isDisplayRatingGuide = rating === 0;
 
   if (!eventId) return null;
+
+  // useEffect(() => {
+  //   if (image) {
+  //     const url = URL.createObjectURL(image);
+  //     setPreviewImageUrl(url);
+  //     return () => URL.revokeObjectURL(url);
+  //   } else {
+  //     setPreviewImageUrl(null);
+  //   }
+  // }, [image]);
 
   const handleClickUpdate = () => {
     if (!auth.isLoggedIn) {
@@ -61,16 +73,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
       }
     );
   };
-
-  useEffect(() => {
-    if (image) {
-      const url = URL.createObjectURL(image);
-      setPreviewImageUrl(url);
-      return () => URL.revokeObjectURL(url);
-    } else {
-      setPreviewImageUrl(null);
-    }
-  }, [image]);
 
   return (
     <Modal>
