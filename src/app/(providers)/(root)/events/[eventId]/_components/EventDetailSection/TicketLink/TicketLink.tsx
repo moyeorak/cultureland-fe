@@ -5,7 +5,7 @@ function TicketLink() {
   const bookingLink = ["인터파크", "위메프", "쿠팡"];
 
   return (
-    <div className="group relative">
+    <div className="group relative w-80 mx-auto mb-16 z-40">
       <button className=" transition duration-200 rounded-lg overflow-hidden bg-user-theme-100 text-font-white text-center text-fs-14 w-full px-[10px] py-[10px] focus:outline-none">
         예매처
         <Image

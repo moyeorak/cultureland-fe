@@ -4,7 +4,7 @@ import { client } from "../index.api";
 import { resData } from "./events.response";
 
 const getAllEvents = async (page?: number) => {
-  const response = await client.get<resData<EventData>>(`/events?page=${page}`);
+const response = await client.get<resData<EventData>>(`/events?page=${page}`);
   const results = response.data;
 
   if (!results.success) throw new Error(results.error.message);
@@ -16,7 +16,7 @@ const getAllEvents = async (page?: number) => {
 };
 
 const getEvent = async (eventId: number) => {
-  const response = await client.get<Response<Event>>(`/events/${eventId}`);
+  const response = await client.get<Response<EventData>>(`/events/${eventId}`);
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);

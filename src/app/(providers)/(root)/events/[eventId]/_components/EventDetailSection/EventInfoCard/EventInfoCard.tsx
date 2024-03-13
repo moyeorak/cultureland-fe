@@ -1,39 +1,70 @@
-function EventInfoCard() {
-  return (
-    <div className=" shadow-primary rounded-lg py-11 px-10 flex-grow relative">
-      {/* <div className="flex border-b pb-9 ">
-        <div>
-          <h2 className="text-font-primary-90 text-fs-20 font-bold mb-8">
-            {event.title}
-          </h2>
-          <StarRating rate={event.rating} size="" />
-          <div className="text-fs-14 flex flex-col gap-y-2 mt-4">
-            <p>{`${event.startDate} ~ ${event.endDate}`}</p>
-            <p>{event.venue.venueName}</p>
-            <div className="flex gap-x-5">
-              <p>{`약 ${event.eventDetail?.runtime}`}</p>
-              <p>{`만 ${event.eventDetail?.targetAudience}`}</p>
-            </div>
-          </div>
+import StarRating from "@/components/ReviewCard/_components/StarRating";
 
-          <div className="mt-8 border border-user-theme-100 rounded text-center text-fs-14 w-16 flex items-center justify-center h-8 text-user-theme-100">
-            {event.eventDetail?.status}
-          </div>
-        </div>
-        <div className="overflow-hidden rounded-lg w-[150px] h-[200px] absolute right-10 top-20">
-          <Image
+function EventInfoCard() {
+  const status = "";
+  return (
+    <div>
+      <div className="flex gap-x-[75px] w-[620px] max-w-[620px] mx-auto ustify-center pb-7 border-b border-black">
+        <div className="overflow-hidden rounded-lg bg-slate-700 min-w-60 min-h-80 w-60 h-80 ">
+          {/* <Image
             src={"/images/poster.jpeg"}
             alt="event-poster"
-            width={150}
-            height={200}
-          />
+            fill
+            unoptimized
+          /> */}
+        </div>
+        <div className="flex border-b pb-9  min-w-[300px] overflow-hidden">
+          <div className="text-font-70">
+            <h2 className="text-font-primary-90 text-fs-24 font-bold mb-8">
+              타이틀
+            </h2>
+            <div className="text-fs-14 flex flex-col gap-y-2 mt-4 mb-6">
+              <div className="flex">
+                <p className="text-fs-14 w-[52px] font-medium ">장소</p>
+                <p className="text-fs-14 font-medium flex-grow">
+                  location.slice(0,87)
+                </p>
+              </div>
+              <div className="flex">
+                <p className="text-fs-14 w-[52px] font-medium ">장소</p>
+                <p className="text-fs-14 font-medium flex-grow">
+                  location.slice(0,87)
+                </p>
+              </div>
+              <div className="flex">
+                <p className="text-fs-14 w-[52px] font-medium ">장소</p>
+                <p className="text-fs-14 font-medium flex-grow">
+                  location.slice(0,87)
+                </p>
+              </div>
+              <div className="flex">
+                <p className="text-fs-14 w-[52px] font-medium ">장소</p>
+                <p className="text-fs-14 font-medium flex-grow">
+                  location.slice(0,87)
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-x-2 items-center">
+              <StarRating rate={3.2} />
+              <span className="text-fs-14 font-medium text-">{`(${0.0})`}</span>
+            </div>
+            
+            <div className="mt-8 border border-user-theme-100 rounded text-center text-fs-14 w-16 flex items-center justify-center px-1 h-8 text-user-theme-100">
+              공연상태
+            </div>
+          </div>
         </div>
       </div>
-      <div className="pt-9">
-        <ul>
-          <li>{event.eventDetail?.price}</li>
+      <div className="w-[620px] max-w-[620px] mx-auto  pt-7 flex">
+        <span className=" w-[60px] min-w-[60px] text-font-70 font-bold mr-[30px] mb-10">
+          전체가격
+        </span>
+        <ul className="flex gap-x-4">
+          <li>가격</li>
+          <li>가격</li>
+          <li>가격</li>
         </ul>
-      </div> */}
+      </div>
     </div>
   );
 }
