@@ -71,6 +71,9 @@ async function HomePage() {
       </div>
 
       <div className="px-10">
+        {/* FIXME: 아래 컴포넌트 아직 미완의 컴포넌트인 것 같아요.. 타입 에러나서
+        빌드 실패시킴.. (young) */}
+        {/* <SelectOption type="review" /> */}
         <div className="w-20 bg-red-50"></div>
       </div>
 

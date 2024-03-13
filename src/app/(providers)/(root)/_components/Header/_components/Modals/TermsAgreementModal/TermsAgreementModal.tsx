@@ -169,7 +169,7 @@ function TermsAgreementModal() {
             name="accounts"
             onChange={handleAccountTypeChange}
           />
-          <label htmlFor="partner">파트너 회원가입</label>
+          <label htmlFor="partner">파트너</label>
 
           <Checkbox
             type="radio"
@@ -177,7 +177,7 @@ function TermsAgreementModal() {
             name="accounts"
             onChange={handleAccountTypeChange}
           />
-          <label htmlFor="user">유저 회원가입</label>
+          <label htmlFor="user">일반</label>
         </div>
 
         <Button onClick={handleClickOpenSignUpModal}>다음단계</Button>

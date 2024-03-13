@@ -5,12 +5,12 @@ import { resData } from "./events.response";
 
 const getAllEvents = async (page?: number) => {
   const response = await client.get<resData<EventData>>(`/events?page=${page}`);
-  const data = response.data;
+  const results = response.data;
 
-  if (!data.success) throw new Error(data.error.message);
+  if (!results.success) throw new Error(results.error.message);
 
-  const eventsData = data.result.data.events;
-  const totalEventsCnt = data.result.data.totalEventsCnt;
+  const eventsData = results.result.data.events;
+  const totalEventsCnt = results.result.data.totalEventsCnt;
 
   return { eventsData, totalEventsCnt };
 };
@@ -26,9 +26,40 @@ const getEvent = async (eventId: number) => {
   return event;
 };
 
+const getSearchedEvents = async (keywords: string, pageNumber?: string) => {
+  if (!pageNumber) {
+    const response = await client.get<resData<EventData>>(
+      `/events/search?keywords=${encodeURIComponent(keywords)}`
+    );
+    const results = response.data;
+
+    if (!results.success) throw new Error(results.error.message);
+
+    const eventsData = results.result.data.events;
+    const totalEventsCnt = results.result.data.totalEventsCnt;
+
+    return { eventsData, totalEventsCnt };
+  } else {
+    const response = await client.get<resData<EventData>>(
+      `/events/search?keywords=${encodeURIComponent(
+        keywords
+      )}&page=${encodeURIComponent(pageNumber)}`
+    );
+    const results = response.data;
+
+    if (!results.success) throw new Error(results.error.message);
+
+    const eventsData = results.result.data.events;
+    const totalEventsCnt = results.result.data.totalEventsCnt;
+
+    return { eventsData, totalEventsCnt };
+  }
+};
+
 const eventsAPI = {
   getAllEvents,
   getEvent,
+  getSearchedEvents,
 };
 
 export default eventsAPI;

@@ -1,7 +1,7 @@
 "use client";
 
 import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
-import { Authenticated } from "@/contexts/auth.context/auth.context";
+
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
@@ -134,13 +134,11 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
         <div className="flex items-center gap-x-[10px] justify-center">
           <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
 
-          <Authenticated>
-            <ReactionButtons
-              review={review}
-              isLiked={isAlreadyLiked}
-              isDisliked={isAlreadyDisliked}
-            />
-          </Authenticated>
+          <ReactionButtons
+            review={review}
+            isLiked={isAlreadyLiked}
+            isDisliked={isAlreadyDisliked}
+          />
         </div>
       </div>
     </div>

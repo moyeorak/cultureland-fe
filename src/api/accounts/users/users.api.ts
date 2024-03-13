@@ -43,7 +43,7 @@ async function signOut() {
 }
 
 async function refreshToken() {
-  const response = await client.post<Response<String>>(
+  const response = await client.post<Response<string>>(
     `/accounts/users/refresh-token`
   );
 

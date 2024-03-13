@@ -70,7 +70,8 @@ async function getReviewsOfUser(userId: number, page: number = 1) {
 
 async function createReactionInReview(reviewId: number, reactionValue: number) {
   const response = await client.post<Response<CreateReactionData>>(
-    `/reviews/${reviewId}/reactions`
+    `/reviews/${reviewId}/reactions`,
+    { reactionValue }
   );
 
   const data = response.data;
