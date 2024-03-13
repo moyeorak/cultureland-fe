@@ -1,16 +1,15 @@
-// import EventInfoCard from "./EventInfoCard";
-// import MapCard from "./MapCard";
+import { Event } from "@/types/Event.type";
 import EventInfoCard from "./EventInfoCard/EventInfoCard";
-import TicketLink from "./TicketLink";
 
-//getEvent
+interface EventDetailSectionProps {
+  event: Event;
+  avgRating: string;
+}
 
-function EventDetailSection() {
+function EventDetailSection({ event, avgRating }: EventDetailSectionProps) {
   return (
-    <section className="">
-      <EventInfoCard />
-
-      <TicketLink />
+    <section>
+      <EventInfoCard event={event} avgRating={avgRating} />
     </section>
   );
 }

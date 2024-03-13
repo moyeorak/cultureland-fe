@@ -1,10 +1,10 @@
-import { EventData } from "@/types/Event.type";
+import { EventData, GetEventData } from "@/types/Event.type";
 import { Response } from "@/types/Response.type";
 import { client } from "../index.api";
 import { resData } from "./events.response";
 
 const getAllEvents = async (page?: number) => {
-const response = await client.get<resData<EventData>>(`/events?page=${page}`);
+  const response = await client.get<resData<EventData>>(`/events?page=${page}`);
   const results = response.data;
 
   if (!results.success) throw new Error(results.error.message);
@@ -16,14 +16,17 @@ const response = await client.get<resData<EventData>>(`/events?page=${page}`);
 };
 
 const getEvent = async (eventId: number) => {
-  const response = await client.get<Response<EventData>>(`/events/${eventId}`);
+  const response = await client.get<Response<GetEventData>>(
+    `/events/${eventId}`
+  );
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);
 
-  const event = data.result;
+  const event = data.result.event;
+  const avgRating = data.result.avgRating;
 
-  return event;
+  return { event, avgRating };
 };
 
 const getSearchedEvents = async (keywords: string, pageNumber?: string) => {

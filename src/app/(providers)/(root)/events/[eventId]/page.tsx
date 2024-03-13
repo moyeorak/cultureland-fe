@@ -5,13 +5,21 @@ import EventDetailSection from "./_components/EventDetailSection";
 
 async function EventDetailPage(props: { params: { eventId: string } }) {
   const eventId = Number(props.params.eventId);
-  const event = await api.events.getEvent(eventId);
-  // console.log(event);
+  const eventData = await api.events.getEvent(eventId);
+  const { event, avgRating } = eventData;
+  const description_images = event.eventDetail.description_images;
+  const reviewCount = event._count.reviews;
+
+  console.log(description_images);
 
   return (
     <Page>
-      <EventDetailSection />
-      <DetailTabSection eventId={eventId} />
+      <EventDetailSection event={event} avgRating={avgRating} />
+      <DetailTabSection
+        eventId={eventId}
+        description_images={description_images}
+        reviewCount={reviewCount}
+      />
     </Page>
   );
 }

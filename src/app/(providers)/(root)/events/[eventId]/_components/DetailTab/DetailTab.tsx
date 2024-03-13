@@ -1,14 +1,21 @@
 "use client";
 
+import { DescriptionImage } from "@/types/Event.type";
 import { useState } from "react";
 import ActiveTab from "../ActiveTab";
 import InfoSection from "../InfoSection";
 import ReviewSection from "../ReveiewSection/ReviewSection";
 interface DetailTabSectionProps {
   eventId: number;
+  description_images: DescriptionImage[] | [];
+  reviewCount: number;
 }
 
-function DetailTabSection({ eventId }: DetailTabSectionProps) {
+function DetailTabSection({
+  eventId,
+  reviewCount,
+  description_images,
+}: DetailTabSectionProps) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -29,13 +36,15 @@ function DetailTabSection({ eventId }: DetailTabSectionProps) {
             onClick={() => setActiveTab(1)}
             className="text-fs-28 font-bold w-[52px]"
           >
-            <p className="h-[35px] ">리뷰</p>
+            <p className="h-[35px] ">{`리뷰 (${reviewCount})`}</p>
           </button>
           {activeTab === 1 && <ActiveTab />}
         </div>
       </div>
       <section>
-        {activeTab === 0 && <InfoSection />}
+        {activeTab === 0 && (
+          <InfoSection description_images={description_images} />
+        )}
         {activeTab === 1 && <ReviewSection eventId={eventId} />}
       </section>
     </>
