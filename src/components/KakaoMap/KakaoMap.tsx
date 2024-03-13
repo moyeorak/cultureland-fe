@@ -1,7 +1,7 @@
 "use client";
 
+import useQueryGetEventsOnMap from "@/react-query/reviews/useQueryGetEventsOnMap";
 import { Location } from "@/types/Locations.type";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Map } from "react-kakao-maps-sdk";
 
@@ -11,9 +11,7 @@ interface KakaoMapProps {
 
 function KakaoMap({ locations }: KakaoMapProps) {
   const [{ lat, lng }, setLatLng] = useState({ lat: 33.5563, lng: 126.79581 });
-  const { isLoading } = useQuery({
-    queryKey: ["events", { map: true, center: { lat, lng } }],
-  });
+  const { isLoading } = useQueryGetEventsOnMap({ lat, lng });
 
   // // 현재 위치
   // const [userLocation, setUserLocation] = useState<{
