@@ -1,8 +1,6 @@
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import useMutationAddFollow from "@/react-query/follows/useMutationAddFollow";
 import useMutationDeleteFollow from "@/react-query/follows/useMutationDeleteFollow";
-import useQueryGetFollowings from "@/react-query/follows/useQueryGetFollowings";
-import { useAuthStore } from "@/zustand";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -15,21 +13,13 @@ function FollowButton({ userId }: FollowButtonProps) {
   const [buttonState, setButtonState] = useState<ButtonState>("follow");
   const { mutateAsync: addFollow } = useMutationAddFollow();
   const { mutateAsync: deleteFollow } = useMutationDeleteFollow();
-  const { userInfo } = useAuthStore();
   const { isLoggedIn } = useAuth();
-  const loggedInUserId = userInfo!.userId;
-  const { data: followings, isLoading: followingIsLoading } =
-    useQueryGetFollowings(loggedInUserId, isLoggedIn);
 
-  // console.log("followings: ", followings);
-  // useEffect(() => {
-  //   if (!followingIsLoading && followings) {
-  //     const isFollowing = followings.some(
-  //       (list) => list.following.id === loggedInUserId
-  //     );
-  //     setButtonState(isFollowing ? "following" : "follow");
-  //   }
-  // }, [followings, followingIsLoading, loggedInUserId]);
+  // 로그인한 유저(나)의 팔로잉 목록을 순회하여 방문한 유저의 목록에 있는 사람 중의 한 사람 id가 있는지?
+  // 나의 팔로잉 목록 가져오기
+  // 나의 팔로잉 목록을 순회
+  // 방문한 유저의 목록도 순회
+  // 둘 중 같은 타인의 id가 있는지
 
   const buttonDetails = {
     follow: {
@@ -50,6 +40,11 @@ function FollowButton({ userId }: FollowButtonProps) {
   };
 
   const handleFollowClick = async () => {
+    if (!isLoggedIn) {
+      alert("로그인이 필요한 기능입니다.");
+      return;
+    }
+
     if (buttonState === "follow") {
       // await addFollow(loggedInUserId);
       setButtonState("following");

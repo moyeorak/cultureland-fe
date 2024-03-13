@@ -1,7 +1,10 @@
+import { useAuth } from "@/contexts/auth.context/auth.context";
 import useQueryGetFollowers from "@/react-query/follows/useQueryGetFollowers";
 import useQueryGetFollowings from "@/react-query/follows/useQueryGetFollowings";
 import { profileImgPrifix } from "@/utils/profileImgPrifix";
+import { useAuthStore } from "@/zustand";
 import Image from "next/image";
+import { useEffect } from "react";
 import NoneFollow from "../NoneFollow";
 import FollowButton from "./../FollowButton/FollowButton";
 
@@ -11,22 +14,52 @@ interface FollowListProps {
 }
 
 function FollowList({ followType, userId }: FollowListProps) {
-  const { data: followers, isLoading: followerIsLoading } =
-    useQueryGetFollowers(userId);
-  const { data: followings, isLoading: followingIsLoading } =
-    useQueryGetFollowings(userId);
+  const { userInfo } = useAuthStore();
+  const loggedInUserId = userInfo!.userId;
+  const { isLoggedIn } = useAuth();
 
-  if (followingIsLoading || followerIsLoading) return <div>...is Loading</div>;
+  const { data: hostFollowers, isLoading: hostFollowersLoading } =
+    useQueryGetFollowers(userId);
+  const { data: hostFollowings, isLoading: hostFollowingsLoading } =
+    useQueryGetFollowings(userId);
+  const { data: myFollowings, isLoading: myFollowingsLoading } =
+    useQueryGetFollowings(loggedInUserId, isLoggedIn);
+
+  useEffect(() => {
+    if (
+      !myFollowingsLoading &&
+      !hostFollowingsLoading &&
+      myFollowings &&
+      hostFollowings
+    ) {
+      // 페이지 주인이 팔로우하는 모든 사람에 대해 내가 팔로우하는 사람이 있는지 확인
+      const isFollowing = hostFollowings.some((person) =>
+        myFollowings.some(
+          (myPerson) => myPerson.following.id === person.following.id
+        )
+      );
+
+      return isFollowing;
+    }
+  }, [
+    myFollowings,
+    hostFollowings,
+    myFollowingsLoading,
+    hostFollowingsLoading,
+  ]);
+
+  if (hostFollowingsLoading || hostFollowersLoading)
+    return <div>...is Loading</div>;
 
   const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
 
   return (
     <>
       {followType === "followings" ? (
-        followings?.length === 0 ? (
+        hostFollowings?.length === 0 ? (
           <NoneFollow followType={followType} />
         ) : (
-          followings?.map((list, index) => (
+          hostFollowings?.map((list, index) => (
             <div
               key={index}
               className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
@@ -57,10 +90,10 @@ function FollowList({ followType, userId }: FollowListProps) {
             </div>
           ))
         )
-      ) : followers?.length === 0 ? (
+      ) : hostFollowers?.length === 0 ? (
         <NoneFollow followType={followType} />
       ) : (
-        followers?.map((list, index) => (
+        hostFollowers?.map((list, index) => (
           <div
             key={index}
             className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
