@@ -17,9 +17,7 @@ function EventList({ events }: EventListProps) {
         {events.map((event) => (
           <Link href={`/events/${event.id}`} key={event.id}>
             <li>
-              <Link href={`/events/${event.id}`}>
-                <EventItem event={event} />
-              </Link>
+              <EventItem event={event} />
             </li>
           </Link>
         ))}
