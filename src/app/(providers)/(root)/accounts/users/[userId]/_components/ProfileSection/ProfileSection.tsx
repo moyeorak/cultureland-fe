@@ -51,6 +51,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
               alt={user.userProfile.nickname}
               width={200}
               height={200}
+              unoptimized
             />
           </div>
 
@@ -112,6 +113,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
                 setActiveTab("관람 목록");
               }}
               className="cursor-pointer"
+              unoptimized
             />
           </div>
 
@@ -127,6 +129,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
                 setActiveTab("관심 컬처랜드");
               }}
               className="cursor-pointer"
+              unoptimized
             />
           </div>
         </div>

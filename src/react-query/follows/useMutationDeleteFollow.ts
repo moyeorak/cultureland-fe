@@ -7,10 +7,11 @@ export default function useMutationDeleteFollow() {
 
   return useMutation({
     mutationFn,
-    onSuccess: () =>
-      queryClient.refetchQueries({
+    onSuccess: () => {
+      queryClient.invalidateQueries({
         exact: true,
-        queryKey: ["follows"],
-      }),
+        queryKey: ["followers", "followings"],
+      });
+    },
   });
 }

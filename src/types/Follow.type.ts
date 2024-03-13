@@ -9,8 +9,6 @@ export type Follower = {
   };
 };
 
-export type Followers = Follower[];
-
 export type Following = {
   following: {
     id: number;
@@ -21,5 +19,3 @@ export type Following = {
     };
   };
 };
-
-export type Followings = Following[];

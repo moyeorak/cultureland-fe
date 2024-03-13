@@ -17,17 +17,19 @@ function FollowButton({ userId }: FollowButtonProps) {
   const { mutateAsync: deleteFollow } = useMutationDeleteFollow();
   const { userInfo } = useAuthStore();
   const { isLoggedIn } = useAuth();
+  const loggedInUserId = userInfo!.userId;
   const { data: followings, isLoading: followingIsLoading } =
-    useQueryGetFollowings(userInfo!.userId, isLoggedIn);
+    useQueryGetFollowings(loggedInUserId, isLoggedIn);
 
+  // console.log("followings: ", followings);
   // useEffect(() => {
   //   if (!followingIsLoading && followings) {
   //     const isFollowing = followings.some(
-  //       (list) => list.following.id === userId
+  //       (list) => list.following.id === loggedInUserId
   //     );
   //     setButtonState(isFollowing ? "following" : "follow");
   //   }
-  // }, [followings, followingIsLoading, userId]);
+  // }, [followings, followingIsLoading, loggedInUserId]);
 
   const buttonDetails = {
     follow: {
@@ -49,10 +51,10 @@ function FollowButton({ userId }: FollowButtonProps) {
 
   const handleFollowClick = async () => {
     if (buttonState === "follow") {
-      await addFollow(userId);
+      // await addFollow(loggedInUserId);
       setButtonState("following");
     } else if (buttonState === "following" || buttonState === "unFollow") {
-      await deleteFollow(userId);
+      // await deleteFollow(loggedInUserId);
       setButtonState("follow");
     }
   };
@@ -78,7 +80,7 @@ function FollowButton({ userId }: FollowButtonProps) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {src && <Image src={src} alt="icon" width={16} height={16} />}
+      {src && <Image src={src} alt="icon" width={16} height={16} unoptimized />}
       <div className="text-fs-12 font-medium py-[10px]">{text}</div>
     </button>
   );

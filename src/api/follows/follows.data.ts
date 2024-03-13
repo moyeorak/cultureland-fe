@@ -1,8 +1,8 @@
-import { Followers, Followings } from "@/types/Follow.type";
+import { Follower, Following } from "@/types/Follow.type";
 
-export type GetFollowersData = Followers;
+export type GetFollowersData = Follower[];
 
-export type GetFollowingsData = Followings;
+export type GetFollowingsData = Following[];
 
 export type AddFollowData = {
   followerId: number;

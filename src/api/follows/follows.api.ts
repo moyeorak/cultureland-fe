@@ -28,7 +28,6 @@ async function getFollowings(userId: number) {
   if (!data.success) throw new Error(data.error.message);
 
   const followings = data.result;
-
   return followings;
 }
 
