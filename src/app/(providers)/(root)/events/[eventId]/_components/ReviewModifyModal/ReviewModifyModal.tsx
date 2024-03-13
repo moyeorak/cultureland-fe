@@ -39,6 +39,8 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
     formData.append("rating", rating.toString());
     formData.append("content", content);
 
+    console.log(image);
+
     if (image) {
       formData.append("image", image);
     }

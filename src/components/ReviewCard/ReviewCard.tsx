@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useEffect, useMemo } from "react";
 import ReactionButtons from "./_components/ReactionButtons";
 import StarRating from "./_components/StarRating";
+import { Authenticated } from '@/contexts/auth.context/auth.context';
 
 interface ReviewCardProps {
   review: Review;
@@ -60,9 +61,9 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div className="h-[265px] flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 rou  gap-x-12 overflow-hidden">
+    <div className="h-[265px] flex items-center px-9 py-7 rounded-lg shadow-primary mb-10   gap-x-12 overflow-hidden">
       {review.image && (
-        <div className="w-[208px] h-[208px] min-w-[208px]">
+        <div className="w-[208px] h-[208px] min-w-[208px] max-h-[208px] overflow-hidden rounded-lg">
           <Image
             src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
             alt="poster-img"
@@ -123,11 +124,13 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
         <div className="flex items-center gap-x-[10px] justify-center">
           <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
 
-          <ReactionButtons
-            review={review}
-            isAlreadyLiked={isAlreadyLiked}
-            isAlreadyDisliked={isAlreadyDisliked}
-          />
+          <Authenticated>
+            <ReactionButtons
+              review={review}
+              isLiked={isAlreadyLiked}
+              isDisliked={isAlreadyDisliked}
+            />
+          </Authenticated>
         </div>
       </div>
     </div>
