@@ -58,6 +58,7 @@ const config: Config = {
       fontSize: {
         "fs-32": "32px",
         "fs-28": "28px",
+        "fs-24": "24px",
         "fs-20": "20px",
         "fs-16": "16px",
         "fs-14": "14px",
