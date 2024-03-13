@@ -10,11 +10,12 @@ import Rating from "../Rating";
 import Textarea from "../Textarea";
 
 interface ReviewModifyModalProps {
-  eventId: number;
+  eventId?: number;
   reviewId: number;
 }
 
 function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
+  const { mutate: updateReview } = useMutationUpdateReview();
   const modal = useModal();
   const auth = useAuth();
   scrollbars;
@@ -23,7 +24,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   const [image, setImage] = useState<File | null>(null);
   const isDisplayRatingGuide = rating === 0;
 
-  const { mutate: updateReview } = useMutationUpdateReview();
+  if (!eventId) return;
 
   const handleClickUpdate = () => {
     if (!auth.isLoggedIn) {

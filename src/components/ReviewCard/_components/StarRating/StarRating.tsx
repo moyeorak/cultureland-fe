@@ -11,7 +11,7 @@ function StarRating({ rate }: StarRatingProps) {
   const emptyStars = totalStars - fullStars - halfStar; // 빈 별의 개수 계산
 
   return (
-    <div className="flex">
+    <div className="flex gap-x-2">
       {Array.from({ length: fullStars }, (_, index) => (
         <StarIcon key={`full-${index}`} path="Star-fill" size="small" />
       ))}

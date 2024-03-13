@@ -76,7 +76,7 @@ async function HomePage() {
       </div>
 
       <EventList events={eventsData} />
-
+    
     </Page>
   );
 }
