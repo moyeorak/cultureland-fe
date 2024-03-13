@@ -7,6 +7,7 @@ import Modal from "@/components/Modal";
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationCreateReview from "@/react-query/reviews/useMutationCreateReview";
+import Image from "next/image";
 import { MouseEventHandler, useEffect, useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
@@ -27,6 +28,7 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
 
   const isButtonDisabled = rating === 0 || !content.trim();
   const isDisplayRatingGuide = rating === 0;
@@ -73,6 +75,17 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
     });
   };
 
+  useEffect(() => {
+    if (image) {
+      const url = URL.createObjectURL(image);
+      setPreviewImageUrl(url);
+
+      return () => URL.revokeObjectURL(url);
+    } else {
+      setPreviewImageUrl(null);
+    }
+  }, [image]);
+
   const ReviewFormContent = (
     <div className=" py-10 px-10 shadow-primary rounded-lg">
       <h4 className="font-bold text-fs-28 mb-4 text-center">리뷰 작성</h4>
@@ -98,10 +111,24 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
         }
       />
       <div className="mb-4"></div>
-      <FileInput
-        label={image ? "업로드 완료" : "사진 업로드"}
-        onChange={(e: any) => setImage(e.target.files?.[0] || null)}
-      />
+      {image && previewImageUrl ? (
+        <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
+          <Image
+            src={previewImageUrl}
+            alt="미리보기 이미지"
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
+      ) : (
+        <FileInput
+          label="사진 업로드"
+          onChange={(e: any) => {
+            const file = e.target.files?.[0] || null;
+            setImage(file);
+          }}
+        />
+      )}
 
       <div className="mb-12"></div>
       <div className="w-[400px] mx-auto">
