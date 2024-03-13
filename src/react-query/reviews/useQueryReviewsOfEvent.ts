@@ -5,11 +5,11 @@ export default function useQueryReviewsOfEvent(
   eventId: number,
   enabled: boolean = true,
   page: number = 1,
-  orderBy: string = "recent"
+  orderBy: "recent" | "likes" | "hates"
 ) {
   return useQuery({
-    queryKey: ["reviews"],
-    queryFn: () => api.reviews.getReviewsOfEvent(eventId),
+    queryKey: ["reviews", eventId, page, orderBy],
+    queryFn: () => api.reviews.getReviewsOfEvent(eventId, page, orderBy),
     enabled,
   });
 }
