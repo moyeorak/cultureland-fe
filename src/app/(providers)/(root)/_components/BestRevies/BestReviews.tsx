@@ -1,11 +1,10 @@
-"use client";
 import api from "@/api/index.api";
 import Heading from "@/components/Heading/Heading";
 import ReviewCardList from "@/components/ReviewCardList";
 
 async function BestReviews() {
   const bestReviews = await api.reviews.getFamousReviews();
-  const reviews = bestReviews.slice(0, 4);
+  const reviews = bestReviews?.slice(0, 4);
 
   return (
     <div>
@@ -13,7 +12,7 @@ async function BestReviews() {
       <ReviewCardList
         reviews={reviews}
         isGrid
-        eventId={reviews[0].eventId}
+        eventId={reviews[0]?.eventId}
       ></ReviewCardList>
     </div>
   );

@@ -19,6 +19,7 @@ function UserPage(props: { params: { userId: number } }) {
       <div className="flex space-x-4 m-4">
         <ProfileSection isLoggedUser={true} />
         {showFollows ? <FollowSection /> : <ActiveSection />}
+
       </div>
     </Page>
   );
