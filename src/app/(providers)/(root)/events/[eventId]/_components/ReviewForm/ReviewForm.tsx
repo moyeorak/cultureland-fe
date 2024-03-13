@@ -106,9 +106,15 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
         placeholder={`관람 일정, 관람 시간, 관람 후기 등을 작성해주세요   
 (사진 1장 첨부 가능)`}
         value={content}
-        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-          setContent(e.target.value)
-        }
+        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+          const inputContent = e.target.value;
+          if (inputContent.length <= 200) {
+            setContent(inputContent);
+          } else {
+            alert("200글자 이내로 작성해주세요");
+            return;
+          }
+        }}
       />
       <div className="mb-4"></div>
       {image && previewImageUrl ? (
