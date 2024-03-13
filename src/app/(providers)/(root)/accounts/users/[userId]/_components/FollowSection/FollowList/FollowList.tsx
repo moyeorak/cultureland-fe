@@ -1,10 +1,14 @@
+import {
+  GetFollowersData,
+  GetFollowingsData,
+} from "@/api/follows/follows.data";
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import useQueryGetFollowers from "@/react-query/follows/useQueryGetFollowers";
 import useQueryGetFollowings from "@/react-query/follows/useQueryGetFollowings";
+import { Follower, Following } from "@/types/Follow.type";
 import { profileImgPrifix } from "@/utils/profileImgPrifix";
-import { useAuthStore } from "@/zustand";
+import { useAuthStore, useFollowsStore } from "@/zustand";
 import Image from "next/image";
-import { useEffect } from "react";
 import NoneFollow from "../NoneFollow";
 import FollowButton from "./../FollowButton/FollowButton";
 
@@ -17,7 +21,8 @@ function FollowList({ followType, userId }: FollowListProps) {
   const { userInfo } = useAuthStore();
   const loggedInUserId = userInfo!.userId;
   const { isLoggedIn } = useAuth();
-
+  const { followings } = useFollowsStore();
+  console.log("followings: ", followings);
   const { data: hostFollowers, isLoading: hostFollowersLoading } =
     useQueryGetFollowers(userId);
   const { data: hostFollowings, isLoading: hostFollowingsLoading } =
@@ -25,75 +30,26 @@ function FollowList({ followType, userId }: FollowListProps) {
   const { data: myFollowings, isLoading: myFollowingsLoading } =
     useQueryGetFollowings(loggedInUserId, isLoggedIn);
 
-  useEffect(() => {
-    if (
-      !myFollowingsLoading &&
-      !hostFollowingsLoading &&
-      myFollowings &&
-      hostFollowings
-    ) {
-      // 페이지 주인이 팔로우하는 모든 사람에 대해 내가 팔로우하는 사람이 있는지 확인
-      const isFollowing = hostFollowings.some((person) =>
-        myFollowings.some(
-          (myPerson) => myPerson.following.id === person.following.id
-        )
-      );
-
-      return isFollowing;
-    }
-  }, [
-    myFollowings,
-    hostFollowings,
-    myFollowingsLoading,
-    hostFollowingsLoading,
-  ]);
+  // 현재 로그인한 유저가 상대방을 팔로우하고 있는지 확인
+  const amIFollowing = (userIdToCheck: number) => {
+    return myFollowings?.some(
+      (myFollowing) => myFollowing.following.id === userIdToCheck
+    );
+  };
 
   if (hostFollowingsLoading || hostFollowersLoading)
     return <div>...is Loading</div>;
 
   const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
 
-  return (
-    <>
-      {followType === "followings" ? (
-        hostFollowings?.length === 0 ? (
-          <NoneFollow followType={followType} />
-        ) : (
-          hostFollowings?.map((list, index) => (
-            <div
-              key={index}
-              className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
-            >
-              <div className="flex items-center my-5">
-                <Image
-                  src={
-                    list.following.userProfile.profileImage === undefined
-                      ? `${profileImgPrifix}/${list.following.userProfile.profileImage}`
-                      : defaultProfileImg
-                  }
-                  alt={list.following.userProfile.nickname}
-                  height={60}
-                  width={60}
-                  className="rounded-full"
-                  unoptimized
-                />
-                <div className="ml-3">
-                  <div className="text-fs-16 font-medium">
-                    {list.following.userProfile.nickname}
-                  </div>
-                  <div className="text-fs-14 font-normal mt-1">
-                    {list.following.userProfile.description}
-                  </div>
-                </div>
-              </div>
-              <FollowButton userId={userId} />
-            </div>
-          ))
-        )
-      ) : hostFollowers?.length === 0 ? (
-        <NoneFollow followType={followType} />
-      ) : (
-        hostFollowers?.map((list, index) => (
+  // 팔로잉 팔로우 목록이 없는 경우를 처리할 예정
+  const renderNoneFollow = (followType: "followings" | "followers") => (
+    <NoneFollow followType={followType} />
+  );
+
+  const renderFollowers = (hostFollowers: GetFollowersData) =>
+    hostFollowers?.length > 0
+      ? hostFollowers.map((list: Follower, index: number) => (
           <div
             key={index}
             className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
@@ -120,10 +76,62 @@ function FollowList({ followType, userId }: FollowListProps) {
                 </div>
               </div>
             </div>
-            <FollowButton userId={userId} />
+            <FollowButton
+              userId={list.follower.id}
+              amIFollowing={amIFollowing(list.follower.id)}
+            />
           </div>
         ))
-      )}
+      : renderNoneFollow("followers");
+
+  const renderFollowings = (hostFollowings: GetFollowingsData) =>
+    hostFollowings?.length > 0
+      ? hostFollowings.map((list: Following, index: number) => (
+          <div
+            key={index}
+            className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
+          >
+            <div className="flex items-center my-5">
+              <Image
+                src={
+                  list.following.userProfile.profileImage === undefined
+                    ? `${profileImgPrifix}/${list.following.userProfile.profileImage}`
+                    : defaultProfileImg
+                }
+                alt={list.following.userProfile.nickname}
+                height={60}
+                width={60}
+                className="rounded-full"
+                unoptimized
+              />
+              <div className="ml-3">
+                <div className="text-fs-16 font-medium">
+                  {list.following.userProfile.nickname}
+                </div>
+                <div className="text-fs-14 font-normal mt-1">
+                  {list.following.userProfile.description}
+                </div>
+              </div>
+            </div>
+            <FollowButton
+              key={index}
+              userId={list.following.id}
+              amIFollowing={amIFollowing(list.following.id)}
+            />{" "}
+          </div>
+
+          // 나머지 UI 구성
+        ))
+      : renderNoneFollow("followings");
+
+  return (
+    <>
+      {followType === "followings" && hostFollowings
+        ? renderFollowings(hostFollowings)
+        : null}
+      {followType === "followers" && hostFollowers
+        ? renderFollowers(hostFollowers)
+        : null}
     </>
   );
 }

@@ -25,6 +25,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
   ) => {
     e.preventDefault();
     await addFollow(user.id);
+    alert("팔로잉 목록에 추가했습니다.");
   };
 
   return (
