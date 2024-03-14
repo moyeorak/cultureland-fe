@@ -45,7 +45,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   useEffect(() => {
     if (existingReview) {
       setRating(existingReview.rating);
-      setContent(existingReview.content);
       setPreviewImageUrl(
         existingReview.image
           ? "https://yanastudys3.s3.ap-northeast-2.amazonaws.com/" +
@@ -101,7 +100,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
             </p>
           )}
           <Textarea
-            placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요 (사진 1장 첨부 가능)"
+            placeholder={existingReview?.content}
             value={content}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setContent(e.target.value)
