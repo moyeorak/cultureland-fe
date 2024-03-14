@@ -1,6 +1,6 @@
 function Page({ children }: { children: React.ReactNode }) {
   return (
-    <main className="bg-white m-auto max-w-[960px] pt-12 transition-all">
+    <main className="px-5 lg:px-8 py-6 lg:py-10 mx-auto max-w-screen-lg w-full items-stretch">
       {children}
     </main>
   );
