@@ -4,6 +4,7 @@ import Modal from "@/components/Modal";
 import { useModal } from "@/contexts/modal/modal.context";
 import Image from "next/image";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
+import CloseButton from "../CloseButton";
 import PartnersSignUpModal from "../SignUp/PartnersSignUpModal";
 import { default as UsersSignUpModal } from "../SignUp/UsersSignUpModal";
 import Checkbox from "./_components/Checkbox";
@@ -76,10 +77,11 @@ function TermsAgreementModal() {
 
   return (
     <Modal>
-      <div className="p-10 w-[480px]">
+      <CloseButton />
+      <div className=" sm:w-[480px] xs:w-[375px] m-auto p-5 sm:p-10 sm:h-auto h-screen transition-all">
         <Heading label="약관동의" />
         <div className="mt-8">
-          <h2 className="text-xl font-medium ">필수 동의 항목</h2>
+          <h2 className="text-lg sm:text-xl font-medium">필수 동의 항목</h2>
           <div className="mt-3 flex items-center">
             <Checkbox
               type="checkbox"
@@ -89,7 +91,9 @@ function TermsAgreementModal() {
               checked={agreements.termsAgreed}
               onChange={handleChangeAgreement}
             />
-            <div className="ml-3 font-medium pr-2.5">[필수] 이용약관</div>
+            <div className="ml-3 font-medium pr-2.5 max-sm:text-fs-14">
+              [필수] 이용약관
+            </div>
             <Image
               onClick={() => {
                 modal.close();
@@ -110,7 +114,7 @@ function TermsAgreementModal() {
               checked={agreements.financialAgreed}
               onChange={handleChangeAgreement}
             />
-            <div className="ml-3 font-medium pr-2.5">
+            <div className="ml-3 font-medium pr-2.5 max-sm:text-fs-14">
               [필수] 전자금융거래 이용약관
             </div>
             <Image
@@ -122,7 +126,7 @@ function TermsAgreementModal() {
               alt="termsImg"
               width={20}
               height={20}
-            ></Image>{" "}
+            ></Image>
           </div>
           <div className="mt-3 flex items-center">
             <Checkbox
@@ -133,7 +137,7 @@ function TermsAgreementModal() {
               checked={agreements.personalInfoAgreed}
               onChange={handleChangeAgreement}
             />
-            <div className="ml-3 font-medium pr-2.5">
+            <div className="ml-3 font-medium pr-2.5 max-sm:text-fs-14">
               [필수] 개인정보 수집동의서
             </div>
             <Image
@@ -145,7 +149,7 @@ function TermsAgreementModal() {
               alt="termsImg"
               width={20}
               height={20}
-            ></Image>{" "}
+            ></Image>
           </div>
 
           <div className="my-3 border-t border-gray-300"></div>
@@ -158,7 +162,9 @@ function TermsAgreementModal() {
               checked={allAgreed}
               onChange={handleChangeAllAgreement}
             />
-            <div className="ml-3 font-medium pr-2.5">[필수] 약관 전체 동의</div>
+            <div className="ml-3 font-medium pr-2.5 max-sm:text-fs-14">
+              [필수] 약관 전체 동의
+            </div>
           </div>
         </div>
 

@@ -11,6 +11,7 @@ import { useAuthStore } from "@/zustand";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEventHandler, useState } from "react";
+import CloseButton from "../CloseButton";
 import TermsAgreementModal from "../TermsAgreementModal";
 import Checkbox from "../TermsAgreementModal/_components/Checkbox";
 
@@ -55,10 +56,11 @@ function SignInModal() {
 
   return (
     <Modal>
+      <CloseButton />
       <div className="md:w-[400px] max-sm:h-screen m-auto">
         <section className="text-center mb-6">
-          <h2 className="font-bold xs:text-2xl mb-4">로그인</h2>
-          <p className="xs:text-fs-12">안녕하세요 컬처랜드입니다</p>
+          <h2 className="font-bold text-2xl mb-4">로그인</h2>
+          <p className="text-fs-16">안녕하세요 컬처랜드입니다</p>
         </section>
 
         <div className="flex gap-x-2 justify-end items-center text-xs">

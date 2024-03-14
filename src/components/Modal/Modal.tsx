@@ -6,7 +6,7 @@ function Modal({ children }: { children: React.ReactNode }) {
 
   return (
     <div
-      className="bg-black/50 flex items-center justify-center fixed top-0 left-0 right-0 bottom-0 xs:w-screen z-40"
+      className="bg-black/50 flex items-center justify-center fixed top-0 left-0 right-0 bottom-0 z-40"
       onClick={handleClickBackdrop}
     >
       <div

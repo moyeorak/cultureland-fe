@@ -10,6 +10,7 @@ import { useModal } from "@/contexts/modal/modal.context";
 import useMutationUsersSignUp from "@/react-query/auth/users/useMutationUsersSignUp";
 import { useRouter } from "next/navigation";
 import { KeyboardEventHandler, useEffect, useState } from "react";
+import CloseButton from "../../CloseButton";
 
 function UsersSignUpModal() {
   const auth = useAuth();
@@ -95,9 +96,10 @@ function UsersSignUpModal() {
 
   return (
     <Modal>
+      <CloseButton />
       <Heading label="회원가입" />
-      <div className="w-[520px] p-10">
-        <div className="flex items-end gap-2">
+      <div className=" sm:w-[520px] xs:w-[375px] m-auto py-0 sm:p-10 sm:h-auto h-screen transition-all">
+        <div className="flex items-end gap-2 w-full">
           <Input
             type="email"
             id="email"
