@@ -3,6 +3,8 @@ import CategoryList from "@/components/CategoryList";
 import Page from "@/components/Page";
 import AllEventsList from "./_components/AllEventsList";
 
+export const revalidate = 60;
+
 async function EventsPage({
   searchParams: { page = "1", category = "전체" },
 }: {
