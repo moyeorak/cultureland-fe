@@ -8,6 +8,7 @@ function MapPage() {
       <Heading label="지도로 찾아보기" />
       {/* <CategoryList categories={dummyCategory} /> */}
       <KakaoMap />
+      <div className="w-[50%] h-[550px]"></div>
     </Page>
   );
 }
