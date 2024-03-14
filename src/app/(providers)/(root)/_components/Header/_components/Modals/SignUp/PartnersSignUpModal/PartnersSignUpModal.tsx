@@ -141,8 +141,9 @@ function PartnersSignUpModal() {
           />
           {/* 버튼 컴포넌트 수정 후 크기 조절 */}
           <Button
-            size="small"
-            color="neutral"
+            size="sm"
+            color="secondary"
+            outline
             onClick={handleClickEmailDuplicationCheck}
           >
             중복확인
@@ -262,7 +263,9 @@ function PartnersSignUpModal() {
         </div>
 
         <div className="mt-7">
-          <Button onClick={handleClickPartnerSignUp}>가입완료</Button>
+          <Button fullWidth onClick={handleClickPartnerSignUp}>
+            가입완료
+          </Button>
         </div>
       </div>
     </Modal>

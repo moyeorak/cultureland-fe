@@ -117,7 +117,9 @@ function SignInModal() {
             disabled={isPending}
           />
 
-          <Button onClick={handleClickSignIn}>로그인</Button>
+          <Button onClick={handleClickSignIn} fullWidth>
+            로그인
+          </Button>
         </div>
 
         <div className="flex items-center justify-center mt-8 mb-3">

@@ -111,8 +111,9 @@ function UsersSignUpModal() {
             disabled={isPending}
           />
           <Button
-            size="small"
-            color="neutral"
+            size="sm"
+            color="secondary"
+            outline
             onClick={handleClickEmailDuplicationCheck}
           >
             중복확인

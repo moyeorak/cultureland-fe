@@ -110,7 +110,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
           )}
           <div className="mb-12"></div>
           <div className="w-full flex justify-center gap-x-7">
-            <Button onClick={modal.close} color="neutral">
+            <Button onClick={modal.close} color="secondary" outline>
               취소
             </Button>
             <Button onClick={handleClickUpdate} disabled={isButtonDisabled}>

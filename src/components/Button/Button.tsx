@@ -6,6 +6,7 @@ interface ButtonProps extends ComponentProps<"button"> {
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   outline?: boolean;
+  disabled?: boolean;
 }
 
 function Button({
@@ -13,11 +14,12 @@ function Button({
   size = "md",
   fullWidth = false,
   outline = false,
+  disabled = false,
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) {
   const buttonVariant = cva(
-    "text-center rounded font-medium transition-colors",
+    "text-center rounded font-medium transition-colors outline-none",
     {
       variants: {
         color: {
@@ -36,13 +38,24 @@ function Button({
           true: "",
           false: "",
         },
+        disabled: {
+          true: "!bg-neutral-30 text-white",
+        },
       },
       compoundVariants: [
         {
           color: "primary",
           outline: true,
+          disabled: false,
           className:
             "!text-user-theme-90 !bg-white border border-user-theme-90 hover:!bg-user-theme-10",
+        },
+        {
+          color: "secondary",
+          outline: true,
+          disabled: false,
+          className:
+            "!text-neutral-90 !bg-white border border-neutral-90 hover:!bg-neutral-10",
         },
       ],
     }
@@ -50,8 +63,8 @@ function Button({
 
   return (
     <button
-      className={buttonVariant({ color, size, fullWidth, outline })}
-      data-color={color}
+      className={buttonVariant({ color, size, fullWidth, outline, disabled })}
+      disabled={disabled}
       {...props}
     >
       {children}

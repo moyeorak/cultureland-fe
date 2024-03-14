@@ -113,10 +113,7 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
       )}
       <div className="mb-12" />
       <div className="w-[400px] mx-auto">
-        <Button
-          onClick={handleClickCreateReview}
-          color={isButtonDisabled ? "neutral" : "primary"}
-        >
+        <Button onClick={handleClickCreateReview} disabled={isButtonDisabled}>
           등록
         </Button>
       </div>

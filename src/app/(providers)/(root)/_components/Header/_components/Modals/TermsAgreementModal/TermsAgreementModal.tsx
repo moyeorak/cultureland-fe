@@ -186,7 +186,9 @@ function TermsAgreementModal() {
           <label htmlFor="user">일반</label>
         </div>
 
-        <Button onClick={handleClickOpenSignUpModal}>다음단계</Button>
+        <Button fullWidth onClick={handleClickOpenSignUpModal}>
+          다음단계
+        </Button>
       </div>
     </Modal>
   );
