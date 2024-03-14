@@ -78,3 +78,14 @@ interface EventStatus {
   name: string;
   value: string;
 }
+
+export interface KakaoMapEvent {
+  averagerating: string;
+  category: { name: string };
+  distance: number;
+  id: number;
+  title: string;
+  venue: { name: string; latitude: number; longitude: number };
+  venueId: number;
+  _count: { reviews: number };
+}
