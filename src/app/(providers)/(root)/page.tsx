@@ -10,43 +10,43 @@ import BestEvents from "./_components/BestEvents";
 const dummyCategory: Array<Category> = [
   {
     code: 1,
-    value: "전체",
+    name: "전체",
   },
   {
     code: 2,
-    value: "연극",
+    name: "연극",
   },
   {
     code: 3,
-    value: "무용",
+    name: "무용",
   },
   {
     code: 4,
-    value: "대중무용",
+    name: "대중무용",
   },
   {
     code: 5,
-    value: "클래식",
+    name: "클래식",
   },
   {
     code: 6,
-    value: "국악",
+    name: "국악",
   },
   {
     code: 7,
-    value: "치킨",
+    name: "치킨",
   },
   {
     code: 8,
-    value: "피자",
+    name: "피자",
   },
   {
     code: 9,
-    value: "햄버거",
+    name: "햄버거",
   },
   {
     code: 10,
-    value: "이종환",
+    name: "이종환",
   },
 ]; // 테스트를 위한 더미 데이터입니다.
 

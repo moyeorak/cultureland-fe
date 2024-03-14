@@ -62,3 +62,23 @@ export type Events = {
 //   };
 //   reviews: [];
 // };
+
+export type Event = {
+  id: number;
+  partnerId: number;
+  title: string;
+  poster: string;
+  startDate: string;
+  endDate: string;
+  venueId: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: null | string;
+  apiId: string;
+  areaCode: number;
+  categoryCode: number;
+  venue: Venue;
+  category: Category;
+  area: Area;
+  avgRating: number;
+};

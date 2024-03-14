@@ -38,7 +38,7 @@ function BestEvents({ events }: bestEventsProps) {
                     />
                   </div>
                   <div className="flex-1 pt-[36px] pl-12">
-                    <span className="text-xs mb-1">{event.category.value}</span>
+                    <span className="text-xs mb-1">{event.category.name}</span>
                     <h3 className="text-2xl font-bold mb-4">{event.title}</h3>
                     <StarRating rate={event.avgRating} />
                     <span className="block mt-4 mb-2">{`일시: ${formatDate(
