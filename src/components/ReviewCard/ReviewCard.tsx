@@ -24,6 +24,27 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
   const { id, nickname } = useProfile();
   const { mutate: deleteReview } = useMutationDeleteReview();
+  // const [] = useState(nickname);
+  // const [user, setUser] = useState({ nickname: "", profileImage: "" });
+
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     if (review.reviewerId) {
+  //       try {
+  //         const userData = await api.users.getUser(review.reviewerId);
+  //         setUser({
+  //           nickname: userData.nickname,
+  //           profileImage: userData.profileImage,
+  //         });
+  //       } catch (error) {}
+  //     }
+  //   };
+
+  //   fetchUser();
+  // }, [review.reviewerId]);
+
+  // console.log("nickname", nickname);
+  // console.log("profileImage", profileImage);
 
   const userProfileImg = "";
 
@@ -56,6 +77,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
     deleteReview(review.id);
   };
   const handleClickModifyReview = () => {
+    if (!eventId) return null;
     modal.open(<ReviewModifyModal eventId={eventId} reviewId={review.id} />);
   };
 
@@ -78,7 +100,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
           />
         </div>
       )}
-      <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
+      <div className="flex flex-col w-full gap-y-4 text-neutral-70">
         <div
           className="flex gap-x-6 items-center data-[small=true]:gap-x-3"
           data-small
@@ -87,18 +109,19 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
             href={`/accounts/users/${id}`}
             className="w-[160px] overflow-hidden"
           >
-            <div className="flex gap-x-3 items-center">
+            <div className="flex items-center gap-x-3 ">
               <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden bg-slate-200 text-neutral-70">
-                <Image
+                {/* <Image
                   src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${userProfileImg}`}
                   alt="user-picture"
                   fill
                   className="object-cover"
                   unoptimized
-                />
+                /> */}
               </div>
-              <p className="text-fs-16 font-bold">
-                {nickname?.toString().slice(0, 10)}
+              <p className="font-bold text-fs-16">
+                {/* {user.nickname?.toString().slice(0, 10)} */}
+                유저 123
               </p>
             </div>
           </Link>
@@ -107,7 +130,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
           </div>
           <div className="flex ml-auto">
             {isMyReview && (
-              <div className="ml-auto flex gap-x-2">
+              <div className="flex ml-auto gap-x-2">
                 <button
                   className="text-fs-12"
                   onClick={handleClickModifyReview}

@@ -7,8 +7,9 @@ import Modal from "@/components/Modal";
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationUpdateReview from "@/react-query/reviews/useMutationUpdateReview";
+import useQueryReviewById from "@/react-query/reviews/useQueryReview";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Rating from "../Rating";
 import Textarea from "../Textarea";
 
@@ -19,38 +20,50 @@ interface ReviewModifyModalProps {
 
 function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   const { mutate: updateReview } = useMutationUpdateReview();
+  const { data: existingReview } = useQueryReviewById(reviewId);
   const modal = useModal();
   const auth = useAuth();
-  const [rating, setRating] = useState(0);
-  const [content, setContent] = useState("");
+  const [rating, setRating] = useState<number>();
+  const [content, setContent] = useState<string>();
   const [image, setImage] = useState<File | null>(null);
-  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
-  const isButtonDisabled = rating === 0 || !content.trim();
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>();
+  const isButtonDisabled = rating === 0 || !content?.trim();
   const isDisplayRatingGuide = rating === 0;
 
-  if (!eventId) return null;
+  useEffect(() => {
+    if (image) {
+      const url = URL.createObjectURL(image);
+      setPreviewImageUrl(url);
+      return () => {
+        URL.revokeObjectURL(url);
+      };
+    } else {
+      setPreviewImageUrl(null);
+    }
+  }, [image]);
 
-  // useEffect(() => {
-  //   if (image) {
-  //     const url = URL.createObjectURL(image);
-  //     setPreviewImageUrl(url);
-  //     return () => URL.revokeObjectURL(url);
-  //   } else {
-  //     setPreviewImageUrl(null);
-  //   }
-  // }, [image]);
+  useEffect(() => {
+    if (existingReview) {
+      setRating(existingReview.rating);
+      setContent(existingReview.content);
+      setPreviewImageUrl(
+        existingReview.image
+          ? "https://yanastudys3.s3.ap-northeast-2.amazonaws.com/" +
+              existingReview.image
+          : null
+      );
+    }
+  }, [existingReview]);
+
+  if (!eventId) return null;
 
   const handleClickUpdate = () => {
     if (!auth.isLoggedIn) {
       modal.open(<SignInModal />);
       return;
     }
-    if (rating === 0) {
-      alert("평점을 평가해 주세요");
-      return;
-    }
-    if (!content.trim()) {
-      alert("리뷰 내용을 작성해 주세요");
+    if (rating === undefined || rating === 0 || !content?.trim()) {
+      alert("평점과 리뷰 내용을 모두 입력해주세요.");
       return;
     }
 
@@ -77,20 +90,22 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   return (
     <Modal>
       <div className="w-[800px]">
-        <div className="py-10 px-10 shadow-primary rounded-lg">
-          <h4 className="font-bold text-fs-28 mb-4 text-center">리뷰 수정</h4>
+        <div className="px-10 py-10 rounded-lg shadow-primary">
+          <h4 className="mb-4 font-bold text-center text-fs-28">리뷰 수정</h4>
           <div className="flex gap-x-2">
-            <Rating value={rating} onChange={setRating} size={24} />
+            <Rating value={rating || 0} onChange={setRating} size={24} />
           </div>
           {isDisplayRatingGuide && (
-            <p className="text-fs-12 text-font-70 mt-1 mb-4 px-2">
+            <p className="px-2 mt-1 mb-4 text-fs-12 text-font-70">
               별점을 선택해 주세요
             </p>
           )}
           <Textarea
-            placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요\n(사진 1장 첨부 가능)"
+            placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요 (사진 1장 첨부 가능)"
             value={content}
-            onChange={(e: any) => setContent(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setContent(e.target.value)
+            }
           />
           <div className="mb-4"></div>
           {image && previewImageUrl ? (
@@ -105,7 +120,10 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
           ) : (
             <FileInput
               label="사진 업로드"
-              onChange={(e) => setImage(e.target.files?.[0] || null)}
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                setImage(file);
+              }}
             />
           )}
           <div className="mb-12"></div>
