@@ -1,5 +1,14 @@
-import { EventData } from "@/types/Event.type";
+import { Event } from "@/types/Event.type";
 
-export type getEventsData = EventData[];
+export type GetEventsData = {
+  data: { events: Required<Event>[]; totalEventsCnt: number };
+};
 
-export type getEventData = Event;
+export type SearchEventsData = {
+  data: { events: Required<Event>[]; totalEventsCnt: number };
+};
+
+export type GetEventData = {
+  event: Event;
+  avgRating: string;
+};

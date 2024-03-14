@@ -10,7 +10,7 @@ function Modal({ children }: { children: React.ReactNode }) {
       onClick={handleClickBackdrop}
     >
       <div
-        className="bg-white rounded-md w-auto max-h-screen overflow-auto scrollbar-hide px-5 py-8 z-50"
+        className="bg-white rounded-md w-auto max-h-screen overflow-auto scrollbar-hide px-5 py-8 z-50 transition-all"
         onClick={(e) => e.stopPropagation()}
       >
         {children}

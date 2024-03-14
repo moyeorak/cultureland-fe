@@ -1,20 +1,14 @@
 export type GetUserData = {
-  isLoggendUser: boolean;
-  followingCnt: number;
-  followerCnt: number;
-  profileImage: string;
-  nickname: string;
-  attendedEvents?: {
-    eventId: number;
-    partnerId: number;
-    title: string;
-    poster: string;
-    startDate: string;
-    endDate: string;
-    venueName: string;
-    category: string;
-    rating: number;
+  id: number;
+  email: string;
+  userProfile: {
+    userId: number;
+    nickname: string;
+    profileImage: string | null;
+    description: string;
   };
+  _count: { followers: number; followings: number };
+  isMe: boolean;
 };
 
 export type GetUserInfoToEditData = {

@@ -33,10 +33,7 @@ function SelectOption({ type, orderBy, setOrderBy }: SelectOptionProps) {
     option: string,
     value: "likes" | "hates" | "recent"
   ) => {
-    //선택된 정렬 기준이 보여지기 전에 실행 되어야 하는 것들
-    console.log(option, value);
     setOrderBy(value);
-    //선택된 정렬 기준을 사용자에게 보여줌
     setSelectedOption(option);
     setIsSelected(false);
   };
