@@ -10,7 +10,7 @@ interface CategoryProps {
 
 function Category({ category }: CategoryProps) {
   const searchParams = useSearchParams();
-  const currentCategoryCode = searchParams.get("category") || "0";
+  const currentCategoryCode = searchParams.get("category") || "전체";
   const queryString = new URLSearchParams(searchParams.toString());
   queryString.set("category", String(category.name));
 

@@ -1,5 +1,5 @@
 import api from "@/api/index.api";
-import CategoryList from "@/components/CategoryList";
+import CategoryList from "@/components/CategorySelector";
 import Page from "@/components/Page";
 import AllEventsList from "./_components/AllEventsList";
 

@@ -2,16 +2,16 @@
 
 import api from "@/api/index.api";
 import Button from "@/components/Button";
-import Authenticated from "@/contexts/auth.context/Authenticated";
+import AuthInitialized from "@/contexts/auth.context/Authenticated";
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import { useProfile } from "@/zustand";
 import { useRouter } from "next/navigation";
+import SearchInput from "../../../../../components/SearchInput";
 import HeaderLogo from "./_components/HeaderLogo";
 import HeaderNavItem from "./_components/HeaderNavItem";
 import SignInModal from "./_components/Modals/SignInModal";
 import TermsAgreementModal from "./_components/Modals/TermsAgreementModal";
-import SearchBar from "./_components/SearchBar";
 
 function Header() {
   const modal = useModal();
@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <header className="flex items-center gap-10 min-h-16 border-b bg-white text-nowrap transition-all">
-      <div className="max-w-[960px] w-full flex items-center mx-auto gap-10">
+      <div className="max-w-[960px] w-full flex items-center mx-auto gap-10 px-10">
         <HeaderLogo />
 
         <nav className="flex gap-4 items-center">
@@ -39,11 +39,9 @@ function Header() {
 
         {/* HeaderMenu */}
         <div className="ml-auto flex gap-10 items-center">
-          {/* SearchBar */}
-          <div>
-            <SearchBar placeholder="검색어를 입력하세요" border={true} />
-          </div>
-          <Authenticated>
+          <AuthInitialized>
+            <SearchInput clearAfterSearch />
+
             {auth.isLoggedIn ? (
               <>
                 <HeaderNavItem href={`/accounts/users/${userId}`}>
@@ -68,7 +66,7 @@ function Header() {
                 </Button>
               </div>
             )}
-          </Authenticated>
+          </AuthInitialized>
         </div>
       </div>
     </header>

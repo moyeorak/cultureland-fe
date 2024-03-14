@@ -8,7 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useAuth } from "./auth.context";
 
-function Authenticated({ children }: { children: React.ReactNode }) {
+function AuthInitialized({ children }: { children: React.ReactNode }) {
   const { isAuthInitialized, setIsAuthInitialized, setIsLoggedIn } = useAuth();
   const { setProfile } = useProfile();
 
@@ -53,4 +53,4 @@ function Authenticated({ children }: { children: React.ReactNode }) {
   return children;
 }
 
-export default Authenticated;
+export default AuthInitialized;

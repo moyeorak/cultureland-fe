@@ -1,7 +1,7 @@
 import api from "@/api/index.api";
 import Category from "./_components/Category";
 
-async function CategoryList() {
+async function CategorySelector() {
   const categories = await api.events.getCategories();
 
   if (!categories) return null;
@@ -17,4 +17,4 @@ async function CategoryList() {
   );
 }
 
-export default CategoryList;
+export default CategorySelector;

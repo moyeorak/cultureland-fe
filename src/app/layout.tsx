@@ -4,8 +4,9 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "MOYEORAK - CultureLand",
-  description: "udemy MOYEORAK 팀 CultureLand client",
+  title:
+    "컬처랜드 - 연극, 뮤지컬, 클래식, 국악, 대중음악, 무용, 대중무용, 서커스, 마술 ...",
+  description: "컬처랜드를 통해 전국의 다양한 이벤트들을 찾고 예매해 보세요",
 };
 
 declare global {
