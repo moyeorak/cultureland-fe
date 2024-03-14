@@ -16,7 +16,7 @@ import Checkbox from "../TermsAgreementModal/_components/Checkbox";
 
 function SignInModal() {
   const auth = useAuth();
-  const router = useRouter();
+const router = useRouter();
   const modal = useModal();
   const { mutateAsync: usersSignIn, isPending } = useMutationUserSignIn();
   const { mutateAsync: partnersSignIn } = useMutationPartnersSignIn();
