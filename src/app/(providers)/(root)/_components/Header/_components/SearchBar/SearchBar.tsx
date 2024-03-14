@@ -19,7 +19,7 @@ function SearchBar({
 
     if (keyword.trim()) {
       setKeyword("");
-      return router.push(`/search?keywords=${encodeURIComponent(keyword)}`);
+      return router.push(`/search?keyword=${encodeURIComponent(keyword)}`);
     }
 
     if (!keyword.trim()) alert("검색어를 입력해주세요.");

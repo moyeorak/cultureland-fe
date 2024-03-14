@@ -3,6 +3,7 @@ import Category from "./_components/Category";
 
 async function CategoryList() {
   const categories = await api.events.getCategories();
+
   if (!categories) return null;
 
   return (

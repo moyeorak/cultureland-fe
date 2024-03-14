@@ -4,8 +4,13 @@ import usersAPI from "./accounts/users/users.api";
 import eventsAPI from "./events/events.api";
 import reviewsAPI from "./reviews/reviews.api";
 
+const NODE_ENV = process.env.NODE_ENV;
+
 export const client = axios.create({
-  baseURL: "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app",
+  baseURL:
+    NODE_ENV === "production"
+      ? "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app"
+      : "http://localhost:5050",
   withCredentials: true,
 });
 

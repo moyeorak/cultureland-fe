@@ -1,5 +1,5 @@
 import api from "@/api/index.api";
-import EventList from "@/components/EventList";
+import EventsList from "@/components/EventsList";
 import Page from "@/components/Page";
 import BestEvents from "./_components/BestEvents";
 import BestReviews from "./_components/BestRevies/BestReviews";
@@ -32,7 +32,7 @@ async function HomePage() {
         <div className="w-20 bg-red-50"></div>
       </div>
 
-      <EventList events={eventsData} />
+      <EventsList events={eventsData} />
       <BestReviews />
     </Page>
   );

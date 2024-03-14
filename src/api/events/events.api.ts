@@ -13,9 +13,9 @@ const getEvents = async (params?: { page?: number; category?: string }) => {
   if (!results.success) throw new Error(results.error.message);
 
   const events = results.result.data.events;
-  const totalEventsCnt = results.result.data.totalEventsCnt;
+  const totalCount = results.result.data.totalEventsCnt;
 
-  return { events, totalEventsCnt };
+  return { events, totalCount };
 };
 
 const getEvent = async (eventId: number) => {
@@ -32,35 +32,25 @@ const getEvent = async (eventId: number) => {
   return { event, avgRating };
 };
 
-const searchEvents = async (keyword: string, pageNumber?: string) => {
-  if (!pageNumber) {
-    const response = await client.get<Response<SearchEventsData>>(
-      `/events/search?keywords=${encodeURIComponent(keyword)}`
-    );
-    const results = response.data;
+const searchEvents = async (params: {
+  keywords: string;
+  page?: number;
+  category?: string;
+}) => {
+  const url = "/events/search";
+  const response = await client.get<Response<SearchEventsData>>(url, {
+    params,
+  });
+  const results = response.data;
 
-    if (!results.success) throw new Error(results.error.message);
+  if (!results.success) throw new Error(results.error.message);
 
-    const eventsData = results.result.data.events;
-    const totalEventsCnt = results.result.data.totalEventsCnt;
+  const events = results.result.data.events;
+  const totalCount = results.result.data.totalEventsCnt;
 
-    return { eventsData, totalEventsCnt };
-  } else {
-    const response = await client.get<Response<SearchEventsData>>(
-      `/events/search?keywords=${encodeURIComponent(
-        keyword
-      )}&page=${encodeURIComponent(pageNumber)}`
-    );
-    const results = response.data;
-
-    if (!results.success) throw new Error(results.error.message);
-
-    const eventsData = results.result.data.events;
-    const totalEventsCnt = results.result.data.totalEventsCnt;
-
-    return { eventsData, totalEventsCnt };
-  }
+  return { events, totalCount };
 };
+
 const getEventsOnMap = async (
   coordinate: { lat: number; lng: number },
   category?: string

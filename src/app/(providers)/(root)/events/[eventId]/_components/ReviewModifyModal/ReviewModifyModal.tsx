@@ -98,7 +98,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
               <Image
                 src={previewImageUrl}
                 alt="미리보기 이미지"
-                layout="fill"
+                fill
                 objectFit="cover"
               />
             </div>

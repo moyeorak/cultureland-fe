@@ -98,7 +98,7 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
           <Image
             src={previewImageUrl}
             alt="Preview image"
-            layout="fill"
+            fill
             objectFit="cover"
           />
         </div>

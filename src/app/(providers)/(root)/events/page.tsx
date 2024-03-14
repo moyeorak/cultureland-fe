@@ -1,32 +1,34 @@
 import api from "@/api/index.api";
 import CategoryList from "@/components/CategoryList";
-import EventsList from "@/components/EventsList";
 import Page from "@/components/Page";
-import Pagination from "@/components/Pagination";
+import AllEventsList from "./_components/AllEventsList";
 
 async function EventsPage({
-  searchParams: { page = 1, category },
+  searchParams: { page = "1", category = "전체" },
 }: {
-  searchParams: { page: number; category?: string };
+  searchParams: { page?: string; category?: string };
 }) {
-  const { events, totalEventsCnt } = await api.events.getEvents({
-    page,
+  const initialData = await api.events.getEvents({
+    page: +page,
     category,
   });
 
   return (
-    <Page title="이벤트 둘러보기">
+    <Page
+      title="이벤트 찾아보기"
+      description="컬처랜드가 준비해 둔 다양한 이벤트를 둘러 보세요!"
+    >
       <div className="grid gap-y-10">
         <CategoryList />
-        <EventsList events={events} />
+        <AllEventsList initialData={initialData} />
       </div>
       <div>
-        <Pagination
+        {/* <Pagination
           category={category}
           currentPage={page}
           eventsCnt={totalEventsCnt}
           eventsPerPage={10}
-        />
+        /> */}
       </div>
     </Page>
   );

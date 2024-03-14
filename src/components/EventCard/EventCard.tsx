@@ -29,7 +29,7 @@ function EventCard({ event }: EventCardProps) {
             fill
             alt={event.title}
             className="object-cover rounded-t"
-            priority={false}
+            priority
             sizes="100%"
           />
         </section>

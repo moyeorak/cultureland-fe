@@ -32,7 +32,6 @@ const config: Config = {
         "partner-theme": {
           "50": "#color",
           "100": "#color",
-          // ...
           "900": "#color",
         },
         neutral: {
