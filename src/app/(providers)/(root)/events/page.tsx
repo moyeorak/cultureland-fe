@@ -1,11 +1,13 @@
 import CategoryList from "@/components/CategoryList";
 import EventsList from "@/components/EventsList";
 import Page from "@/components/Page";
+import Pagination from "@/components/Pagination";
+
 import { Event } from "@/types/Event.type";
 import { Response } from "@/types/Response.type";
 import axios from "axios";
 
-async function getEvents(page: number = 1, category?: string) {
+async function getEvents(page: number, category?: string) {
   const url =
     "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/events";
   const response = await axios.get<
@@ -20,7 +22,7 @@ async function getEvents(page: number = 1, category?: string) {
 }
 
 async function EventsPage({
-  searchParams: { page, category },
+  searchParams: { page = 1, category },
 }: {
   searchParams: { page: number; category?: string };
 }) {
@@ -31,7 +33,14 @@ async function EventsPage({
       <div className="grid gap-y-10">
         <CategoryList />
         <EventsList events={events} />
-        {/* <Pagination events={events} e/ventsPerPage={12} totalEvents={totalCnt} /> */}
+      </div>
+      <div>
+        <Pagination
+          category={category}
+          currentPage={page}
+          eventsCnt={totalEventsCnt}
+          eventsPerPage={10}
+        />
       </div>
     </Page>
   );
