@@ -8,6 +8,12 @@ export const metadata: Metadata = {
   description: "udemy MOYEORAK 팀 CultureLand client",
 };
 
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
+
 export default function HTMLLayout({
   children,
 }: Readonly<{
