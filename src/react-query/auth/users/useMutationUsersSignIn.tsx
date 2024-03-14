@@ -12,16 +12,16 @@ export default function useMutationUserSignIn() {
 
   return useMutation<unknown, unknown, UsersSignInDto>({
     mutationFn: api.users.signIn,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       const { sub, nickname, profileImage }: UserInfo = jwtDecode(String(data));
 
-      return setUserInfo({
+      setUserInfo({
         id: Number(sub),
         nickname,
         imageUrl: profileImage,
       });
 
-      return await fetchFollowings(Number(userInfo.sub));
+      return await fetchFollowings(Number(sub));
     },
   });
 }

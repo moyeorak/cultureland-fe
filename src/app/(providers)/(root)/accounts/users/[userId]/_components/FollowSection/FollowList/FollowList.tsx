@@ -7,7 +7,7 @@ import useQueryGetFollowers from "@/react-query/follows/useQueryGetFollowers";
 import useQueryGetFollowings from "@/react-query/follows/useQueryGetFollowings";
 import { Follower, Following } from "@/types/Follow.type";
 import { profileImgPrifix } from "@/utils/profileImgPrifix";
-import { useAuthStore, useFollowsStore } from "@/zustand";
+import { useFollowsStore, useProfile } from "@/zustand";
 import Image from "next/image";
 import NoneFollow from "../NoneFollow";
 import FollowButton from "./../FollowButton/FollowButton";
@@ -18,8 +18,7 @@ interface FollowListProps {
 }
 
 function FollowList({ followType, userId }: FollowListProps) {
-  const { userInfo } = useAuthStore();
-  const loggedInUserId = userInfo!.userId;
+  const { id } = useProfile();
   const { isLoggedIn } = useAuth();
   const { followings } = useFollowsStore();
   console.log("followings: ", followings);
@@ -28,7 +27,7 @@ function FollowList({ followType, userId }: FollowListProps) {
   const { data: hostFollowings, isLoading: hostFollowingsLoading } =
     useQueryGetFollowings(userId);
   const { data: myFollowings, isLoading: myFollowingsLoading } =
-    useQueryGetFollowings(loggedInUserId, isLoggedIn);
+    useQueryGetFollowings(id!, isLoggedIn);
 
   // 현재 로그인한 유저가 상대방을 팔로우하고 있는지 확인
   const amIFollowing = (userIdToCheck: number) => {
@@ -119,8 +118,6 @@ function FollowList({ followType, userId }: FollowListProps) {
               amIFollowing={amIFollowing(list.following.id)}
             />{" "}
           </div>
-
-          // 나머지 UI 구성
         ))
       : renderNoneFollow("followings");
 

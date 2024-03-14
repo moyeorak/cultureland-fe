@@ -1,7 +1,6 @@
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import useMutationAddFollow from "@/react-query/follows/useMutationAddFollow";
 import useMutationDeleteFollow from "@/react-query/follows/useMutationDeleteFollow";
-import { useAuthStore } from "@/zustand";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -18,12 +17,6 @@ function FollowButton({ userId, amIFollowing }: FollowButtonProps) {
   const { mutateAsync: addFollow } = useMutationAddFollow();
   const { mutateAsync: deleteFollow } = useMutationDeleteFollow();
   const { isLoggedIn } = useAuth();
-  const { userInfo } = useAuthStore();
-  // 로그인한 유저(나)의 팔로잉 목록을 순회하여 방문한 유저의 목록에 있는 사람 중의 한 사람 id가 있는지?
-  // 나의 팔로잉 목록 가져오기
-  // 나의 팔로잉 목록을 순회
-  // 방문한 유저의 목록도 순회
-  // 둘 중 같은 타인의 id가 있는지
 
   const buttonDetails = {
     follow: {
@@ -44,17 +37,17 @@ function FollowButton({ userId, amIFollowing }: FollowButtonProps) {
   };
 
   const handleFollowClick = async () => {
-    if (!isLoggedIn || !userInfo) {
+    if (!isLoggedIn) {
       alert("로그인이 필요한 기능입니다.");
       return;
     }
 
     if (buttonState === "follow") {
-      await addFollow(userInfo.userId);
+      await addFollow(userId);
       setButtonState("following");
       alert("팔로잉 목록에 추가했습니다.");
     } else if (buttonState === "following" || buttonState === "unFollow") {
-      await deleteFollow(userInfo.userId);
+      await deleteFollow(userId);
       setButtonState("follow");
       alert("언팔로잉 했습니다.");
     }

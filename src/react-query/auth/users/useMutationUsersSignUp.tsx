@@ -14,12 +14,12 @@ export default function useMutationUsersSignUp() {
     onSuccess: async (data) => {
       const { sub, nickname, profileImage }: UserInfo = jwtDecode(String(data));
 
-      return setProfile({
+      setProfile({
         id: Number(sub),
         nickname,
         imageUrl: profileImage,
       });
-      return await fetchFollowings(Number(userInfo.sub));
+      return await fetchFollowings(Number(sub));
     },
   });
 }
