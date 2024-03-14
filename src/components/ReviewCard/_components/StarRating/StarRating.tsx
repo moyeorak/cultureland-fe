@@ -19,7 +19,7 @@ function StarRating({ rate }: StarRatingProps) {
       {Array.from({ length: emptyStars }, (_, index) => (
         <StarIcon
           key={`empty-${index + fullStars + halfStar}`}
-          path="Star-empty"
+          path="star-empty"
           size="small"
         />
       ))}

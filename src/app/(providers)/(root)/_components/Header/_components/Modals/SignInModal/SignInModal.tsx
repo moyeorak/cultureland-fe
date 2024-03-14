@@ -1,5 +1,7 @@
 "use client";
 
+import TermsAgreementModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/TermsAgreementModal";
+import Checkbox from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/TermsAgreementModal/_components/Checkbox";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
@@ -7,23 +9,21 @@ import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationPartnersSignIn from "@/react-query/auth/partners/useMutationPartnersSignIn";
 import useMutationUserSignIn from "@/react-query/auth/users/useMutationUsersSignIn";
-import { useAuthStore } from "@/zustand";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEventHandler, useState } from "react";
-import TermsAgreementModal from "../TermsAgreementModal";
-import Checkbox from "../TermsAgreementModal/_components/Checkbox";
 
 function SignInModal() {
   const auth = useAuth();
-const router = useRouter();
+  const router = useRouter();
   const modal = useModal();
   const { mutateAsync: usersSignIn, isPending } = useMutationUserSignIn();
   const { mutateAsync: partnersSignIn } = useMutationPartnersSignIn();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedAccountType, setSelectedAccountType] = useState("user");
-  const { userInfo } = useAuthStore();
+  // const { userInfo } = useAuthStore();
 
   const handleChangeAccountType: ChangeEventHandler<HTMLInputElement> = (e) => {
     setSelectedAccountType(e.target.id);
@@ -36,7 +36,7 @@ const router = useRouter();
     try {
       if (selectedAccountType === "user") {
         await usersSignIn({ email, password });
-        console.log(userInfo);
+        // console.log(userInfo);
         auth.signIn();
         router.push("/");
         modal.close();
@@ -151,4 +151,3 @@ const router = useRouter();
 }
 
 export default SignInModal;
-
