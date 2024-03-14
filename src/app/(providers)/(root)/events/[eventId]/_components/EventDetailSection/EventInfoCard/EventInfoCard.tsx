@@ -30,7 +30,7 @@ function EventInfoCard({ event, avgRating }: EventInfoCardProps) {
               <div className="flex">
                 <p className="text-fs-14  w-16 font-medium ">장소</p>
                 <p className="text-fs-14 font-medium flex-grow">
-                  {event.venue.name}
+                  {event.venue!.name}
                 </p>
               </div>
               <div className="flex">

@@ -1,6 +1,6 @@
 "use client";
 
-import SignInModal from "@/app/(providers)/(root)/_components/Header/_components/Modals/SignInModal";
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationCreateReaction from "@/react-query/reviews/useMutationCreateReactoin";

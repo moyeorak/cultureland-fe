@@ -1,4 +1,4 @@
-import SignInModal from "@/app/(providers)/(root)/_components/Header/_components/Modals/SignInModal";
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import { useAuth } from "@/contexts/auth.context/auth.context";
@@ -98,7 +98,7 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
           <Image
             src={previewImageUrl}
             alt="Preview image"
-            layout="fill"
+            fill
             objectFit="cover"
           />
         </div>
@@ -113,10 +113,7 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
       )}
       <div className="mb-12" />
       <div className="w-[400px] mx-auto">
-        <Button
-          onClick={handleClickCreateReview}
-          color={isButtonDisabled ? "neutral" : "primary"}
-        >
+        <Button onClick={handleClickCreateReview} disabled={isButtonDisabled}>
           등록
         </Button>
       </div>

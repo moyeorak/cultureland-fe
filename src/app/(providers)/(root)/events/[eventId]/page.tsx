@@ -8,7 +8,7 @@ async function EventDetailPage(props: { params: { eventId: string } }) {
   const eventData = await api.events.getEvent(eventId);
   const { event, avgRating } = eventData;
   const description_images = event.eventDetail.description_images;
-  const reviewCount = event._count.reviews;
+  const reviewCount = event._count!.reviews;
 
   return (
     <Page>

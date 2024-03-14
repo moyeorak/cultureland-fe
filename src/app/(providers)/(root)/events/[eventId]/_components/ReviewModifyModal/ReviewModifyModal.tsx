@@ -1,6 +1,6 @@
 "use client";
 
-import SignInModal from "@/app/(providers)/(root)/_components/Header/_components/Modals/SignInModal";
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import Modal from "@/components/Modal";
@@ -98,7 +98,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
               <Image
                 src={previewImageUrl}
                 alt="미리보기 이미지"
-                layout="fill"
+                fill
                 objectFit="cover"
               />
             </div>
@@ -110,7 +110,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
           )}
           <div className="mb-12"></div>
           <div className="w-full flex justify-center gap-x-7">
-            <Button onClick={modal.close} color="neutral">
+            <Button onClick={modal.close} color="secondary" outline>
               취소
             </Button>
             <Button onClick={handleClickUpdate} disabled={isButtonDisabled}>

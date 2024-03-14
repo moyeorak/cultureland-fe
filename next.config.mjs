@@ -10,6 +10,9 @@ const nextConfig = {
       {
         hostname: "www.kopis.or.kr",
       },
+      {
+        hostname: "k.kakaocdn.net",
+      },
     ],
   },
 };

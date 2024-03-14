@@ -1,57 +1,45 @@
-"use client";
-
 import api from "@/api/index.api";
-import EventList from "@/components/EventList";
+import EventsList from "@/components/EventsList";
 import Page from "@/components/Page";
-import Pagination from "@/components/Pagination";
-import { Events } from "@/types/Event.type";
-import { useEffect, useState } from "react";
-import SearchBar from "../_components/Header/_components/SearchBar";
+import SearchBar from "../../../../components/SearchInput";
 
-function SearchPage({
-  searchParams: { keywords, page },
+async function SearchPage({
+  searchParams: { keyword = "", page = "1", category = "전체" },
 }: {
-  searchParams: { keywords: string; page?: string };
+  searchParams: { keyword?: string; page?: string; category?: string };
 }) {
-  const [searchedEvents, setSearchedEvents] = useState<Events[]>([]);
-  const [totalCount, setTotalCount] = useState(0);
-
-  useEffect(() => {
-    async function fetchSearchedEvents(keywords: string, page?: string) {
-      const { eventsData, totalEventsCnt } = await api.events.getSearchedEvents(
-        keywords,
-        page
-      );
-
-      setTotalCount(totalEventsCnt);
-      setSearchedEvents(eventsData);
-    }
-
-    fetchSearchedEvents(keywords, page);
-  }, [keywords, page]);
+  const initialData = await api.events.searchEvents({
+    keywords: keyword,
+    page: +page,
+    category,
+  });
 
   return (
-    <Page>
-      <div className="text-center mb-[37px]">
-        <div className="w-[360px] mx-auto">
-          <SearchBar placeholder={keywords} />
-        </div>
-        <h2 className="mt-6 mb-2 text-fs-20">
-          {`'`}
-          <span className="text-user-theme-100">{`${keywords}`}</span>
-          {`'`}에 대한 검색 결과
-        </h2>
-        <span>총 {totalCount.toLocaleString()}개의 결과를 발견하였습니다.</span>
+    <Page title="이벤트 검색하기">
+      <div className="grid gap-y-20">
+        <section className="flex flex-col items-center gap-y-10">
+          <SearchBar initialKeyword={keyword} autoFocus />
+
+          <p>
+            <strong className="text-user-theme-90">{keyword}</strong>으로 검색한
+            결과, 총{" "}
+            <strong className="text-user-theme-90">
+              {initialData.totalCount.toLocaleString()}
+            </strong>
+            개의 이벤트를 찾았어요
+          </p>
+        </section>
+
+        <section>
+          <EventsList events={initialData.events} />
+        </section>
       </div>
 
-      <EventList events={searchedEvents} />
-
-      <Pagination
-        events={searchedEvents}
+      {/* <Pagination
         eventsPerPage={12}
         totalEvents={totalCount}
         keywords={keywords}
-      />
+      /> */}
     </Page>
   );
 }

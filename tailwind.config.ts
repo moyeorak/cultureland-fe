@@ -32,7 +32,6 @@ const config: Config = {
         "partner-theme": {
           "50": "#color",
           "100": "#color",
-          // ...
           "900": "#color",
         },
         neutral: {
@@ -80,6 +79,9 @@ const config: Config = {
       display: ["peer-checked"],
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };
 export default config;
