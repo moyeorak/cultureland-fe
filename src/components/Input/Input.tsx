@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="flex flex-col w-full">
       {label && id && (
-        <label htmlFor={id} className="mb-3 text-sm font-medium">
+        <label htmlFor={id} className="mb-3 text-sm font-medium w-full">
           {label}
         </label>
       )}
@@ -38,7 +38,7 @@ const Input: React.FC<InputProps> = ({
         <input
           id={id}
           type={inputType}
-          className="rounded text-fs-14 py-2 px-3 border-0 flex-1 focus:ring-0 focus:border-blue-500"
+          className="rounded xs:text-fs-14 text-fs-12 py-2 px-3 border-0 flex-1 focus:ring-0 focus:border-blue-500"
           {...props}
         />
         {iconPath && (

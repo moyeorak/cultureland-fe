@@ -1,12 +1,13 @@
 "use client";
 
 import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
-import Authenticated from "@/contexts/auth.context/Authenticated";
+
+import AuthInitialized from "@/contexts/auth.context/Authenticated";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
-import { useAuthStore } from "@/zustand";
+import { useProfile } from "@/zustand";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
@@ -15,39 +16,35 @@ import StarRating from "./_components/StarRating";
 
 interface ReviewCardProps {
   review: Review;
-  eventId: number;
+  eventId?: number;
+  small?: boolean;
 }
 
 function ReviewCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
-  const { userInfo } = useAuthStore();
-  const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
+  const { id, nickname } = useProfile();
   const { mutate: deleteReview } = useMutationDeleteReview();
 
   const userProfileImg = "";
 
-  const isMyReview = review.reviewerId === Number(userId);
-
-  //내가 좋아요한 상태인지
-  //내가 싫어요한 상태인지 판단을 여기서 해서 내려주자
+  const isMyReview = review.reviewerId === Number(id);
 
   const isAlreadyLiked = useMemo(
     () =>
       review.reviewReactions?.some(
         (reviewReaction) =>
-          reviewReaction.userId === userId && reviewReaction.reactionValue === 1
+          reviewReaction.userId === id && reviewReaction.reactionValue === 1
       ) ?? false,
-    [review.reviewReactions, userId]
+    [review.reviewReactions, id]
   );
 
   const isAlreadyDisliked = useMemo(
     () =>
       review.reviewReactions?.some(
         (reviewReaction) =>
-          reviewReaction.userId === userId &&
-          reviewReaction.reactionValue === -1
+          reviewReaction.userId === id && reviewReaction.reactionValue === -1
       ) ?? false,
-    [review.reviewReactions, userId]
+    [review.reviewReactions, id]
   );
 
   useEffect(() => {
@@ -56,7 +53,6 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   }, [review, isAlreadyLiked]);
 
   const handleClickDeleteReview = () => {
-    console.log("삭제");
     deleteReview(review.id);
   };
   const handleClickModifyReview = () => {
@@ -64,10 +60,52 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div className="h-[265px]flex items-center px-8 py-9 rounded-lg shadow-primary mb-10">
-      <div className="flex gap-x-12 w-full">
-        <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
-          <div className="flex">
+    <div
+      className="h-[265px] min-w-[650px] max-w-[960px] data-[small=true]:h-[240px] data-[small=true]:mb-9 flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 data-[small=true]:gap-x-6  gap-x-12 overflow-hidden"
+      data-small
+    >
+      {review.image && (
+        <div
+          className="w-[208px] h-[208px] min-w-[208px] max-h-[208px] overflow-hidden rounded-lg relative  data-[small=true]:min-w-[180px] data-[small=true]:max-h-[180px]"
+          data-small
+        >
+          <Image
+            src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
+            alt="poster-img"
+            fill
+            className="object-cover overflow-hidden rounded-lg"
+            unoptimized
+          />
+        </div>
+      )}
+      <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
+        <div
+          className="flex gap-x-6 items-center data-[small=true]:gap-x-3"
+          data-small
+        >
+          <Link
+            href={`/accounts/users/${id}`}
+            className="w-[160px] overflow-hidden"
+          >
+            <div className="flex gap-x-3 items-center">
+              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden bg-slate-200 text-neutral-70">
+                <Image
+                  src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${userProfileImg}`}
+                  alt="user-picture"
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </div>
+              <p className="text-fs-16 font-bold">
+                {nickname?.toString().slice(0, 10)}
+              </p>
+            </div>
+          </Link>
+          <div>
+            <StarRating rate={review.rating} />
+          </div>
+          <div className="flex ml-auto">
             {isMyReview && (
               <div className="ml-auto flex gap-x-2">
                 <button
@@ -85,41 +123,20 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
               </div>
             )}
           </div>
-          <Link href={`/accounts/users/${userId}`}>
-            <div className="flex gap-x-3 items-center">
-              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
-                <Image
-                  src={"/images/poster.jpeg"}
-                  alt="user-picture"
-                  fill
-                  className="object-cover"
-                  unoptimized
-                />
-              </div>
-              <p className="text-fs-16 font-bold">{review.reviewerId}</p>
-            </div>
-          </Link>
-          <StarRating rate={review.rating} />
-          <p className="pt-4 text-neutral-70 text-fs-14">{review.content}</p>
-          <div className="flex items-center gap-x-[10px] justify-center">
-            <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
-            <Authenticated>
-              <ReactionButtons
-                review={review}
-                isLiked={isAlreadyLiked}
-                isDisliked={isAlreadyDisliked}
-              />
-            </Authenticated>
-          </div>
         </div>
-        <div className="relative w-[208px] h-[200px] overflow-hidden rounded-lg">
-          <Image
-            src={"/images/poster.jpeg"}
-            alt="poster-img"
-            fill
-            className="object-cover"
-            unoptimized
-          />
+
+        <p className="pt-4 text-neutral-70 text-fs-14 h-[105px] w-9/12 overflow-hidden ">
+          {review.content}
+        </p>
+        <div className="flex items-center gap-x-[10px] justify-center">
+          <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
+          <AuthInitialized>
+            <ReactionButtons
+              review={review}
+              isLiked={isAlreadyLiked}
+              isDisliked={isAlreadyDisliked}
+            />
+          </AuthInitialized>
         </div>
       </div>
     </div>

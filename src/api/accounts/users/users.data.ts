@@ -7,10 +7,7 @@ export type GetUserData = {
     profileImage: string | null;
     description: string;
   };
-  _count: {
-    followers: number;
-    followings: number;
-  };
+  _count: { followers: number; followings: number };
   isMe: boolean;
 };
 

@@ -12,10 +12,7 @@ interface ReviewSectionProps {
 
 function ReviewSection({ eventId }: ReviewSectionProps) {
   const [page, setPage] = useState(1);
-  const [orderBy, setOrderBy] = useState<"likes" | "hates" | "recent">(
-    "recent"
-  );
-
+  const [orderBy, setOrderBy] = useState<"likes" | "hates" | "recent">("likes");
   const { data: reviews } = useQueryReviewsOfEvent(
     eventId,
     true,
@@ -25,7 +22,7 @@ function ReviewSection({ eventId }: ReviewSectionProps) {
 
   return (
     <div>
-      <div className="ml-auto">
+      <div className="flex justify-end">
         <SelectOption type="review" orderBy={orderBy} setOrderBy={setOrderBy} />
       </div>
 

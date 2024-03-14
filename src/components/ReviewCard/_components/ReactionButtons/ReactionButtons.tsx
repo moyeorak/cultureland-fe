@@ -1,5 +1,8 @@
 "use client";
 
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
+import { useAuth } from "@/contexts/auth.context/auth.context";
+import { useModal } from "@/contexts/modal/modal.context";
 import useMutationCreateReaction from "@/react-query/reviews/useMutationCreateReactoin";
 import useMutationDeleteReaction from "@/react-query/reviews/useMutationDeleteReaction";
 import { Review } from "@/types/Review.type";
@@ -22,11 +25,17 @@ function ReactionButtons({
   const queryClient = useQueryClient();
   const reviewId = review.id;
   const { eventId } = useParams();
+  const auth = useAuth();
+  const modal = useModal();
 
   const { mutateAsync: createReaction } = useMutationCreateReaction();
   const { mutateAsync: deleteReaction } = useMutationDeleteReaction();
 
   const handleClickLike = async () => {
+    if (!auth.isLoggedIn) {
+      modal.open(<SignInModal />);
+      return;
+    }
     try {
       if (isLiked) {
         await deleteReaction(review.id);
@@ -44,6 +53,10 @@ function ReactionButtons({
   };
 
   const handleClickDislike = async () => {
+    if (!auth.isLoggedIn) {
+      modal.open(<SignInModal />);
+      return;
+    }
     try {
       if (isDisliked) {
         await deleteReaction(review.id);
