@@ -1,4 +1,5 @@
 import { Category } from "@/types/Category.type";
+import { Event } from "@/types/Event.type";
 import { Response } from "@/types/Response.type";
 import { client } from "../index.api";
 import { GetEventData, GetEventsData, SearchEventsData } from "./events.data";
@@ -62,7 +63,7 @@ const getEventsOnMap = async (
   coordinate: { lat: number; lng: number },
   category?: string
 ) => {
-  const response = await client.get<Response<Event>>(`/events/map`, {
+  const response = await client.get<Response<Event[]>>(`/events/map`, {
     params: { la: coordinate.lat, lo: coordinate.lng, category },
   });
   const data = response.data;
