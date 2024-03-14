@@ -7,7 +7,7 @@ import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
-import { useAuthStore } from "@/zustand";
+import { useProfile } from "@/zustand";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
@@ -22,31 +22,27 @@ interface ReviewCardProps {
 
 function ReviewGridCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
-  const { userInfo } = useAuthStore();
-  const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
+  const { id } = useProfile();
   const { mutate: deleteReview } = useMutationDeleteReview();
 
-  const userProfileImg = "";
-
-  const isMyReview = review.reviewerId === Number(userId);
+  const isMyReview = review.reviewerId === Number(id);
 
   const isAlreadyLiked = useMemo(
     () =>
       review.reviewReactions?.some(
         (reviewReaction) =>
-          reviewReaction.userId === userId && reviewReaction.reactionValue === 1
+          reviewReaction.userId === id && reviewReaction.reactionValue === 1
       ) ?? false,
-    [review.reviewReactions, userId]
+    [review.reviewReactions, id]
   );
 
   const isAlreadyDisliked = useMemo(
     () =>
       review.reviewReactions?.some(
         (reviewReaction) =>
-          reviewReaction.userId === userId &&
-          reviewReaction.reactionValue === -1
+          reviewReaction.userId === id && reviewReaction.reactionValue === -1
       ) ?? false,
-    [review.reviewReactions, userId]
+    [review.reviewReactions, id]
   );
 
   useEffect(() => {
@@ -66,7 +62,7 @@ function ReviewGridCard({ review, eventId }: ReviewCardProps) {
       <div className="flex flex-col gap-y-3 text-neutral-70 w-full top-0 h-full relative">
         <div className="flex gap-x-6 items-center bg-red-400">
           <Link
-            href={`/accounts/users/${userId}`}
+            href={`/accounts/users/${id}`}
             className="w-[180px] overflow-hidden"
           >
             <div className="flex gap-x-3 items-center">
