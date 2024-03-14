@@ -58,9 +58,25 @@ const getSearchedEvents = async (keywords: string, pageNumber?: string) => {
     return { eventsData, totalEventsCnt };
   }
 };
+const getEventsOnMap = async (
+  coordinate: { lat: number; lng: number },
+  category?: string
+) => {
+  const response = await client.get<Response<Event>>(`/events/map`, {
+    params: { la: coordinate.lat, lo: coordinate.lng, category },
+  });
+  const data = response.data;
+
+  if (!data.success) throw new Error(data.error.message);
+
+  const event = data.result;
+
+  return event;
+};
 
 const eventsAPI = {
   getAllEvents,
+  getEventsOnMap,
   getEvent,
   getSearchedEvents,
 };

@@ -1,28 +1,19 @@
-"use client";
+import Category from "./_components/Category";
 
-import Link from "next/link";
-import { ComponentProps } from "react";
-import CategoryItem from "../CategoryItem";
+async function CategoryList() {
+  const categories = (await fetch(
+    "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/events/category"
+  )
+    .then((res) => res.json())
+    .then((res: any) => res.result)) as { name: string; code: number }[];
 
-interface CategoryListProps {
-  categories: Array<ComponentProps<typeof CategoryItem>["category"]>;
-}
-
-function CategoryList({ categories }: CategoryListProps) {
-  const handleClickCategory = (categoryName: string) => {
-    console.log(categoryName);
-  };
+  if (!categories) return null;
 
   return (
-    <ul className="w-full overflow-auto scrollbar-hide flex gap-6 mb-[26px]">
+    <ul className="w-full flex gap-x-2 gap-y-2 flex-wrap justify-center">
       {categories.map((category) => (
-        <li
-          key={category.code}
-          onClick={() => handleClickCategory(category.value)}
-        >
-          <Link href="/">
-            <CategoryItem category={category} />
-          </Link>
+        <li key={category.code}>
+          <Category category={category} />
         </li>
       ))}
     </ul>

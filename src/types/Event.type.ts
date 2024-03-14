@@ -45,7 +45,7 @@ export type GetEventData = {
 export type GetHomeEvent = {
   event: Event[];
 };
-export interface Event {
+export type Event = {
   id: number;
   partnerId: number;
   title: string;
@@ -68,8 +68,8 @@ export interface Event {
     reviews: number;
   };
   reviews: Review[];
-  avgRating?: string;
-}
+  avgRating?: string | number;
+};
 
 interface Area {
   code: number;
