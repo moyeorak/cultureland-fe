@@ -1,10 +1,19 @@
-import { Event } from "@/types/Event.type";
 import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
 import Link from "next/link";
 
 interface EventCardProps {
-  event: Event;
+  event: {
+    id: number;
+    title: string;
+    poster: string;
+    avgRating: number;
+    startDate: string;
+    endDate: string;
+    venue: {
+      name: string;
+    };
+  };
 }
 
 function EventCard({ event }: EventCardProps) {

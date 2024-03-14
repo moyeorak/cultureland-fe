@@ -1,7 +1,7 @@
 "use client";
 
 import Heading from "@/components/Heading/Heading";
-import { Events } from "@/types/Event.type";
+import { Event } from "@/types/Event.type";
 import Image from "next/image";
 import { useRef } from "react";
 import "swiper/css";
@@ -10,7 +10,7 @@ import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 import { NextArrow, PrevArrow } from "./_components/Icon";
 
 interface InterestingEventsProps {
-  events: Events[];
+  events: Event[];
 }
 
 function InterestingEvents({ events }: InterestingEventsProps) {
@@ -41,8 +41,6 @@ function InterestingEvents({ events }: InterestingEventsProps) {
             ref={swiperRef}
             spaceBetween={20}
             slidesPerView={3}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => {}}
             className="w-full rounded-lg"
             autoplay={{ delay: 1000 }}
           >

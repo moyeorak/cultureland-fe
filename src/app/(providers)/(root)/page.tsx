@@ -1,58 +1,14 @@
 import api from "@/api/index.api";
 import EventList from "@/components/EventList";
 import Page from "@/components/Page";
-
-import InterestingEvents from "./_components/InterestingEvents";
-
-import { Category } from "@/types/Category.type";
 import BestEvents from "./_components/BestEvents";
 import BestReviews from "./_components/BestRevies/BestReviews";
-
-const dummyCategory: Array<Category> = [
-  {
-    code: 1,
-    name: "전체",
-  },
-  {
-    code: 2,
-    name: "연극",
-  },
-  {
-    code: 3,
-    name: "무용",
-  },
-  {
-    code: 4,
-    name: "대중무용",
-  },
-  {
-    code: 5,
-    name: "클래식",
-  },
-  {
-    code: 6,
-    name: "국악",
-  },
-  {
-    code: 7,
-    name: "치킨",
-  },
-  {
-    code: 8,
-    name: "피자",
-  },
-  {
-    code: 9,
-    name: "햄버거",
-  },
-  {
-    code: 10,
-    name: "이종환",
-  },
-]; // 테스트를 위한 더미 데이터입니다.
+import InterestingEvents from "./_components/InterestingEvents";
 
 async function HomePage() {
-  const { eventsData, totalEventsCnt } = await api.events.getAllEvents(1);
+  const { events: eventsData } = await api.events.getEvents({
+    page: 1,
+  });
 
   return (
     <Page>

@@ -1,7 +1,7 @@
 "use client";
 
 import StarRating from "@/components/ReviewCard/_components/StarRating";
-import { Events } from "@/types/Event.type";
+import { Event } from "@/types/Event.type";
 import { formatDate } from "@/utils/formatDate.utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 interface bestEventsProps {
-  events: Events[];
+  events: Event[];
 }
 
 function BestEvents({ events }: bestEventsProps) {
@@ -21,8 +21,6 @@ function BestEvents({ events }: bestEventsProps) {
           modules={[Autoplay]}
           spaceBetween={50}
           slidesPerView={1}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
           autoplay={{ delay: 3000 }}
         >
           {events?.map((event) => (
@@ -40,11 +38,11 @@ function BestEvents({ events }: bestEventsProps) {
                   <div className="flex-1 pt-[36px] pl-12">
                     <span className="text-xs mb-1">{event.category.name}</span>
                     <h3 className="text-2xl font-bold mb-4">{event.title}</h3>
-                    <StarRating rate={event.avgRating} />
+                    <StarRating rate={event.avgRating!} />
                     <span className="block mt-4 mb-2">{`일시: ${formatDate(
                       event.startDate
                     )}~${formatDate(event.endDate)}`}</span>
-                    <span className="block mb-2">{event.venue.name}</span>
+                    <span className="block mb-2">{event.venue!.name}</span>
                     <span className="block"></span>
                   </div>
                 </div>

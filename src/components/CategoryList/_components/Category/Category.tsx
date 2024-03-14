@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 interface CategoryProps {
-  category: Category;
+  category: Omit<Category, "value">;
 }
 
 function Category({ category }: CategoryProps) {

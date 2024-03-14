@@ -1,12 +1,8 @@
+import api from "@/api/index.api";
 import Category from "./_components/Category";
 
 async function CategoryList() {
-  const categories = (await fetch(
-    "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/events/category"
-  )
-    .then((res) => res.json())
-    .then((res: any) => res.result)) as { name: string; code: number }[];
-
+  const categories = await api.events.getCategories();
   if (!categories) return null;
 
   return (

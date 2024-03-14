@@ -37,7 +37,6 @@ function SignInModal() {
     try {
       if (selectedAccountType === "user") {
         await usersSignIn({ email, password });
-        console.log(userInfo);
         auth.signIn();
         router.push("/");
         modal.close();
@@ -47,8 +46,6 @@ function SignInModal() {
         router.push("/");
         modal.close();
       }
-
-      console.log();
     } catch (e) {
       alert("로그인에 실패하였습니다.");
     }

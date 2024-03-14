@@ -1,9 +1,8 @@
 import { ComponentProps } from "react";
 import EventCard from "../EventCard";
-import EventItem from "../EventItem";
 
 interface EventsListProps {
-  events: Array<ComponentProps<typeof EventItem>["event"]>;
+  events: Array<ComponentProps<typeof EventCard>["event"]>;
 }
 
 function EventsList({ events }: EventsListProps) {

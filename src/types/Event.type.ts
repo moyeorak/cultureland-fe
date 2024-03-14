@@ -2,49 +2,15 @@ import { Partner } from "./Partner";
 import { Review } from "./Review.type";
 import { Venue } from "./Venue.type";
 
-// export type Event = {
-//   data: {
-//     EventData: EventData[];
-//     totalEventsCnt: number;
-//   };
-// };
-
 export type ResponseData = {
   data: EventData;
 };
 
 export type EventData = {
-  events: Events[];
+  events: Event[];
   totalEventsCnt: number;
 };
 
-export type Events = {
-  id: number;
-  partnerId: number;
-  title: string;
-  poster: string;
-  startDate: string;
-  endDate: string;
-  venueId: number;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: null | string;
-  apiId: string;
-  areaCode: number;
-  categoryCode: number;
-  venue: Venue;
-  category: Category;
-  area: Area;
-  avgRating: number;
-};
-
-export type GetEventData = {
-  event: Event;
-  avgRating: string;
-};
-export type GetHomeEvent = {
-  event: Event[];
-};
 export type Event = {
   id: number;
   partnerId: number;
@@ -62,13 +28,13 @@ export type Event = {
   area: Area;
   category: Category;
   eventDetail: EventDetail;
-  venue: Venue;
+  venue?: Venue;
   partner?: Partner;
-  _count: {
+  _count?: {
     reviews: number;
   };
-  reviews: Review[];
-  avgRating?: string | number;
+  reviews?: Review[];
+  avgRating?: number;
 };
 
 interface Area {

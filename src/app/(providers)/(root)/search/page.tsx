@@ -3,8 +3,7 @@
 import api from "@/api/index.api";
 import EventList from "@/components/EventList";
 import Page from "@/components/Page";
-import Pagination from "@/components/Pagination";
-import { Events } from "@/types/Event.type";
+import { Event } from "@/types/Event.type";
 import { useEffect, useState } from "react";
 import SearchBar from "../_components/Header/_components/SearchBar";
 
@@ -13,12 +12,12 @@ function SearchPage({
 }: {
   searchParams: { keywords: string; page?: string };
 }) {
-  const [searchedEvents, setSearchedEvents] = useState<Events[]>([]);
+  const [searchedEvents, setSearchedEvents] = useState<Required<Event>[]>([]);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     async function fetchSearchedEvents(keywords: string, page?: string) {
-      const { eventsData, totalEventsCnt } = await api.events.getSearchedEvents(
+      const { eventsData, totalEventsCnt } = await api.events.searchEvents(
         keywords,
         page
       );
@@ -46,12 +45,11 @@ function SearchPage({
 
       <EventList events={searchedEvents} />
 
-      <Pagination
-        events={searchedEvents}
+      {/* <Pagination
         eventsPerPage={12}
         totalEvents={totalCount}
         keywords={keywords}
-      />
+      /> */}
     </Page>
   );
 }
