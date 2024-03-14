@@ -2,7 +2,7 @@
 
 import useQueryGetEventsOnMap from "@/react-query/reviews/useQueryGetEventsOnMap";
 import { useEffect, useState } from "react";
-import { Map } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 function KakaoMap() {
   const [center, setCenter] = useState({ lat: 37.568683, lng: 126.980279 });
@@ -31,7 +31,17 @@ function KakaoMap() {
             lng: map.getCenter().getLng(),
           });
         }}
-      />
+      >
+        {data?.map((event) => (
+          <MapMarker
+            key={event.id}
+            position={{
+              lat: event.venue?.latitude as number,
+              lng: event.venue?.longitude as number,
+            }}
+          />
+        ))}
+      </Map>
     </div>
   );
 }
