@@ -30,7 +30,15 @@ async function getReviewsOfEvent(
   const reviews = data.result;
   return reviews;
 }
+async function getReview(reviewId: number) {
+  const response = await client.get<Response<Review>>(`/reviews/${reviewId}`);
+  const data = response.data;
 
+  if (!data.success) throw new Error(data.error.message);
+
+  const review = data.result;
+  return review;
+}
 async function getFamousReviews() {
   const response = await client.get<Response<GetFamousReviewData>>(
     "/reviews/famous"
@@ -114,6 +122,7 @@ async function deleteReview(reviewId: number) {
 
 const reviewsAPI = {
   createReview,
+  getReview,
   getReviewsOfEvent,
   getFamousReviews,
   getLikedReviews,
