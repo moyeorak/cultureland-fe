@@ -3,7 +3,12 @@ import { Response } from "@/types/Response.type";
 import { client } from "../index.api";
 import { GetEventData, GetEventsData, SearchEventsData } from "./events.data";
 
-const getEvents = async (params?: { page?: number; category?: string }) => {
+const getEvents = async (params?: {
+  page?: number;
+  category?: string;
+  orderBy?: "recent" | "popular";
+  area?: string;
+}) => {
   const url = "/events";
   const response = await client.get<Response<GetEventsData>>(url, {
     params,

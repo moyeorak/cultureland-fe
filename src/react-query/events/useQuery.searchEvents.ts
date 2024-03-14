@@ -12,11 +12,15 @@ export default function useQuerySearchEvents(
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || 1;
   const category = searchParams.get("category") || undefined;
-  const params = { page: +page, category };
+  const params: Parameters<typeof api.events.searchEvents>[0] = {
+    page: +page,
+    category,
+    keywords: "",
+  };
 
   const initialData = options?.initialData;
   const queryKey = ["events", { params }];
-  const queryFn = () => api.events.getEvents(params);
+  const queryFn = () => api.events.searchEvents(params);
 
   return useQuery({
     queryKey,

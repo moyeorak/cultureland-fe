@@ -54,7 +54,6 @@ function InterestingEvents({ events }: InterestingEventsProps) {
                   src={event.poster}
                   alt={event.title}
                   className="rounded-lg"
-                  unoptimized
                 />
               </SwiperSlide>
             ))}

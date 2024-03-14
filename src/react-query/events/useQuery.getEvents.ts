@@ -10,7 +10,13 @@ export default function useQueryGetEvents(options?: UseQueryGetEventsOptions) {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") || 1;
   const category = searchParams.get("category") || undefined;
-  const params = { page: +page, category };
+  const orderBy =
+    (searchParams.get("orderBy") as "recent" | "popular" | null) || undefined;
+  const params: Parameters<typeof api.events.getEvents>[0] = {
+    page: +page,
+    category,
+    orderBy,
+  };
 
   const initialData = options?.initialData;
   const queryKey = ["events", { params }];
