@@ -10,10 +10,12 @@ const getEvents = async (params?: {
   area?: string;
 }) => {
   const url = "/events";
-  const response = await client.get<Response<GetEventsData>>(url, {
-    params,
-  });
-  const results = response.data;
+  const response = await client
+    .get<Response<GetEventsData>>(url, {
+      params,
+    })
+    .catch((e) => console.log(e));
+  const results = (response as any).data;
 
   if (!results.success) throw new Error(results.error.message);
 

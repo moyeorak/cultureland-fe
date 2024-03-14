@@ -20,22 +20,25 @@ function EventCard({ event }: EventCardProps) {
   const rating = Math.floor(event.avgRating) || 1;
 
   return (
-    <Link href={`/events/${event.id}`} className="block">
-      <article className="border flex flex-col w-full rounded">
+    <Link
+      href={`/events/${event.id}`}
+      className="block hover:-translate-y-2 transition"
+    >
+      <article className="flex flex-col w-full">
         {/* 이미지 */}
         <section className="relative aspect-[3/4]">
           <Image
             src={event.poster}
             fill
             alt={event.title}
-            className="object-cover rounded-t"
+            className="object-cover rounded-xl"
             priority
             sizes="100%"
           />
         </section>
 
         {/* 콘텐츠 */}
-        <section className="py-3 px-2.5 border-t">
+        <section className="py-3 px-2.5">
           <div className="flex gap-x-1.5 items-center leading-none mb-2">
             <div className="text-[10px] flex gap-x-0.5 items-center">
               {Array(rating)
@@ -49,7 +52,7 @@ function EventCard({ event }: EventCardProps) {
             </span>
           </div>
 
-          <h6 className="text-[15px] leading-tight mb-2 h-9 overflow-hidden line-clamp-2">
+          <h6 className="text-[15px] leading-tight mb-2 overflow-hidden line-clamp-2 font-medium">
             {event.title}
           </h6>
 

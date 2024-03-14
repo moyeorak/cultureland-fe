@@ -1,6 +1,6 @@
 "use client";
 
-import SignInModal from "@/app/(providers)/(root)/_components/Header/_components/Modals/SignInModal";
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import Modal from "@/components/Modal";

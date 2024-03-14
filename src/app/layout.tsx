@@ -30,8 +30,6 @@ export default function HTMLLayout({
         <Script
           src={"https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js"}
           strategy="beforeInteractive"
-          integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH"
-          crossOrigin="anonymous"
         />
       </head>
       <body>{children}</body>

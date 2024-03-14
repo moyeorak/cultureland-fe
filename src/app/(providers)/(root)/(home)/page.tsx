@@ -1,19 +1,35 @@
 import Page from "@/components/Page";
 import BestEvents from "./_components/BestEvents";
+import BestReviews from "./_components/BestReviews/BestReviews";
 import HomeSection from "./_components/HomeSection";
+import RecentEvents from "./_components/RecentEvents";
 
 function HomePage() {
   return (
-    <Page title="대한민국 모든 문화 이벤트가 이곳에">
+    <Page
+      title="대한민국 모든 문화 이벤트가 이곳에"
+      description="컬처랜드에서는 다양한 문화 이벤트와 관람 후기들을 모아 볼 수 있어요"
+    >
       <div className="grid grid-cols-1 pt-10 gap-y-20">
-        <HomeSection title="지금 가장 핫한 이벤트들">
+        <HomeSection
+          title="지금 가장 핫한 이벤트들"
+          description="컬처랜드에서 가장 많은 관심을 받은 이벤트들을 만나 보세요"
+        >
           <BestEvents />
         </HomeSection>
-        <HomeSection title="지금 가장 핫한 이벤트들">
-          <BestEvents />
+
+        <HomeSection
+          title="이런 이벤트들은 어떠세요?"
+          description="최근에 등록된 신상 이벤트들만 모아 봤어요"
+        >
+          <RecentEvents />
         </HomeSection>
-        <HomeSection title="지금 가장 핫한 이벤트들">
-          <BestEvents />
+
+        <HomeSection
+          title="컬처랜드의 베스트 관람 후기들"
+          description="사람들이 많이 공감한 관람 후기는 어떤 내용일까요?"
+        >
+          <BestReviews />
         </HomeSection>
       </div>
 

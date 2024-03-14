@@ -4,6 +4,7 @@ import { Event } from "@/types/Event.type";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
 

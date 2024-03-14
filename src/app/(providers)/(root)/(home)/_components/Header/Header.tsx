@@ -7,7 +7,7 @@ import { useAuth } from "@/contexts/auth.context/auth.context";
 import { useModal } from "@/contexts/modal/modal.context";
 import { useProfile } from "@/zustand";
 import { useRouter } from "next/navigation";
-import SearchInput from "../../../../../components/SearchInput";
+import SearchInput from "../../../../../../components/SearchInput";
 import HeaderLogo from "./_components/HeaderLogo";
 import HeaderNavItem from "./_components/HeaderNavItem";
 import SignInModal from "./_components/Modals/SignInModal";
@@ -40,17 +40,27 @@ function Header() {
         {/* HeaderMenu */}
         <div className="ml-auto flex gap-10 items-center">
           <AuthInitialized>
-            <SearchInput clearAfterSearch />
+            <SearchInput
+              clearAfterSearch
+              placeholder="이벤트를 검색해 보세요"
+            />
 
             {auth.isLoggedIn ? (
-              <>
+              <div className="grid grid-cols-2 gap-x-2 items-center">
                 <HeaderNavItem href={`/accounts/users/${userId}`}>
                   마이페이지
                 </HeaderNavItem>
-                <button onClick={handleClickSignOut}>로그아웃</button>
-              </>
+                <Button
+                  size="sm"
+                  color="secondary"
+                  outline
+                  onClick={handleClickSignOut}
+                >
+                  로그아웃
+                </Button>
+              </div>
             ) : (
-              <div className="grid grid-cols-2 gap-x-2">
+              <div className="grid grid-cols-2 gap-x-2 items-center">
                 <Button
                   size="sm"
                   outline

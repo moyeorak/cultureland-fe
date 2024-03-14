@@ -16,9 +16,9 @@ function Page({ title, description, children }: PropsWithChildren<PageProps>) {
             </h1>
           )}
           {description && (
-            <div className="text-center text-sm text-neutral-40 font-light">
+            <p className="text-center text-sm text-neutral-40 font-light">
               {description}
-            </div>
+            </p>
           )}
         </div>
       )}

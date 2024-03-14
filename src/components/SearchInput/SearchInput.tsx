@@ -8,12 +8,14 @@ interface SearchBarProps {
   initialKeyword?: string;
   autoFocus?: boolean;
   clearAfterSearch?: boolean;
+  placeholder?: string;
 }
 
 function SearchBar({
   initialKeyword = "",
   autoFocus = false,
   clearAfterSearch = false,
+  placeholder = "검색어를 입력해 보세요",
 }: SearchBarProps) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,7 +44,7 @@ function SearchBar({
   return (
     <form onSubmit={handleSubmit} className="relative">
       <input
-        placeholder="검색어를 입력해 보세요"
+        placeholder={placeholder}
         ref={inputRef}
         type="text"
         autoFocus={autoFocus}
