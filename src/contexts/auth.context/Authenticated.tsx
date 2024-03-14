@@ -2,7 +2,7 @@
 
 import api from "@/api/index.api";
 import { UserInfo } from "@/types/User.type";
-import { useProfile } from "@/zustand";
+import { useFollowsStore, useProfile } from "@/zustand";
 import { useQuery } from "@tanstack/react-query";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
@@ -11,6 +11,7 @@ import { useAuth } from "./auth.context";
 function AuthInitialized({ children }: { children: React.ReactNode }) {
   const { isAuthInitialized, setIsAuthInitialized, setIsLoggedIn } = useAuth();
   const { setProfile } = useProfile();
+  const fetchFollowings = useFollowsStore((state) => state.fetchFollowings);
 
   const {
     data: accessToken,
@@ -37,8 +38,10 @@ function AuthInitialized({ children }: { children: React.ReactNode }) {
     if (isSuccess && accessToken) {
       const { sub, nickname, profileImage }: UserInfo = jwtDecode(accessToken);
       setProfile({ id: Number(sub), nickname, imageUrl: profileImage });
+      const userId = Number(sub);
+      fetchFollowings(userId);
     }
-  }, [isSuccess, accessToken, setProfile]);
+  }, [isSuccess, accessToken, setProfile, fetchFollowings]);
 
   useEffect(() => {
     if (accessToken !== undefined) {
