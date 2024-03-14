@@ -16,3 +16,5 @@ export type CreateReactionData = {
 export type DeleteReactionData = {
   reviewId: number;
 };
+
+export type GetReviewOfUser = {};

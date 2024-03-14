@@ -1,4 +1,4 @@
-import { EventData } from "@/types/Event.type";
+import { EventData, GetEventData } from "@/types/Event.type";
 import { Response } from "@/types/Response.type";
 import { client } from "../index.api";
 import { resData } from "./events.response";
@@ -16,14 +16,17 @@ const getAllEvents = async (page?: number) => {
 };
 
 const getEvent = async (eventId: number) => {
-  const response = await client.get<Response<Event>>(`/events/${eventId}`);
+  const response = await client.get<Response<GetEventData>>(
+    `/events/${eventId}`
+  );
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);
 
-  const event = data.result;
+  const event = data.result.event;
+  const avgRating = data.result.avgRating;
 
-  return event;
+  return { event, avgRating };
 };
 
 const getSearchedEvents = async (keywords: string, pageNumber?: string) => {

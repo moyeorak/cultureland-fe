@@ -1,4 +1,5 @@
 import { Response } from "@/types/Response.type";
+import { Review } from "@/types/Review.type";
 import { client } from "../index.api";
 import {
   CreateReactionData,
@@ -21,6 +22,7 @@ async function getReviewsOfEvent(
   const response = await client.get<Response<GetReviewData>>(
     `/reviews/events/${eventId}?page=${page}&orderBy=${orderBy}`
   );
+
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);
@@ -39,6 +41,31 @@ async function getFamousReviews() {
 
   const famousReviews = data.result;
   return famousReviews;
+}
+
+async function getLikedReviews(userId: number, page: number = 1) {
+  const response = await client.get<Response<Review[]>>(
+    `/accounts/users/${userId}/reactions?page=${page}`
+  );
+
+  const data = response.data;
+
+  if (!data.success) throw new Error(data.error.message);
+
+  const reviews = data.result;
+  return reviews;
+}
+
+async function getReviewsOfUser(userId: number, page: number = 1) {
+  const response = await client.get<Response<Review[]>>(
+    `/reviews/users/${userId}?page=${page}`
+  );
+  const data = response.data;
+
+  if (!data.success) throw new Error(data.error.message);
+
+  const reviews = data.result;
+  return reviews;
 }
 
 async function createReactionInReview(reviewId: number, reactionValue: number) {
@@ -89,6 +116,8 @@ const reviewsAPI = {
   createReview,
   getReviewsOfEvent,
   getFamousReviews,
+  getLikedReviews,
+  getReviewsOfUser,
   updateReview,
   deleteReview,
   createReactionInReview,

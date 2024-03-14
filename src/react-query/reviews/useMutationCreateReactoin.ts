@@ -12,18 +12,3 @@ export default function useMutationCreateReaction() {
       api.reviews.createReactionInReview(reviewId, reactionValue),
   });
 }
-
-// import api from "@/api/index.api";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-// export default function useMutationCreateReaction() {
-//   const queryClient = useQueryClient();
-//   const mutationFn = api.reviews.createReactionInReview;
-
-//   return useMutation<unknown, unknown, CreateReactionDto>({
-//     mutationFn,
-//     onSuccess: () => {
-//       queryClient.invalidateQueries({ exact: true, queryKey: ["reviews"] });
-//     },
-//   });
-// }

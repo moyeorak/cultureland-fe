@@ -11,8 +11,8 @@ import { useAuthStore } from "@/zustand";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo } from "react";
-import ReactionButtons from "./_components/ReactionButtons";
-import StarRating from "./_components/StarRating";
+import ReactionButtons from "../_components/ReactionButtons";
+import StarRating from "../_components/StarRating";
 
 interface ReviewCardProps {
   review: Review;
@@ -20,12 +20,10 @@ interface ReviewCardProps {
   small?: boolean;
 }
 
-function ReviewCard({ review, eventId }: ReviewCardProps) {
+function ReviewGridCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
   const { userInfo } = useAuthStore();
   const userId = userInfo ? Number(userInfo.userId) : "사용자 정보 없음";
-  const nickname = userInfo?.nickname;
-  const profileImage = userInfo?.profileImage;
   const { mutate: deleteReview } = useMutationDeleteReview();
 
   const userProfileImg = "";
@@ -64,37 +62,17 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div
-      className="h-[265px] min-w-[650px] max-w-[960px] data-[small=true]:h-[240px] data-[small=true]:mb-9 flex items-center px-9 py-7 rounded-lg shadow-primary mb-10 data-[small=true]:gap-x-6  gap-x-12 overflow-hidden"
-      data-small
-    >
-      {review.image && (
-        <div
-          className="w-[208px] h-[208px] min-w-[208px] max-h-[208px] overflow-hidden rounded-lg relative  data-[small=true]:min-w-[180px] data-[small=true]:max-h-[180px]"
-          data-small
-        >
-          <Image
-            src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
-            alt="poster-img"
-            fill
-            className="object-cover overflow-hidden rounded-lg"
-            unoptimized
-          />
-        </div>
-      )}
-      <div className="flex flex-col gap-y-4 text-neutral-70 w-full">
-        <div
-          className="flex gap-x-6 items-center data-[small=true]:gap-x-3"
-          data-small
-        >
+    <div className=" flex items-start px-5 py-4 rounded-lg shadow-primary mb-10  overflow-hidden min-h-[232px] max-h-[232px]  data-[small=true]:w-[252px] data-[small=true]:max-h-[136px] ">
+      <div className="flex flex-col gap-y-3 text-neutral-70 w-full top-0 h-full relative">
+        <div className="flex gap-x-6 items-center bg-red-400">
           <Link
             href={`/accounts/users/${userId}`}
-            className="w-[160px] overflow-hidden"
+            className="w-[180px] overflow-hidden"
           >
             <div className="flex gap-x-3 items-center">
-              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden bg-slate-200 text-neutral-70">
+              <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden text-neutral-70">
                 <Image
-                  src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${userProfileImg}`}
+                  src={"/images/poster.jpeg"}
                   alt="user-picture"
                   fill
                   className="object-cover"
@@ -102,13 +80,14 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
                 />
               </div>
               <p className="text-fs-16 font-bold">
-                {nickname?.toString().slice(0, 10)}
+                {review.reviewerId.toString().slice(0, 10)}
               </p>
             </div>
+            <div className="mt-3">
+              <StarRating rate={review.rating} />
+            </div>
           </Link>
-          <div>
-            <StarRating rate={review.rating} />
-          </div>
+
           <div className="flex ml-auto">
             {isMyReview && (
               <div className="ml-auto flex gap-x-2">
@@ -129,22 +108,37 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
           </div>
         </div>
 
-        <p className="pt-4 text-neutral-70 text-fs-14 h-[105px] w-9/12 overflow-hidden ">
-          {review.content}
-        </p>
-        <div className="flex items-center gap-x-[10px] justify-center">
-          <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
-          <Authenticated>
-            <ReactionButtons
-              review={review}
-              isLiked={isAlreadyLiked}
-              isDisliked={isAlreadyDisliked}
-            />
-          </Authenticated>
+        <div className="flex flex-col gap-y-4">
+          <p className=" text-neutral-70 text-fs-14 min-h-[60px] h-[60px] overflow-hidden bg-red-200">
+            {review.content.length > 200
+              ? `${review.content.substring(0, 200)}...`
+              : review.content}
+          </p>
+          <div className="flex items-center gap-x-[10px]  justify-center bg-red-500">
+            <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
+            <Authenticated>
+              <ReactionButtons
+                review={review}
+                isLiked={isAlreadyLiked}
+                isDisliked={isAlreadyDisliked}
+              />
+            </Authenticated>
+          </div>
         </div>
       </div>
+      {review.image && (
+        <div className="relative w-[150px] min-w-[150px] min-h-[200px]">
+          <Image
+            src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
+            alt="poster-img"
+            fill
+            className="object-cover overflow-hidden rounded-lg"
+            unoptimized
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-export default ReviewCard;
+export default ReviewGridCard;

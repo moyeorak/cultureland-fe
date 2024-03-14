@@ -9,7 +9,7 @@ import InfoTabs from "./[userId]/_components/InfoTabs";
 import ProfileSection from "./[userId]/_components/ProfileSection";
 
 function UserPage(props: { params: { userId: number } }) {
-  // const userId = props.params.userId;
+  const userId = props.params.userId;
   // const user = await api.users.getUser(userId);
   const { showFollows } = useTabStore();
 

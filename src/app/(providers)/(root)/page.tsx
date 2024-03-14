@@ -6,6 +6,7 @@ import InterestingEvents from "./_components/InterestingEvents";
 
 import { Category } from "@/types/Category.type";
 import BestEvents from "./_components/BestEvents";
+import BestReviews from "./_components/BestRevies/BestReviews";
 
 const dummyCategory: Array<Category> = [
   {
@@ -56,7 +57,6 @@ async function HomePage() {
   return (
     <Page>
       <BestEvents events={eventsData} />
-
       <InterestingEvents events={eventsData} />
 
       <div>
@@ -77,6 +77,7 @@ async function HomePage() {
       </div>
 
       <EventList events={eventsData} />
+      <BestReviews />
     </Page>
   );
 }

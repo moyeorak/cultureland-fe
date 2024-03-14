@@ -3,7 +3,7 @@ import Image from "next/image";
 interface IconProps {
   isHover?: boolean;
   path?: "Star-fill" | "Star-empty" | "Star-half";
-  size: "small" | "big";
+  size: "small" | "big" | "xsmall";
 }
 
 function StarIcon({ isHover = false, path = "Star-empty", size }: IconProps) {
