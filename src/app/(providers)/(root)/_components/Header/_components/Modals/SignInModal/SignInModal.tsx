@@ -10,7 +10,7 @@ import useMutationUserSignIn from "@/react-query/auth/users/useMutationUsersSign
 import { useAuthStore } from "@/zustand";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ChangeEventHandler, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import CloseButton from "../CloseButton";
 import TermsAgreementModal from "../TermsAgreementModal";
 import Checkbox from "../TermsAgreementModal/_components/Checkbox";
@@ -49,6 +49,29 @@ function SignInModal() {
     } catch (e) {
       alert("로그인에 실패하였습니다.");
     }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (!window.Kakao.isInitialized())
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+    } else {
+      console.log("window undefined");
+    }
+  }, []);
+
+  const kakaoLoginHandler = async () => {
+    const redirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+    const scope = ["profile_nickname", "profile_image", "account_email"].join(
+      ","
+    );
+    if (window.Kakao) {
+      window.Kakao.Auth.authorize({
+        redirectUri,
+        scope,
+      });
+    }
+    auth.signIn();
   };
 
   return (
@@ -118,9 +141,7 @@ function SignInModal() {
             alt={"KakaoSignInBtn"}
             width={400}
             height={46}
-            onClick={() => {
-              alert("아직 준비중입니다.");
-            }}
+            onClick={kakaoLoginHandler}
             className="cursor-pointer"
           />
           <Image
