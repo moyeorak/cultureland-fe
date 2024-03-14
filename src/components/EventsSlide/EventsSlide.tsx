@@ -1,35 +1,23 @@
 "use client";
 
+import useResponsive from "@/hooks/useResponsive";
 import { Event } from "@/types/Event.type";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
-import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface EventsSlideProps {
   events: Required<Event>[];
 }
 
 function EventsSlide({ events }: EventsSlideProps) {
-  const swiperRef = useRef<SwiperRef>(null);
-
-  const handleClickPrev = () => {
-    if (!swiperRef.current) return;
-    swiperRef.current.swiper.slidePrev();
-  };
-  const handleClickNext = () => {
-    if (!swiperRef.current) return;
-
-    swiperRef.current.swiper.slideNext();
-  };
-
+  const { isDesktop } = useResponsive();
   return (
     <Swiper
       modules={[Autoplay]}
-      ref={swiperRef}
-      spaceBetween={20}
+      spaceBetween={isDesktop ? 20 : 10}
       slidesPerView={3}
       autoplay={{ delay: 2000 }}
       className="-mt-2 rounded"
@@ -44,7 +32,7 @@ function EventsSlide({ events }: EventsSlideProps) {
               fill
               src={event.poster}
               alt={event.title}
-              className="rounded-lg border object-cover"
+              className="rounded-lg object-cover"
               sizes="100%"
             />
           </Link>

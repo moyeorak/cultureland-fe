@@ -29,7 +29,7 @@ function Header() {
 
   return (
     <header className="flex items-center gap-10 min-h-16 border-b bg-white text-nowrap transition-all">
-      <div className="max-w-[960px] w-full flex items-center mx-auto gap-10 px-10">
+      <div className="max-w-screen-lg w-full flex items-center mx-auto gap-10 px-5 md:px-8">
         <HeaderLogo />
 
         <nav className="flex gap-4 items-center">

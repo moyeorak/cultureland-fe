@@ -10,7 +10,7 @@ function HomePage() {
       title="대한민국 모든 문화 이벤트가 이곳에"
       description="컬처랜드에서는 다양한 문화 이벤트와 관람 후기들을 모아 볼 수 있어요"
     >
-      <div className="grid grid-cols-1 pt-10 gap-y-20">
+      <div className="grid grid-cols-1 pt-10 gap-y-12 md:gap-y-20">
         <HomeSection
           title="지금 가장 핫한 이벤트들"
           description="컬처랜드에서 가장 많은 관심을 받은 이벤트들을 만나 보세요"

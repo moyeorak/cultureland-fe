@@ -1,6 +1,13 @@
 export type Review = {
   id: number;
   reviewerId: number;
+  reviewer: {
+    id: number;
+    userProfile: {
+      nickname: string;
+      profileImage: string | null;
+    };
+  };
   eventId: number;
   image: string | null;
   isVerified: boolean;
@@ -10,6 +17,7 @@ export type Review = {
   likes: number;
   hates: number;
   reviewReactions: ReviewReaction[];
+
   event: {
     id: number;
     title: string;

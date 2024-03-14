@@ -47,9 +47,6 @@ function EventCard({ event }: EventCardProps) {
                   <span key={index}>⭐️</span>
                 ))}
             </div>
-            <span className="text-xs text-neutral-70 font-medium">
-              ({rating.toFixed(1)})
-            </span>
           </div>
 
           <h6 className="text-[15px] leading-tight mb-2 overflow-hidden line-clamp-2 font-medium">

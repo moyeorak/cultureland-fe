@@ -1,5 +1,4 @@
 import api from "@/api/index.api";
-import Heading from "@/components/Heading/Heading";
 import Page from "@/components/Page";
 import LikedReviews from "./_components/ActiveSection/LikedReviews";
 import ProfileSection from "./_components/ProfileSection";
@@ -9,10 +8,10 @@ async function UserPage(props: { params: { userId: number } }) {
   const user = await api.users.getUser(userId);
 
   return (
-    <Page>
-      <Heading label="UserPage" />
+    <Page title={user.userProfile.nickname}>
       <div className="flex gap-x-9">
-        <ProfileSection isLoggedUser={user.isLoggendUser} />
+        <ProfileSection user={user} />
+
         <div>
           {/* <WrittenReviews userId={userId} /> */}
           <h2>좋아요한 리뷰</h2>
