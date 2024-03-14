@@ -24,8 +24,8 @@ function BestEvents({ events }: bestEventsProps) {
           autoplay={{ delay: 3000 }}
         >
           {events?.map((event) => (
-            <Link href={`/event/${event.id}`} key={event.id}>
-              <SwiperSlide>
+            <SwiperSlide key={event.id}>
+              <Link href={`/event/${event.id}`}>
                 <div className="flex">
                   <div className="relative w-60 h-80">
                     <Image
@@ -33,6 +33,7 @@ function BestEvents({ events }: bestEventsProps) {
                       alt={event.title}
                       fill
                       className="object-cover"
+                      sizes="100px"
                     />
                   </div>
                   <div className="flex-1 pt-[36px] pl-12">
@@ -46,8 +47,8 @@ function BestEvents({ events }: bestEventsProps) {
                     <span className="block"></span>
                   </div>
                 </div>
-              </SwiperSlide>
-            </Link>
+              </Link>
+            </SwiperSlide>
           ))}
         </Swiper>
       </div>

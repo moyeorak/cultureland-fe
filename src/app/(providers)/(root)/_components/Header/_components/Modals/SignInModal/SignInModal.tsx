@@ -15,6 +15,10 @@ import CloseButton from "../CloseButton";
 import TermsAgreementModal from "../TermsAgreementModal";
 import Checkbox from "../TermsAgreementModal/_components/Checkbox";
 
+const KAKAO_SDK_APP_KEY = "96ff57f66003fd00397cb9e209eac07b";
+const KAKAO_LOGIN_REDIRECT_URL =
+  "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/accounts/users/kakao-callback";
+
 function SignInModal() {
   const auth = useAuth();
   const router = useRouter();
@@ -53,21 +57,20 @@ function SignInModal() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (!window.Kakao.isInitialized())
-        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+      if (window.Kakao && !window.Kakao.isInitialized())
+        window.Kakao.init(KAKAO_SDK_APP_KEY);
     } else {
       console.log("window undefined");
     }
   }, []);
 
   const kakaoLoginHandler = async () => {
-    const redirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
     const scope = ["profile_nickname", "profile_image", "account_email"].join(
       ","
     );
     if (window.Kakao) {
       window.Kakao.Auth.authorize({
-        redirectUri,
+        redirectUri: KAKAO_LOGIN_REDIRECT_URL,
         scope,
       });
     }
