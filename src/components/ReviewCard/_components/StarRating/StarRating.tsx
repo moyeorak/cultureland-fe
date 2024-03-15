@@ -13,13 +13,15 @@ function StarRating({ rate }: StarRatingProps) {
   return (
     <div className="flex gap-x-2">
       {Array.from({ length: fullStars }, (_, index) => (
-        <StarIcon key={`full-${index}`} path="Star-fill" size="small" />
+        <StarIcon key={`full-${index}`} path="new-star-fill" size="small" />
       ))}
-      {halfStar > 0 && <StarIcon key="half-0" path="Star-half" size="small" />}{" "}
+      {halfStar > 0 && (
+        <StarIcon key="half-0" path="new-star-half" size="small" />
+      )}{" "}
       {Array.from({ length: emptyStars }, (_, index) => (
         <StarIcon
           key={`empty-${index + fullStars + halfStar}`}
-          path="Star-empty"
+          path="new-star-empty"
           size="small"
         />
       ))}
