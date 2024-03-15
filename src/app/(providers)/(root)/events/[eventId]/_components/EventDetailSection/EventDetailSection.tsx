@@ -11,7 +11,7 @@ function EventDetailSection({ event, avgRating }: EventDetailSectionProps) {
   const bookingLinks = event.eventDetail.bookingLinks;
 
   return (
-    <section className="xs:w-[325px] xs:max-w-[325px] xs:min-w-[325px] mx-auto">
+    <section>
       <EventInfoCard event={event} avgRating={avgRating} />
       {bookingLinks && bookingLinks.length > 0 && (
         <TicketLink bookingLinks={bookingLinks} />
