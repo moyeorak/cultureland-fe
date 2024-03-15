@@ -24,12 +24,12 @@ function KakaoMap() {
   console.log(data);
 
   return (
-    <div className="flex w-svw">
-      <div className="w-[50%] h-[550px] overflow-hidden border-blue-700">
+    <div className="flex border rounded overflow-hidden border-user-theme-40">
+      <div className="w-[70%] h-[550px] rounded overflow-hidden m-3">
         <Map
           center={center}
-          level={3}
-          style={{ width: "100%", height: "95%" }}
+          level={6}
+          style={{ width: "100%", height: "100%" }}
           onIdle={(map) => {
             setCenter({
               lat: map.getCenter().getLat(),
@@ -44,13 +44,18 @@ function KakaoMap() {
                 lat: event.venue?.latitude as number,
                 lng: event.venue?.longitude as number,
               }}
+              infoWindowOptions={{
+                disableAutoPan: true,
+                removable: false,
+                zIndex: 20,
+              }}
             />
           ))}
         </Map>
       </div>
 
       {/* 데이터 타입 오류 해결해야함 */}
-      <div className="w-[50%] h-[550px] overflow-scroll">
+      <div className="w-[30%] h-[550px] overflow-scroll m-3">
         <MapItemList events={data as KakaoMapEvent[]} />
       </div>
     </div>

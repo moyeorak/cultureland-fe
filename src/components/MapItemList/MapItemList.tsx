@@ -7,9 +7,9 @@ interface MapItemListProps {
 
 function MapItemList({ events }: MapItemListProps) {
   return (
-    <ul className="grid grid-cols-2 md:grid-cols-1 gap-x-5 gap-y-8">
+    <ul className="grid grid-cols-2 md:grid-cols-1 py-2 gap-x-5 gap-y-8">
       {events?.map((event) => (
-        <li key={event.id} className="block">
+        <li key={event.id} className="block ml-2">
           <MapItemCard event={event} />
         </li>
       ))}
