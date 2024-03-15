@@ -3,6 +3,7 @@
 import ReviewCardList from "@/components/ReviewCardList";
 import useQueryLikedReviews from "@/react-query/reviews/useQueryLikedReviews";
 import { useState } from "react";
+import NoneReviews from "../NoneReviews";
 
 interface LikedReviewsProps {
   userId: number;
@@ -13,12 +14,8 @@ function LikedReviews({ userId }: LikedReviewsProps) {
 
   const { data: reviews } = useQueryLikedReviews(userId, page);
 
-  if (!reviews) {
-    return (
-      <div className="text-center text-font-70">
-        유저가 좋아요한 리뷰가 없습니다
-      </div>
-    );
+  if (reviews?.length === 0 || !reviews) {
+    return <NoneReviews reviewsType="liked" />;
   }
 
   return (

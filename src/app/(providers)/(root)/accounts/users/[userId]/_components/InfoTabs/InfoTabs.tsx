@@ -1,10 +1,13 @@
 "use client";
-import { useProfile, useTabStore } from "@/zustand";
+import { useTabStore } from "@/zustand";
 import TabButton from "./TabButton";
 
-function InfoTabs() {
+interface InfoTabsProps {
+  nickname: string;
+}
+
+function InfoTabs({ nickname }: InfoTabsProps) {
   const { activeTab, setActiveTab } = useTabStore();
-  const { nickname } = useProfile();
 
   return (
     <div className="mt-4 ml-72 mb-5">
@@ -24,6 +27,11 @@ function InfoTabs() {
           title="관람 목록"
           active={activeTab === "관람 목록"}
           onClick={() => setActiveTab("관람 목록")}
+        />
+        <TabButton
+          title="좋아요한 리뷰"
+          active={activeTab === "좋아요한 리뷰"}
+          onClick={() => setActiveTab("좋아요한 리뷰")}
         />
       </div>
     </div>

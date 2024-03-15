@@ -102,9 +102,9 @@ function ProfileSection({ user }: ProfileSectionProps) {
           </div>
 
           <div className="mt-4 grid gap-y-4">
-            <div className="min-h-10 border">작성리뷰 컴포넌트</div>
-            <div className="min-h-10 border">작성리뷰 컴포넌트</div>
-            <div className="min-h-10 border">작성리뷰 컴포넌트</div>
+            <div className="min-h-10 border">작성한 리뷰가 없습니다.</div>
+            <div className="min-h-10 border"></div>
+            <div className="min-h-10 border"></div>
           </div>
         </div>
 

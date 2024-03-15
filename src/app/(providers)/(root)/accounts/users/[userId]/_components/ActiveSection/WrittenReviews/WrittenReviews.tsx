@@ -3,6 +3,7 @@
 import ReviewCardList from "@/components/ReviewCardList";
 import useQueryWrittenReviews from "@/react-query/reviews/useQueryWrittenReviews";
 import { useState } from "react";
+import NoneReviews from "../NoneReviews";
 
 interface WrittenReviewsProps {
   userId: number;
@@ -13,12 +14,8 @@ function WrittenReviews({ userId }: WrittenReviewsProps) {
 
   const { data: reviews } = useQueryWrittenReviews(userId, page);
 
-  if (!reviews) {
-    return (
-      <div className="text-center text-font-70">
-        유저가 작성한 리뷰가 없습니다
-      </div>
-    );
+  if (reviews?.length === 0 || !reviews) {
+    return <NoneReviews reviewsType="written" />;
   }
 
   return (
