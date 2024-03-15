@@ -1,29 +1,22 @@
+import api from "@/api/index.api";
+import { Following } from "@/types/Follow.type";
 import { create } from "zustand";
 
-interface FollowState {
-  //   following: []; // 팔로잉하는 사용자의 ID 배열
-  //   followers: []; // 팔로워의 ID 배열
-  fetchFollowing: () => Promise<void>;
-  fetchFollowers: () => Promise<void>;
-  followUser: (userId: string) => Promise<void>;
-  unFollowUser: (userId: string) => Promise<void>;
+interface FollowsStore {
+  followings: Array<Following>;
+  fetchFollowings: (id: number) => Promise<void>;
 }
 
-const useFollowStore = create<FollowState>((set) => ({
-  following: [],
-  followers: [],
-  fetchFollowing: async () => {
-    // 팔로잉하는 사용자 목록 가져오기
-  },
-  fetchFollowers: async () => {
-    // 팔로워 목록 가져오기
-  },
-  followUser: async (userId) => {
-    // 사용자 팔로우하기
-  },
-  unFollowUser: async (userId) => {
-    // 팔로우 취소하기
+const useFollowsStore = create<FollowsStore>((set) => ({
+  followings: [],
+  fetchFollowings: async (userId: number) => {
+    try {
+      const followingsData = await api.follows.getFollowings(userId);
+      set({ followings: followingsData });
+    } catch (e) {
+      console.error("Failed to fetch:", e);
+    }
   },
 }));
 
-export default useFollowStore;
+export default useFollowsStore;

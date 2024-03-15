@@ -1,13 +1,14 @@
 "use client";
-import { useTabStore } from "@/zustand";
+import { useProfile, useTabStore } from "@/zustand";
 import TabButton from "./TabButton";
 
 function InfoTabs() {
   const { activeTab, setActiveTab } = useTabStore();
+  const { nickname } = useProfile();
 
   return (
     <div className="mt-4 ml-72 mb-5">
-      <h1 className="text-fs-28 font-medium">OOO님의 활동</h1>
+      <h1 className="text-fs-28 font-medium">{nickname}님의 활동</h1>
       <div className="flex space-x-6 mt-4">
         <TabButton
           title="작성한 리뷰"
