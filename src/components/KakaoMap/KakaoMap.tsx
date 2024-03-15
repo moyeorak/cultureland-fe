@@ -55,7 +55,7 @@ function KakaoMap() {
       </div>
 
       {/* 데이터 타입 오류 해결해야함 */}
-      <div className="w-[30%] h-[550px] overflow-scroll m-3">
+      <div className="w-[30%] h-[550px] overflow-x-scroll scrollbar-hide m-3">
         <MapItemList events={data as KakaoMapEvent[]} />
       </div>
     </div>
