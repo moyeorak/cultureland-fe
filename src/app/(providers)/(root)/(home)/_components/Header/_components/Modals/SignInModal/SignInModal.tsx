@@ -140,7 +140,7 @@ function SignInModal() {
             className="cursor-pointer"
           />
           <Image
-            src={"/images/KakaoLogin.png"}
+            src={"/images/Kakao2.png"}
             alt={"KakaoSignInBtn"}
             width={400}
             height={46}
