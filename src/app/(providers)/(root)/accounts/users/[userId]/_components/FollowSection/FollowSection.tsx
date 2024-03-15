@@ -1,17 +1,22 @@
 import { useTabStore } from "@/zustand";
+import FollowList from "./FollowList";
 
-const FollowSection = () => {
+interface FollowSectionProps {
+  userId: number;
+}
+
+function FollowSection({ userId }: FollowSectionProps) {
   const { showFollowing } = useTabStore();
 
   return (
-    <div>
+    <div className="w-full">
       {showFollowing ? (
-        <div>팔로잉 목록 컴포넌트</div>
+        <FollowList followType="followings" userId={userId} />
       ) : (
-        <div>팔로워 목록 컴포넌트</div>
+        <FollowList followType="followers" userId={userId} />
       )}
     </div>
   );
-};
+}
 
 export default FollowSection;
