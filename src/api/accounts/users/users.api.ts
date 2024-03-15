@@ -51,6 +51,7 @@ async function refreshToken() {
   if (!data.success) throw new Error(data.error.message);
 
   const refreshedAccessToken = data.result;
+  console.log("refreshedAccessToken: ", refreshedAccessToken);
 
   return refreshedAccessToken;
 }
