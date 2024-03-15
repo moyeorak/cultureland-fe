@@ -22,31 +22,8 @@ interface ReviewCardProps {
 
 function ReviewCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
-  const { id, nickname } = useProfile();
+  const { id } = useProfile();
   const { mutate: deleteReview } = useMutationDeleteReview();
-  // const [] = useState(nickname);
-  // const [user, setUser] = useState({ nickname: "", profileImage: "" });
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     if (review.reviewerId) {
-  //       try {
-  //         const userData = await api.users.getUser(review.reviewerId);
-  //         setUser({
-  //           nickname: userData.nickname,
-  //           profileImage: userData.profileImage,
-  //         });
-  //       } catch (error) {}
-  //     }
-  //   };
-
-  //   fetchUser();
-  // }, [review.reviewerId]);
-
-  // console.log("nickname", nickname);
-  // console.log("profileImage", profileImage);
-
-  const userProfileImg = "";
 
   const isMyReview = review.reviewerId === Number(id);
 
