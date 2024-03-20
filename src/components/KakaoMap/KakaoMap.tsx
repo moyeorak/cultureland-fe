@@ -72,7 +72,7 @@ function KakaoMap() {
                   zIndex={100}
                 >
                   {isOpen[event.id] && (
-                    <div className='bg-user-theme-40 text-white text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3 rounded border border-user-theme-20'>
+                    <div className='bg-opacity-25 shadow-lg backdrop-blur-lg webkit-backdrop-blur-15 rounded-lg border border-opacity-25 text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3'>
                       <span className='text-xl font-bold'>{event.title}</span>
                       <div className='my-3 flex justify-center'>
                         <StarRating rate={Number(event.averagerating)} />
