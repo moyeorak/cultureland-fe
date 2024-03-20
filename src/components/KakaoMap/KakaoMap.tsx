@@ -2,9 +2,11 @@
 
 import useQueryGetEventsOnMap from '@/react-query/reviews/useQueryGetEventsOnMap';
 import { KakaoMapEvent } from '@/types/Event.type';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import MapItemList from '../MapItemList';
+import StarRating from '../ReviewCard/_components/StarRating';
 
 function KakaoMap() {
   const [center, setCenter] = useState({ lat: 37.568683, lng: 126.980279 });
@@ -61,6 +63,25 @@ function KakaoMap() {
                 onMouseOver={() => handleMouseOver(event.id)}
                 onMouseOut={() => handleMouseOut(event.id)}
               />
+              <Link href={`/events/${event.id}`}>
+                <CustomOverlayMap
+                  position={{
+                    lat: event.venue?.latitude as number,
+                    lng: event.venue?.longitude as number,
+                  }}
+                  zIndex={100}
+                >
+                  {isOpen[event.id] && (
+                    <div className='bg-user-theme-40 text-white text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3 rounded border border-user-theme-20'>
+                      <span className='text-xl font-bold'>{event.title}</span>
+                      <div className='my-3 flex justify-center'>
+                        <StarRating rate={Number(event.averagerating)} />
+                      </div>
+                      <span className='text-sm block'>{event.venue.name}</span>
+                    </div>
+                  )}
+                </CustomOverlayMap>
+              </Link>
             </>
           ))}
         </Map>
