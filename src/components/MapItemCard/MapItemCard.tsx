@@ -9,8 +9,6 @@ interface MapItemCardProps {
 }
 
 function MapItemCard({ event, setIsOpen }: MapItemCardProps) {
-  const rating = Math.floor(Number(event.averagerating)) || 1;
-
   return (
     <Link
       href={`/events/${event.id}`}
@@ -27,11 +25,6 @@ function MapItemCard({ event, setIsOpen }: MapItemCardProps) {
           </div>
 
           <div className='text-[10px] mb-[5px] flex gap-x-0.5 items-center'>
-            {/* {Array(rating)
-              .fill(true)
-              .map((_, index) => (
-                <span key={index}>⭐️</span>
-              ))} */}
             <StarRating rate={Number(event.averagerating)} />
           </div>
 
