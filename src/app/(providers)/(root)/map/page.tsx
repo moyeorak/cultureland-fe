@@ -1,14 +1,10 @@
-import Heading from "@/components/Heading/Heading";
-import KakaoMap from "@/components/KakaoMap";
-import Page from "@/components/Page";
+import KakaoMap from '@/components/KakaoMap';
 
 function MapPage() {
   return (
-    <Page>
-      <Heading label="지도로 찾아보기" />
-      {/* <CategoryList categories={dummyCategory} /> */}
+    <div className='h-screen' style={{ height: 'calc(100vh - 64px)' }}>
       <KakaoMap />
-    </Page>
+    </div>
   );
 }
 

@@ -33,8 +33,8 @@ function KakaoMap() {
   };
 
   return (
-    <div className='flex border rounded overflow-hidden border-user-theme-40'>
-      <div className='w-[70%] h-[550px] rounded overflow-hidden m-3'>
+    <div className='h-full flex overflow-hidden bg-user-theme-10 bg-opacity-25 shadow-lg backdrop-blur-15 webkit-backdrop-blur-15 border border-opacity-25'>
+      <div className='w-[70%] h-full overflow-hidden'>
         <Map
           center={center}
           level={6}
@@ -47,9 +47,8 @@ function KakaoMap() {
           }}
         >
           {data?.map((event) => (
-            <>
+            <div key={event.id}>
               <MapMarker
-                key={event.id}
                 zIndex={5}
                 position={{
                   lat: event.venue?.latitude as number,
@@ -72,7 +71,7 @@ function KakaoMap() {
                   zIndex={100}
                 >
                   {isOpen[event.id] && (
-                    <div className='bg-opacity-25 shadow-lg backdrop-blur-lg webkit-backdrop-blur-15 rounded-lg border border-opacity-25 text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3'>
+                    <div className='bg-white rounded-lg border border-opacity-25 text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3'>
                       <span className='text-xl font-bold'>{event.title}</span>
                       <div className='my-3 flex justify-center'>
                         <StarRating rate={Number(event.averagerating)} />
@@ -82,12 +81,12 @@ function KakaoMap() {
                   )}
                 </CustomOverlayMap>
               </Link>
-            </>
+            </div>
           ))}
         </Map>
       </div>
 
-      <div className='w-[30%] h-[550px] overflow-x-scroll scrollbar-hide m-3'>
+      <div className='w-[30%] h-full overflow-x-scroll scrollbar-hide m-3 ml-0'>
         <MapItemList events={data as KakaoMapEvent[]} setIsOpen={setIsOpen} />
       </div>
     </div>
