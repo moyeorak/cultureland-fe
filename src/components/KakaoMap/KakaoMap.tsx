@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import MapItemList from '../MapItemList';
 import StarRating from '../ReviewCard/_components/StarRating';
+import CenterButton from './CenterButton/CenterButton';
 
 function KakaoMap() {
   const [center, setCenter] = useState({ lat: 37.568683, lng: 126.980279 });
@@ -24,7 +25,7 @@ function KakaoMap() {
     }
   }, []);
 
-  const handleMouseOver = (id: number) => {
+  const handleMouseOver = (id: number, lat?: number, lng?: number) => {
     setIsOpen((prev) => ({ ...prev, [id]: true }));
   };
 
@@ -33,24 +34,16 @@ function KakaoMap() {
   };
 
   return (
-    <div className='flex border rounded overflow-hidden border-user-theme-40'>
-      <div className='w-[70%] h-[550px] rounded overflow-hidden m-3'>
+    <div className='h-full flex overflow-hidden bg-user-theme-10 bg-opacity-25 shadow-lg backdrop-blur-15 webkit-backdrop-blur-15 border border-opacity-25'>
+      <div className='w-[70%] h-full overflow-hidden relative'>
         <Map
           center={center}
           level={6}
           style={{ width: '100%', height: '100%' }}
-          onIdle={(map) => {
-            setCenter({
-              lat: map.getCenter().getLat(),
-              lng: map.getCenter().getLng(),
-            });
-          }}
         >
           {data?.map((event) => (
-            <>
+            <div key={event.id}>
               <MapMarker
-                key={event.id}
-                zIndex={5}
                 position={{
                   lat: event.venue?.latitude as number,
                   lng: event.venue?.longitude as number,
@@ -60,7 +53,13 @@ function KakaoMap() {
                   removable: false,
                   zIndex: 20,
                 }}
-                onMouseOver={() => handleMouseOver(event.id)}
+                onMouseOver={() => {
+                  handleMouseOver(
+                    event.id,
+                    event.venue.latitude,
+                    event.venue.longitude
+                  );
+                }}
                 onMouseOut={() => handleMouseOut(event.id)}
               />
               <Link href={`/events/${event.id}`}>
@@ -72,7 +71,7 @@ function KakaoMap() {
                   zIndex={100}
                 >
                   {isOpen[event.id] && (
-                    <div className='bg-opacity-25 shadow-lg backdrop-blur-lg webkit-backdrop-blur-15 rounded-lg border border-opacity-25 text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3'>
+                    <div className='bg-white rounded-lg border border-opacity-25 text-center min-w-56 -translate-x-[50%] -translate-y-[170px] px-5 py-3'>
                       <span className='text-xl font-bold'>{event.title}</span>
                       <div className='my-3 flex justify-center'>
                         <StarRating rate={Number(event.averagerating)} />
@@ -82,12 +81,15 @@ function KakaoMap() {
                   )}
                 </CustomOverlayMap>
               </Link>
-            </>
+            </div>
           ))}
+          <div className='absolute top-[5%] right-[35%] transform translate-x-[-50%] translate-y-[-50%] z-[500]'>
+            <CenterButton setCenter={setCenter} />
+          </div>
         </Map>
       </div>
 
-      <div className='w-[30%] h-[550px] overflow-x-scroll scrollbar-hide m-3'>
+      <div className='w-[30%] h-full overflow-x-scroll scrollbar-hide m-3 ml-0'>
         <MapItemList events={data as KakaoMapEvent[]} setIsOpen={setIsOpen} />
       </div>
     </div>
