@@ -9,7 +9,7 @@ function ActiveSection({ userId }: ActiveSectionProps) {
   console.log("userId", userId);
 
   return (
-    <div className="py-10 text-center">
+    <div className="text-center">
       {activeTab === "작성한 리뷰" && (
         <div className="text-center">
           <WrittenReviews userId={userId} />

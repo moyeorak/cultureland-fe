@@ -4,7 +4,6 @@ import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_compon
 
 import { GetUserData } from "@/api/accounts/users/users.data";
 import api from "@/api/index.api";
-import AuthInitialized from "@/contexts/auth.context/Authenticated";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
@@ -14,15 +13,15 @@ import { useProfile } from "@/zustand";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import ReactionButtons from "./_components/ReactionButtons";
-import StarRating from "./_components/StarRating";
+import StarRating from "../_components/StarRating";
 
-interface ReviewCardProps {
+interface UserReviewCardProps {
   review: Review;
-  eventId?: number;
 }
 
-function ReviewCard({ review, eventId }: ReviewCardProps) {
+function UserReviewCard({ review }: UserReviewCardProps) {
+  console.log("ue", review);
+  const eventId = review.eventId;
   const modal = useModal();
   const { id } = useProfile();
   const { mutate: deleteReview } = useMutationDeleteReview(eventId || 0);
@@ -79,9 +78,9 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   };
 
   return (
-    <div className="h-[265px] min-w-[650px] max-w-[960px] flex items-center px-9 py-7 rounded-lg shadow-primary mb-10  gap-x-12 overflow-hidden">
+    <div className="h-[240px] min-w-[650px] mb-9 flex items-center px-9 py-7 rounded-lg shadow-primary gap-x-6  overflow-hidden">
       {review.image && (
-        <div className="w-[208px] h-[208px] min-w-[208px] max-h-[208px] overflow-hidden rounded-lg relative  ">
+        <div className="w-[160px] h-[160px]  max-h-[160px] overflow-hidden rounded-lg relative  min-w-[160px] ">
           <Image
             src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${review.image}`}
             alt="poster-img"
@@ -92,7 +91,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
         </div>
       )}
       <div className="flex flex-col w-full gap-y-4 text-neutral-70">
-        <div className="flex gap-x-6 items-center">
+        <div className="flex gap-x-3 items-center">
           <Link
             href={`/accounts/users/${review.reviewerId}`}
             className="w-[160px] overflow-hidden"
@@ -112,7 +111,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
                   unoptimized
                 />
               </div>
-              <p className="font-bold text-fs-16">{nickname.slice(0, 10)}</p>
+              <p className="font-bold text-fs-16">{nickname.slice(0, 8)}</p>
             </div>
           </Link>
           <div>
@@ -138,22 +137,15 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
           </div>
         </div>
 
-        <p className="pt-4 text-neutral-70 text-fs-14 h-[105px] w-9/12 overflow-hidden ">
-          {review.content}
+        <p className=" text-neutral-70 text-fs-14 h-[105px] text-left overflow-hidden pt-1">
+          {review.content.slice(0, 500)}
         </p>
         <div className="flex items-center gap-x-[10px] justify-center">
           <p className="text-fs-12 ml-auto">{formatDate(review.createdAt)}</p>
-          <AuthInitialized>
-            <ReactionButtons
-              review={review}
-              isLiked={isAlreadyLiked}
-              isDisliked={isAlreadyDisliked}
-            />
-          </AuthInitialized>
         </div>
       </div>
     </div>
   );
 }
 
-export default ReviewCard;
+export default UserReviewCard;

@@ -1,28 +1,24 @@
 import { Review } from "@/types/Review.type";
 import ReviewCard from "../ReviewCard";
+import UserReviewCard from "../ReviewCard/UserReviewCard";
 
 interface ReviewCardListProps {
   reviews: Review[];
   eventId?: number;
-  isGrid?: boolean;
-  small?: boolean;
+  userCard?: boolean;
 }
 
-function ReviewCardList({ reviews, eventId, isGrid }: ReviewCardListProps) {
+function ReviewCardList({ reviews, eventId, userCard }: ReviewCardListProps) {
   return (
     <div>
-      <ul
-        className="grid data-[grid=true]:grid-cols-2 gap-x-9 "
-        data-grid={isGrid}
-      >
+      <ul className="grid data-[grid=true]:grid-cols-2 gap-x-9 ">
         {reviews?.map((review) => (
           <li key={review.id}>
-            <ReviewCard review={review} eventId={eventId} small />
-            {/* {isGrid ? (
-              <ReviewGridCard review={review} small />
+            {userCard ? (
+              <UserReviewCard review={review} />
             ) : (
-             
-            )} */}
+              <ReviewCard review={review} eventId={eventId} />
+            )}
           </li>
         ))}
       </ul>

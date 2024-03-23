@@ -24,7 +24,7 @@ function WrittenReviews({ userId }: WrittenReviewsProps) {
 
   return (
     <div>
-      <ReviewCardList reviews={reviews} small></ReviewCardList>
+      <ReviewCardList reviews={reviews} userCard></ReviewCardList>
     </div>
   );
 }
