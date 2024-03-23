@@ -116,6 +116,7 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
                   }
                   alt={nickname}
                   fill
+                  sizes="40px"
                   className="object-cover"
                   unoptimized
                 />
