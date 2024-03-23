@@ -94,13 +94,27 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
       />
       <div className="mb-4" />
       {image && previewImageUrl ? (
-        <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
-          <Image
-            src={previewImageUrl}
-            alt="Preview image"
-            fill
-            objectFit="cover"
-          />
+        <div className="relative">
+          <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
+            <Image
+              src={previewImageUrl}
+              alt="preview-image"
+              fill
+              objectFit="cover"
+            />
+          </div>
+          <div className="absolute top-[-4px] left-[116px] cursor-pointer z-10">
+            <Image
+              src={"/utils/icons/Close.png"}
+              alt="close"
+              height={24}
+              width={24}
+              unoptimized
+              onClick={() => {
+                setImage(null);
+              }}
+            />
+          </div>
         </div>
       ) : (
         <FileInput

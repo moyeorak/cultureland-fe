@@ -26,7 +26,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   const [content, setContent] = useState<string>();
   const [image, setImage] = useState<File | null>(null);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>();
-  const isButtonDisabled = rating === 0 || !content?.trim();
+  // const isButtonDisabled = rating === 0 || !content?.trim();
   const isDisplayRatingGuide = rating === 0;
 
   useEffect(() => {
@@ -56,16 +56,25 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   if (!eventId) return null;
 
   const handleClickUpdate = () => {
-    if (rating === undefined || rating === 0 || !content?.trim()) {
-      alert("평점과 리뷰 내용을 모두 입력해주세요.");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("eventId", eventId.toString());
-    formData.append("rating", rating.toString());
-    formData.append("content", content);
-    if (image) formData.append("image", image);
+    const submitRating =
+      rating === undefined || rating === 0 ? existingReview?.rating : rating;
+    if (submitRating !== undefined) {
+      formData.append("rating", submitRating.toString());
+    }
+
+    const submitContent =
+      content?.trim() === "" || content === undefined
+        ? existingReview?.content
+        : content;
+    if (submitContent !== undefined) {
+      formData.append("content", submitContent);
+    }
+
+    if (image) {
+      formData.append("image", image);
+    }
 
     updateReview(
       { reviewId, formData },
@@ -82,6 +91,8 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   };
 
   console.log("previewImageUrl", previewImageUrl);
+  console.log("cotent", content);
+  console.log(existingReview?.content, "기존");
 
   return (
     <Modal>
@@ -105,13 +116,26 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
           />
           <div className="mb-4"></div>
           {previewImageUrl ? (
-            <div className="flex gap-x-4">
+            <div className="flex gap-x-4 relative">
               <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
                 <Image
                   src={previewImageUrl}
                   alt="업로드 이미지"
                   layout="fill"
                   objectFit="cover"
+                />
+              </div>
+              <div className="translate-x-[-6px] mx-[-20px] my-[-4px] mr-1 cursor-pointer">
+                <Image
+                  src={"/utils/icons/Close.png"}
+                  alt="close"
+                  height={24}
+                  width={24}
+                  unoptimized
+                  onClick={() => {
+                    setPreviewImageUrl(null);
+                    setImage(null);
+                  }}
                 />
               </div>
               <FileInput
@@ -136,9 +160,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
             <Button onClick={modal.close} color="secondary" outline>
               취소
             </Button>
-            <Button onClick={handleClickUpdate} disabled={isButtonDisabled}>
-              등록
-            </Button>
+            <Button onClick={handleClickUpdate}>등록</Button>
           </div>
         </div>
       </div>
