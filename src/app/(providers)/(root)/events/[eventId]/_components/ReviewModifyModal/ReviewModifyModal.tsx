@@ -90,10 +90,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
     );
   };
 
-  console.log("previewImageUrl", previewImageUrl);
-  console.log("cotent", content);
-  console.log(existingReview?.content, "기존");
-
   return (
     <Modal>
       <div className="w-[800px]">
@@ -122,7 +118,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
                   src={previewImageUrl}
                   alt="업로드 이미지"
                   layout="fill"
-                  objectFit="cover"
+                  style={{ objectFit: "cover" }}
                 />
               </div>
               <div className="translate-x-[-6px] mx-[-20px] my-[-4px] mr-1 cursor-pointer">

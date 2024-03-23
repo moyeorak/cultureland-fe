@@ -100,7 +100,7 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
               src={previewImageUrl}
               alt="preview-image"
               fill
-              objectFit="cover"
+              style={{ objectFit: "cover" }}
             />
           </div>
           <div className="absolute top-[-4px] left-[116px] cursor-pointer z-10">
