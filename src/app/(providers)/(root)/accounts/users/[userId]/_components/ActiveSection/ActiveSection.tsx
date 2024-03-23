@@ -1,13 +1,19 @@
 "use client";
 import { useTabStore } from "@/zustand";
-
-function ActiveSection() {
+import WrittenReviews from "./WrittenReviews";
+interface ActiveSectionProps {
+  userId: number;
+}
+function ActiveSection({ userId }: ActiveSectionProps) {
   const { activeTab } = useTabStore();
+  console.log("userId", userId);
 
   return (
     <div className="py-10 text-center">
       {activeTab === "작성한 리뷰" && (
-        <div className="text-center">아직 작성된 리뷰가 없습니다.</div>
+        <div className="text-center">
+          <WrittenReviews userId={userId} />
+        </div>
       )}
       {activeTab === "관심 컬처랜드" && <div>아직 관심 이벤트가 없습니다.</div>}
       {activeTab === "관람 목록" && (

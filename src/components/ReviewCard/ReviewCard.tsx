@@ -2,15 +2,18 @@
 
 import ReviewModifyModal from "@/app/(providers)/(root)/events/[eventId]/_components/ReviewModifyModal";
 
+import { GetUserData } from "@/api/accounts/users/users.data";
+import api from "@/api/index.api";
 import AuthInitialized from "@/contexts/auth.context/Authenticated";
 import { useModal } from "@/contexts/modal/modal.context";
 import useMutationDeleteReview from "@/react-query/reviews/useMutationDeleteReview";
 import { Review } from "@/types/Review.type";
 import { formatDate } from "@/utils/formatDate.utils";
+import { profileImgPrifix } from "@/utils/profileImgPrifix";
 import { useProfile } from "@/zustand";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ReactionButtons from "./_components/ReactionButtons";
 import StarRating from "./_components/StarRating";
 
@@ -24,6 +27,23 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
   const { id } = useProfile();
   const { mutate: deleteReview } = useMutationDeleteReview();
+  const [user, setUser] = useState<GetUserData>();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userInfo = await api.users.getUser(review.reviewerId);
+      setUser(userInfo);
+    };
+    fetchUser();
+  }, [review.reviewerId]);
+
+  let nickname = user?.userProfile.nickname;
+  const profileImg = `${user?.userProfile.profileImage}`;
+  const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
+
+  if (!nickname) {
+    nickname = "탈퇴한 회원";
+  }
 
   const isMyReview = review.reviewerId === Number(id);
 
@@ -83,23 +103,24 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
           data-small
         >
           <Link
-            href={`/accounts/users/${id}`}
+            href={`/accounts/users/${review.reviewerId}`}
             className="w-[160px] overflow-hidden"
           >
             <div className="flex items-center gap-x-3 ">
               <div className="flex relative w-[40px] h-[40px] rounded-full overflow-hidden bg-slate-200 text-neutral-70">
-                {/* <Image
-                  src={`https://yanastudys3.s3.ap-northeast-2.amazonaws.com/${userProfileImg}`}
-                  alt="user-picture"
+                <Image
+                  src={
+                    user?.userProfile.profileImage === null
+                      ? defaultProfileImg
+                      : profileImg
+                  }
+                  alt={nickname}
                   fill
                   className="object-cover"
                   unoptimized
-                /> */}
+                />
               </div>
-              <p className="font-bold text-fs-16">
-                {/* {user.nickname?.toString().slice(0, 10)} */}
-                유저 123
-              </p>
+              <p className="font-bold text-fs-16">{nickname.slice(0, 10)}</p>
             </div>
           </Link>
           <div>

@@ -1,6 +1,5 @@
 "use client";
 
-import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import Modal from "@/components/Modal";
@@ -57,10 +56,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   if (!eventId) return null;
 
   const handleClickUpdate = () => {
-    if (!auth.isLoggedIn) {
-      modal.open(<SignInModal />);
-      return;
-    }
     if (rating === undefined || rating === 0 || !content?.trim()) {
       alert("평점과 리뷰 내용을 모두 입력해주세요.");
       return;
@@ -86,6 +81,8 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
     );
   };
 
+  console.log("previewImageUrl", previewImageUrl);
+
   return (
     <Modal>
       <div className="w-[800px]">
@@ -107,18 +104,27 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
             }
           />
           <div className="mb-4"></div>
-          {image && previewImageUrl ? (
-            <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
-              <Image
-                src={previewImageUrl}
-                alt="미리보기 이미지"
-                fill
-                objectFit="cover"
+          {previewImageUrl ? (
+            <div className="flex gap-x-4">
+              <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
+                <Image
+                  src={previewImageUrl}
+                  alt="업로드 이미지"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <FileInput
+                label="사진 업로드"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  setImage(file);
+                }}
               />
             </div>
           ) : (
             <FileInput
-              label="사진 업로드"
+              label="사진 수정"
               onChange={(e) => {
                 const file = e.target.files?.[0] || null;
                 setImage(file);
