@@ -20,7 +20,7 @@ interface ReviewFormProps {
 }
 
 function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
-  const { mutate: createReview } = useMutationCreateReview();
+  const { mutate: createReview } = useMutationCreateReview(eventId);
   const [rating, setRating] = useState(
     existingReview ? existingReview.rating : 0
   );

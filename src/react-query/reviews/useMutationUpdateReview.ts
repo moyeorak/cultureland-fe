@@ -6,14 +6,16 @@ export interface UpdateReviewDto {
   formData: any;
 }
 
-export default function useMutationUpdateReview() {
+export default function useMutationUpdateReview(eventId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ reviewId, formData }: UpdateReviewDto) =>
       api.reviews.updateReview(reviewId, formData),
     onSuccess: () => {
-      queryClient.invalidateQueries({ exact: true, queryKey: ["reviews"] });
+      queryClient.invalidateQueries({
+        queryKey: ["reviews", { eventId }],
+      });
     },
   });
 }

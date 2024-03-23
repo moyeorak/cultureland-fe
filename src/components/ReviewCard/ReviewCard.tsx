@@ -26,7 +26,7 @@ interface ReviewCardProps {
 function ReviewCard({ review, eventId }: ReviewCardProps) {
   const modal = useModal();
   const { id } = useProfile();
-  const { mutate: deleteReview } = useMutationDeleteReview();
+  const { mutate: deleteReview } = useMutationDeleteReview(eventId || 0);
   const [user, setUser] = useState<GetUserData>();
 
   useEffect(() => {

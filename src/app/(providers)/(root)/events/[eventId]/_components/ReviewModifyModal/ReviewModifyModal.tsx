@@ -18,7 +18,7 @@ interface ReviewModifyModalProps {
 }
 
 function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
-  const { mutate: updateReview } = useMutationUpdateReview();
+  const { mutate: updateReview } = useMutationUpdateReview(eventId || 0);
   const { data: existingReview } = useQueryReviewById(reviewId);
   const modal = useModal();
   const auth = useAuth();
@@ -26,7 +26,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   const [content, setContent] = useState<string>();
   const [image, setImage] = useState<File | null>(null);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>();
-  // const isButtonDisabled = rating === 0 || !content?.trim();
   const isDisplayRatingGuide = rating === 0;
 
   useEffect(() => {
