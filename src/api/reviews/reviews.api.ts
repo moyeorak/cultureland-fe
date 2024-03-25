@@ -11,7 +11,10 @@ import {
 async function createReview(dto: any) {
   const response = await client.post<Response>("/reviews", dto);
   const data = response.data;
-  if (!data.success) throw new Error(data.error.message);
+  if (!data.success) {
+    alert(data.error.message);
+    throw new Error(data.error.message);
+  }
 }
 
 async function getReviewsOfEvent(

@@ -68,13 +68,10 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
         setImage(null);
         alert("리뷰가 성공적으로 등록되었습니다");
       },
-      onError: () => {
-        alert("리뷰 등록에 실패하였습니다");
-      },
     });
   };
 
-  return (
+return (
     <div className="py-10 px-10 shadow-primary rounded-lg">
       <h4 className="font-bold text-fs-28 mb-4 text-center">리뷰 작성</h4>
       <div className="flex gap-x-2">

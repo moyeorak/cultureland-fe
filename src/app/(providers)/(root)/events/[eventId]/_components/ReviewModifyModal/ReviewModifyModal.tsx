@@ -73,7 +73,11 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
 
     if (image) {
       formData.append("image", image);
+    } else if (existingReview?.image && !image) {
+      formData.append("existingImageUrl", existingReview.image);
     }
+    console.log("기존이미지", existingReview?.image);
+    console.log("이미지", image);
 
     updateReview(
       { reviewId, formData },
