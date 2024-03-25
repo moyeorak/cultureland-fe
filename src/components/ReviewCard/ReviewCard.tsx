@@ -30,8 +30,14 @@ function ReviewCard({ review, eventId }: ReviewCardProps) {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userInfo = await api.users.getUser(review.reviewerId);
-      setUser(userInfo);
+      try {
+        const userInfo = await api.users.getUser(review.reviewerId);
+        setUser(userInfo);
+      } catch (error: any) {
+        if (error.response && error.response.status === 404) {
+          return null;
+        }
+      }
     };
     fetchUser();
   }, [review.reviewerId]);
