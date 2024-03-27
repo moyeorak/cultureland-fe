@@ -1,7 +1,9 @@
 "use client";
 import { GetUserData } from "@/api/accounts/users/users.data";
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import { useAuth } from "@/contexts/auth.context/auth.context";
+import { useModal } from "@/contexts/modal/modal.context";
 import useMutationAddFollow from "@/react-query/follows/useMutationAddFollow";
 import { profileImgPrifix } from "@/utils/profileImgPrifix";
 import { useProfile, useTabStore } from "@/zustand";
@@ -17,16 +19,21 @@ interface ProfileSectionProps {
 function ProfileSection({ user }: ProfileSectionProps) {
   const profile = useProfile();
   const { isLoggedIn } = useAuth();
+  const modal = useModal();
   const { setShowFollows, setActiveTab } = useTabStore();
   const { mutateAsync: addFollow } = useMutationAddFollow();
 
   const profileImg = `${user.userProfile.profileImage}`;
+
   const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
 
   const handleClickAddFollow: MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
     e.preventDefault();
+
+    if (!isLoggedIn) return modal.open(<SignInModal />);
+
     await addFollow(user.id);
     alert("팔로잉 목록에 추가했습니다.");
   };
@@ -75,7 +82,7 @@ function ProfileSection({ user }: ProfileSectionProps) {
                 </button>
               )}
             </div>
-            <div className="grid grid-cols-1 gap-y-4">
+            <div className="mt-6">
               {!isMyProfile && (
                 <Button fullWidth onClick={handleClickAddFollow}>
                   팔로우하기
