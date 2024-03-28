@@ -54,18 +54,19 @@ function FollowList({ followType, userId }: FollowListProps) {
           >
             <div className="flex items-center my-5">
               <Link href={`/accounts/users/${list.follower.id}`} passHref>
-                <Image
-                  src={
-                    list.follower.userProfile.profileImage === null
-                      ? defaultProfileImg
-                      : `${list.follower.userProfile.profileImage}`
-                  }
-                  alt={list.follower.userProfile.nickname}
-                  height={60}
-                  width={60}
-                  className="rounded-full cursor-pointer"
-                  unoptimized
-                />
+                <div className="overflow-hidden h-[60px] w-[60px] rounded-full cursor-pointer">
+                  <Image
+                    src={
+                      list.follower.userProfile.profileImage === null
+                        ? defaultProfileImg
+                        : `${profileImgPrifix}/${list.follower.userProfile.profileImage}`
+                    }
+                    alt={list.follower.userProfile.nickname}
+                    height={60}
+                    width={60}
+                    unoptimized
+                  />
+                </div>
               </Link>
               <div className="ml-3">
                 <Link
@@ -97,18 +98,19 @@ function FollowList({ followType, userId }: FollowListProps) {
           >
             <div className="flex items-center my-5">
               <Link href={`/accounts/users/${list.following.id}`} passHref>
-                <Image
-                  src={
-                    list.following.userProfile.profileImage === null
-                      ? defaultProfileImg
-                      : `${list.following.userProfile.profileImage}`
-                  }
-                  alt={list.following.userProfile.nickname}
-                  height={60}
-                  width={60}
-                  className="rounded-full cursor-pointer"
-                  unoptimized
-                />
+                <div className="overflow-hidden h-[60px] w-[60px] rounded-full cursor-pointer">
+                  <Image
+                    src={
+                      list.following.userProfile.profileImage === null
+                        ? defaultProfileImg
+                        : `${profileImgPrifix}/${list.following.userProfile.profileImage}`
+                    }
+                    alt={list.following.userProfile.nickname}
+                    height={60}
+                    width={60}
+                    unoptimized
+                  />
+                </div>
               </Link>
               <div className="ml-3">
                 <Link
