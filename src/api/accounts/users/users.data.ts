@@ -10,12 +10,3 @@ export type GetUserData = {
   _count: { followers: number; followings: number };
   isMe: boolean;
 };
-
-export type GetUserInfoToEditData = {
-  userId: number;
-  email: string;
-  nickname: string;
-  profileImage: string;
-};
-
-export type UpdateProfileData = GetUserInfoToEditData;

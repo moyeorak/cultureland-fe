@@ -9,6 +9,7 @@ import { Follower, Following } from "@/types/Follow.type";
 import { profileImgPrifix } from "@/utils/profileImgPrifix";
 import { useFollowsStore, useProfile } from "@/zustand";
 import Image from "next/image";
+import Link from "next/link";
 import NoneFollow from "../NoneFollow";
 import FollowButton from "./../FollowButton/FollowButton";
 
@@ -21,7 +22,6 @@ function FollowList({ followType, userId }: FollowListProps) {
   const { id } = useProfile();
   const { isLoggedIn } = useAuth();
   const { followings } = useFollowsStore();
-  console.log("followings: ", followings);
   const { data: hostFollowers, isLoading: hostFollowersLoading } =
     useQueryGetFollowers(userId);
   const { data: hostFollowings, isLoading: hostFollowingsLoading } =
@@ -41,7 +41,6 @@ function FollowList({ followType, userId }: FollowListProps) {
 
   const defaultProfileImg = `${profileImgPrifix}/cultureland/profile/default_profile.jpeg`;
 
-  // 팔로잉 팔로우 목록이 없는 경우를 처리할 예정
   const renderNoneFollow = (followType: "followings" | "followers") => (
     <NoneFollow followType={followType} />
   );
@@ -54,22 +53,29 @@ function FollowList({ followType, userId }: FollowListProps) {
             className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
           >
             <div className="flex items-center my-5">
-              <Image
-                src={
-                  list.follower.userProfile.profileImage === undefined
-                    ? `${profileImgPrifix}/${list.follower.userProfile.profileImage}`
-                    : defaultProfileImg
-                }
-                alt={list.follower.userProfile.nickname}
-                height={60}
-                width={60}
-                className="rounded-full"
-                unoptimized
-              />
-              <div className="ml-3">
-                <div className="text-fs-16 font-medium">
-                  {list.follower.userProfile.nickname}
+              <Link href={`/accounts/users/${list.follower.id}`} passHref>
+                <div className="overflow-hidden h-[60px] w-[60px] rounded-full cursor-pointer">
+                  <Image
+                    src={
+                      list.follower.userProfile.profileImage === null
+                        ? defaultProfileImg
+                        : `${profileImgPrifix}/${list.follower.userProfile.profileImage}`
+                    }
+                    alt={list.follower.userProfile.nickname}
+                    height={60}
+                    width={60}
+                    unoptimized
+                  />
                 </div>
+              </Link>
+              <div className="ml-3">
+                <Link
+                  href={`/accounts/users/${list.follower.id}`}
+                  passHref
+                  className="text-fs-16 font-medium cursor-pointer"
+                >
+                  {list.follower.userProfile.nickname}
+                </Link>
                 <div className="text-fs-14 font-normal mt-1">
                   {list.follower.userProfile.description}
                 </div>
@@ -91,22 +97,29 @@ function FollowList({ followType, userId }: FollowListProps) {
             className="flex justify-between items-center b-7 border border-x-0 border-y-neutral-10 w-full"
           >
             <div className="flex items-center my-5">
-              <Image
-                src={
-                  list.following.userProfile.profileImage === undefined
-                    ? `${profileImgPrifix}/${list.following.userProfile.profileImage}`
-                    : defaultProfileImg
-                }
-                alt={list.following.userProfile.nickname}
-                height={60}
-                width={60}
-                className="rounded-full"
-                unoptimized
-              />
-              <div className="ml-3">
-                <div className="text-fs-16 font-medium">
-                  {list.following.userProfile.nickname}
+              <Link href={`/accounts/users/${list.following.id}`} passHref>
+                <div className="overflow-hidden h-[60px] w-[60px] rounded-full cursor-pointer">
+                  <Image
+                    src={
+                      list.following.userProfile.profileImage === null
+                        ? defaultProfileImg
+                        : `${profileImgPrifix}/${list.following.userProfile.profileImage}`
+                    }
+                    alt={list.following.userProfile.nickname}
+                    height={60}
+                    width={60}
+                    unoptimized
+                  />
                 </div>
+              </Link>
+              <div className="ml-3">
+                <Link
+                  href={`/accounts/users/${list.following.id}`}
+                  passHref
+                  className="text-fs-16 font-medium cursor-pointer"
+                >
+                  {list.following.userProfile.nickname}
+                </Link>
                 <div className="text-fs-14 font-normal mt-1">
                   {list.following.userProfile.description}
                 </div>

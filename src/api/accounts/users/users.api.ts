@@ -1,10 +1,6 @@
 import { Response } from "@/types/Response.type";
 import { client } from "../../index.api";
-import {
-  GetUserData,
-  GetUserInfoToEditData,
-  UpdateProfileData,
-} from "./users.data";
+import { GetUserData } from "./users.data";
 import { UsersSignInDto, UsersSignUpDto } from "./users.dto";
 
 async function emailDuplicationCheck(email: string) {
@@ -51,7 +47,6 @@ async function refreshToken() {
   if (!data.success) throw new Error(data.error.message);
 
   const refreshedAccessToken = data.result;
-  console.log("refreshedAccessToken: ", refreshedAccessToken);
 
   return refreshedAccessToken;
 }
@@ -69,30 +64,19 @@ async function getUser(userId: number) {
   return user;
 }
 
-async function getUserInfoToEdit() {
-  const response = await client.get<Response<GetUserInfoToEditData>>(
-    "/accounts/users/edit"
+async function updateProfile(userId: number, formData: FormData) {
+  const response = await client.put<Response>(
+    `/accounts/users/${userId}`,
+    formData,
+    { headers: { "Content-Type": "multipart/form-data" } }
   );
 
   const data = response.data;
   if (!data.success) throw new Error(data.error.message);
 
-  const userInfo = data.result;
+  const result = data.result;
 
-  return userInfo;
-}
-
-async function updateProfile() {
-  const response = await client.put<Response<UpdateProfileData>>(
-    "/accounts/users"
-  );
-
-  const data = response.data;
-  if (!data.success) throw new Error(data.error.message);
-
-  const updatedUserInfo = data.result;
-
-  return updatedUserInfo;
+  return result;
 }
 
 const usersAPI = {
@@ -102,7 +86,6 @@ const usersAPI = {
   signOut,
   refreshToken,
   getUser,
-  getUserInfoToEdit,
   updateProfile,
 };
 

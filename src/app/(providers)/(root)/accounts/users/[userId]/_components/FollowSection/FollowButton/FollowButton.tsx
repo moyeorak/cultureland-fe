@@ -1,4 +1,6 @@
+import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import { useAuth } from "@/contexts/auth.context/auth.context";
+import { useModal } from "@/contexts/modal/modal.context";
 import useMutationAddFollow from "@/react-query/follows/useMutationAddFollow";
 import useMutationDeleteFollow from "@/react-query/follows/useMutationDeleteFollow";
 import Image from "next/image";
@@ -17,6 +19,7 @@ function FollowButton({ userId, amIFollowing }: FollowButtonProps) {
   const { mutateAsync: addFollow } = useMutationAddFollow();
   const { mutateAsync: deleteFollow } = useMutationDeleteFollow();
   const { isLoggedIn } = useAuth();
+  const modal = useModal();
 
   const buttonDetails = {
     follow: {
@@ -38,8 +41,7 @@ function FollowButton({ userId, amIFollowing }: FollowButtonProps) {
 
   const handleFollowClick = async () => {
     if (!isLoggedIn) {
-      alert("로그인이 필요한 기능입니다.");
-      return;
+      return modal.open(<SignInModal />);
     }
 
     if (buttonState === "follow") {
