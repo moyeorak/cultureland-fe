@@ -132,10 +132,9 @@ function ProfileSection({ user }: ProfileSectionProps) {
         <div className="mt-6 border border-b-neutral-30"></div>
 
         <div className="mt-6 grid gap-y-4">
-          <h3 className="font-bold text-fs-16">작성한 리뷰</h3>
-        </div>
-        <div className="mt-6 grid gap-y-4">
-          <h3 className="font-bold text-fs-16">작성한 리뷰</h3>
+          <h3 className="font-bold text-fs-16">
+            {`${user.userProfile.nickname}`}님의 활동
+          </h3>
         </div>
         <div className="flex justify-between mt-2">
           <div className="font-normal text-fs-14">관람 목록</div>
