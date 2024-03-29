@@ -20,7 +20,7 @@ interface ReviewFormProps {
 }
 
 function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
-  const { mutate: createReview } = useMutationCreateReview();
+  const { mutate: createReview } = useMutationCreateReview(eventId);
   const [rating, setRating] = useState(
     existingReview ? existingReview.rating : 0
   );
@@ -68,13 +68,10 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
         setImage(null);
         alert("리뷰가 성공적으로 등록되었습니다");
       },
-      onError: () => {
-        alert("리뷰 등록에 실패하였습니다");
-      },
     });
   };
 
-  return (
+return (
     <div className="py-10 px-10 shadow-primary rounded-lg">
       <h4 className="font-bold text-fs-28 mb-4 text-center">리뷰 작성</h4>
       <div className="flex gap-x-2">
@@ -94,13 +91,27 @@ function ReviewForm({ eventId, IsModify, existingReview }: ReviewFormProps) {
       />
       <div className="mb-4" />
       {image && previewImageUrl ? (
-        <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
-          <Image
-            src={previewImageUrl}
-            alt="Preview image"
-            fill
-            objectFit="cover"
-          />
+        <div className="relative">
+          <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
+            <Image
+              src={previewImageUrl}
+              alt="preview-image"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className="absolute top-[-4px] left-[116px] cursor-pointer z-10">
+            <Image
+              src={"/utils/icons/Close.png"}
+              alt="close"
+              height={24}
+              width={24}
+              unoptimized
+              onClick={() => {
+                setImage(null);
+              }}
+            />
+          </div>
         </div>
       ) : (
         <FileInput

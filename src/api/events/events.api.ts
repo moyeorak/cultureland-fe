@@ -30,6 +30,8 @@ const getEvent = async (eventId: number) => {
   const response = await client.get<Response<GetEventData>>(
     `/events/${eventId}`
   );
+
+  console.log("찍혀라", eventId);
   const data = response.data;
 
   if (!data.success) throw new Error(data.error.message);

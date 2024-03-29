@@ -8,15 +8,15 @@ interface InfoSectionProps {
 function InfoSection({ description_images }: InfoSectionProps) {
   return (
     <div className="w-2/3 mx-auto overflow-hidden">
-      {description_images?.map((image) => (
+      {description_images?.map((image, index) => (
         <div key={image.id} className="relative w-full h-auto">
           <Image
             src={image.imageUrl}
             alt="event-poster"
-            layout="responsive"
             width={400}
             height={400}
-            className="object-cover rounded-lg"
+            priority={index === 0}
+            className="object-cover rounded-lg w-full"
           />
         </div>
       ))}

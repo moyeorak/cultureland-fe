@@ -1,6 +1,5 @@
 "use client";
 
-import SignInModal from "@/app/(providers)/(root)/(home)/_components/Header/_components/Modals/SignInModal";
 import Button from "@/components/Button";
 import FileInput from "@/components/FileInput";
 import Modal from "@/components/Modal";
@@ -19,7 +18,7 @@ interface ReviewModifyModalProps {
 }
 
 function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
-  const { mutate: updateReview } = useMutationUpdateReview();
+  const { mutate: updateReview } = useMutationUpdateReview(eventId || 0);
   const { data: existingReview } = useQueryReviewById(reviewId);
   const modal = useModal();
   const auth = useAuth();
@@ -27,7 +26,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   const [content, setContent] = useState<string>();
   const [image, setImage] = useState<File | null>(null);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>();
-  const isButtonDisabled = rating === 0 || !content?.trim();
   const isDisplayRatingGuide = rating === 0;
 
   useEffect(() => {
@@ -45,7 +43,6 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   useEffect(() => {
     if (existingReview) {
       setRating(existingReview.rating);
-      setContent(existingReview.content);
       setPreviewImageUrl(
         existingReview.image
           ? "https://yanastudys3.s3.ap-northeast-2.amazonaws.com/" +
@@ -58,20 +55,29 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
   if (!eventId) return null;
 
   const handleClickUpdate = () => {
-    if (!auth.isLoggedIn) {
-      modal.open(<SignInModal />);
-      return;
-    }
-    if (rating === undefined || rating === 0 || !content?.trim()) {
-      alert("평점과 리뷰 내용을 모두 입력해주세요.");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("eventId", eventId.toString());
-    formData.append("rating", rating.toString());
-    formData.append("content", content);
-    if (image) formData.append("image", image);
+    const submitRating =
+      rating === undefined || rating === 0 ? existingReview?.rating : rating;
+    if (submitRating !== undefined) {
+      formData.append("rating", submitRating.toString());
+    }
+
+    const submitContent =
+      content?.trim() === "" || content === undefined
+        ? existingReview?.content
+        : content;
+    if (submitContent !== undefined) {
+      formData.append("content", submitContent);
+    }
+
+    if (image) {
+      formData.append("image", image);
+    } else if (existingReview?.image && !image) {
+      formData.append("existingImageUrl", existingReview.image);
+    }
+    console.log("기존이미지", existingReview?.image);
+    console.log("이미지", image);
 
     updateReview(
       { reviewId, formData },
@@ -101,25 +107,47 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
             </p>
           )}
           <Textarea
-            placeholder="관람 일정, 관람 시간, 관람 후기 등을 작성해주세요 (사진 1장 첨부 가능)"
+            placeholder={existingReview?.content}
             value={content}
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
               setContent(e.target.value)
             }
           />
           <div className="mb-4"></div>
-          {image && previewImageUrl ? (
-            <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
-              <Image
-                src={previewImageUrl}
-                alt="미리보기 이미지"
-                fill
-                objectFit="cover"
+          {previewImageUrl ? (
+            <div className="flex gap-x-4 relative">
+              <div className="overflow-hidden rounded-lg w-[120px] h-[120px] relative">
+                <Image
+                  src={previewImageUrl}
+                  alt="업로드 이미지"
+                  layout="fill"
+                  style={{ objectFit: "cover" }}
+                />
+              </div>
+              <div className="translate-x-[-6px] mx-[-20px] my-[-4px] mr-1 cursor-pointer">
+                <Image
+                  src={"/utils/icons/Close.png"}
+                  alt="close"
+                  height={24}
+                  width={24}
+                  unoptimized
+                  onClick={() => {
+                    setPreviewImageUrl(null);
+                    setImage(null);
+                  }}
+                />
+              </div>
+              <FileInput
+                label="사진 업로드"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  setImage(file);
+                }}
               />
             </div>
           ) : (
             <FileInput
-              label="사진 업로드"
+              label="사진 수정"
               onChange={(e) => {
                 const file = e.target.files?.[0] || null;
                 setImage(file);
@@ -131,9 +159,7 @@ function ReviewModifyModal({ eventId, reviewId }: ReviewModifyModalProps) {
             <Button onClick={modal.close} color="secondary" outline>
               취소
             </Button>
-            <Button onClick={handleClickUpdate} disabled={isButtonDisabled}>
-              등록
-            </Button>
+            <Button onClick={handleClickUpdate}>등록</Button>
           </div>
         </div>
       </div>

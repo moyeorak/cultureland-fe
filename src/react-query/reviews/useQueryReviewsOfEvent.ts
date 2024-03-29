@@ -8,7 +8,7 @@ export default function useQueryReviewsOfEvent(
   orderBy: "recent" | "likes" | "hates"
 ) {
   return useQuery({
-    queryKey: ["reviews", { eventId, page, orderBy }],
+    queryKey: ["reviews", { eventId, orderBy }],
     queryFn: () => api.reviews.getReviewsOfEvent(eventId, page, orderBy),
     enabled,
   });

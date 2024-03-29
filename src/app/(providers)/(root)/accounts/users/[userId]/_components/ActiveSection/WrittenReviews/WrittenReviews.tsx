@@ -12,6 +12,7 @@ function WrittenReviews({ userId }: WrittenReviewsProps) {
   const [page, setPage] = useState(1);
 
   const { data: reviews } = useQueryWrittenReviews(userId, page);
+  console.log(reviews);
 
   if (!reviews) {
     return (
@@ -23,7 +24,7 @@ function WrittenReviews({ userId }: WrittenReviewsProps) {
 
   return (
     <div>
-      <ReviewCardList reviews={reviews} small></ReviewCardList>
+      <ReviewCardList reviews={reviews} userCard></ReviewCardList>
     </div>
   );
 }

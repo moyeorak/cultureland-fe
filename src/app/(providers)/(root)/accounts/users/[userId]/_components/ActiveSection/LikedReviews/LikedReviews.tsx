@@ -23,7 +23,7 @@ function LikedReviews({ userId }: LikedReviewsProps) {
 
   return (
     <div>
-      <ReviewCardList reviews={reviews} small></ReviewCardList>
+      <ReviewCardList reviews={reviews}></ReviewCardList>
     </div>
   );
 }
