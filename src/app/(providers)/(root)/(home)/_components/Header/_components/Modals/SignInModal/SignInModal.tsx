@@ -14,7 +14,7 @@ import CloseButton from "../CloseButton";
 import TermsAgreementModal from "../TermsAgreementModal";
 import Checkbox from "../TermsAgreementModal/_components/Checkbox";
 
-const KAKAO_SDK_APP_KEY = "96ff57f66003fd00397cb9e209eac07b";
+const KAKAO_SDK_APP_KEY = "453072b71d7ccf8deee8260a56765fe7";
 const KAKAO_LOGIN_REDIRECT_URL =
   "https://port-0-culture-land-am952nltdolcl9.sel5.cloudtype.app/accounts/users/kakao-callback";
 
